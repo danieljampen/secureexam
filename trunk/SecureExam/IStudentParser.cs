@@ -8,5 +8,6 @@ namespace SecureExam
 {
     interface IStudentParser
     {
+        LinkedList<Student> parse();
     }
 }

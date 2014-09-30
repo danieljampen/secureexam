@@ -8,5 +8,9 @@ namespace SecureExam
 {
     class XMLStudentParser:IStudentParser
     {
+        public LinkedList<Student> parse()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

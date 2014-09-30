@@ -8,5 +8,6 @@ namespace SecureExam
 {
     interface IFormularParser
     {
+        LinkedList<Question> parse();
     }
 }
