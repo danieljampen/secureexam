@@ -10,6 +10,6 @@ namespace SecureExam
     interface IDataProvider
     {
         bool readData(Path formularPath, Path studentPath);
-        bool export(exportType type, Path filename);
+        bool export(Path filename);
     }
 }

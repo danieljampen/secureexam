@@ -81,7 +81,7 @@ Question
 +Professor:String
 +Subject:String
 +ExamTitle:String
-+export( exportType:enumExportType, filename:Path ): bool
++export( filename:Path ): bool
 +readData(formularFilePath:Path, studentFilePath:Path): bool
 --
 Über die Facade erfolgen alle
@@ -99,8 +99,8 @@ Datenzurgiffe und Calls.</panel_attributes>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 IDataProvider
 --
-+export( exportType:enumExportType, filename:string ): bool
-+readData(formularFilePath:String, studentFilePath:String): bool
++export( filename:Path ): bool
++readData(formularFilePath:Path, studentFilePath:Path): bool
 </panel_attributes>
     <additional_attributes/>
   </element>
