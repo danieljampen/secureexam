@@ -99,9 +99,17 @@ namespace SecureExam
                 return RETURNERROR;
             }               
         }
+
         private static void printUsage()
         {
+            Console.WriteLine("Error: invalid arguments");
             Console.WriteLine("");
+            Console.WriteLine("usage: secureExam -q questionFile -s studentsFile -o Outputfile");
+            Console.WriteLine("       secureExam -q questionFile [-qType QuestionFileType] -s studentsFile [-sType StudentsFileType] -o Outputfile [-oType OutputFileType]");
+            Console.WriteLine("");
+            Console.WriteLine("QuestionFileTypes: WordHTML");
+            Console.WriteLine("StudentFileTypes: XML");
+            Console.WriteLine("OutputFileTypes: HTMLJS");
         }
     }
 }
