@@ -6,5 +6,18 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    
+    enum ExportType
+    {
+        HTMLJS
+    }
+
+    enum FormularType
+    {
+        WordHTML
+    }
+
+    enum StudentFileType
+    {
+        XML
+    }
 }
