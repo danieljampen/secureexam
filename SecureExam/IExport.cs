@@ -9,6 +9,6 @@ namespace SecureExam
 {
     interface IExport
     {
-        bool export(Path filename);
+        bool export(Path path);
     }
 }
