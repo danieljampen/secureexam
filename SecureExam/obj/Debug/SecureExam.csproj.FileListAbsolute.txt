@@ -1,0 +1,2 @@
+c:\users\simon\documents\visual studio 2013\Projects\SecureExam\SecureExam\bin\Debug\SecureExam.exe.config
+C:\Users\Simon\Documents\ZHAW\Projekt\trunk\SecureExam\bin\Debug\SecureExam.exe.config
