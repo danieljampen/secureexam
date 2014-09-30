@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace SecureExam
 {
     interface IDataProvider
     {
-        bool readData();
-        bool export(exportType type, string filename);
+        bool readData(Path formularPath, Path studentPath);
+        bool export(exportType type, Path filename);
     }
 }
