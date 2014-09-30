@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    interface IExport
+    enum exportType
     {
-        bool export(string filename);
+        HTMLJS
     }
 }

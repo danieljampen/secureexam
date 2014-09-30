@@ -8,5 +8,7 @@ namespace SecureExam
 {
     interface IDataProvider
     {
+        bool readData();
+        bool export(exportType type, string filename);
     }
 }

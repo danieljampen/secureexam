@@ -8,5 +8,9 @@ namespace SecureExam
 {
     class HTMLJSExport:IExport
     {
+        public bool export(string filename)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

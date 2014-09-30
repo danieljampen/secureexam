@@ -8,5 +8,9 @@ namespace SecureExam
 {
     class WordFormularParser:IFormularParser
     {
+        public LinkedList<Question> parse()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
