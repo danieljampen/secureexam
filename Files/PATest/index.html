@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/pbkdf2.js"></script>
+	<script src="script.js"></script>
+</head>
+<body onload="encrypt()">
+	<fieldset class="marginBottom">
+		<legend>Abgegeben auf Blatt</legend>
+		<h2>UserCredentials (copy one!)</h2>
+		<div id="userCredentials"></div>
+	</fieldset>
+	<fieldset class="marginBottom">
+		<legend>Crypto-Inhalt des HTML Files</legend>
+		<h2>Verschlüsselter Text (AES-256)</h1>
+		<div id="secretStuff" class="longShizzle"></div>
+		<h2></h2>UserKeyDB (username, encrypted masterkey(AES-256), salt for PBKDF2:128bit salt, 1000 iterations)</h2>
+		<div id="userKeyDB"></div>
+	</fieldset>
+	<button onclick="decrypt('userKeyDB','secretStuff','questions')" class="marginBottom">decrypt!</button>
+	<fieldset>
+		<legend id="decryptFieldsetLegend">Erscheint auf Bildschirm</legend>
+		<h1>Unverschlüsselte Fragen</h1>
+		<div id="questions" class="longShizzle"></div>
+	</fieldset>
+</body>
+</html>
