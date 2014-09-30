@@ -9,7 +9,7 @@ namespace SecureExam
 {
     class WordFormularParser:IFormularParser
     {
-        public LinkedList<Question> parse(Path formularPath)
+        public LinkedList<Question> parse(String formularPath)
         {
             throw new NotImplementedException();
         }

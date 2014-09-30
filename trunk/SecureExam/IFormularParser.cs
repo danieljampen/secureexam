@@ -9,6 +9,6 @@ namespace SecureExam
 {
     interface IFormularParser
     {
-        LinkedList<Question> parse( Path formularPath );
+        LinkedList<Question> parse(String formularPath);
     }
 }

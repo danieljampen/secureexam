@@ -9,7 +9,7 @@ namespace SecureExam
 {
     class XMLStudentParser:IStudentParser
     {
-        public LinkedList<Student> parse(Path studentPath)
+        public LinkedList<Student> parse(String studentPath)
         {
             throw new NotImplementedException();
         }

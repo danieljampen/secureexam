@@ -9,7 +9,7 @@ namespace SecureExam
 {
     interface IDataProvider
     {
-        bool readData(FormularType fromularType, Path formularPath, StudentFileType studentType, Path studentPath);
-        bool export(ExportType type, Path path);
+        bool readData(QuestionFormularType fromularType, String formularPath, StudentFileType studentType, String studentPath);
+        bool export(OutputType type, String path);
     }
 }

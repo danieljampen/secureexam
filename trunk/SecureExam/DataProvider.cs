@@ -17,36 +17,36 @@ namespace SecureExam
         private IStudentParser studentParser;
 
         // methods
-        public bool readData(FormularType formularType, Path formularPath, StudentFileType studentType, Path studentPath)
+        public bool readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath)
         {
             switch (formularType)
             {
-                case FormularType.WordHTML:
+                case QuestionFormularType.WordHTML:
                     this.formularParser = new WordFormularParser();
-                    this.questions = this.formularParser.parse(formularPath);
                     break;
                 default:
                     throw new InvalidFormularTypeException(formularType.ToString());
             }
+            this.questions = this.formularParser.parse(formularPath);
 
             switch(studentType)
             {
                 case StudentFileType.XML:
                     this.studentParser = new XMLStudentParser();
-                    this.students = this.studentParser.parse(studentPath);
                     break;
                 default:
                     throw new InvalidStudentFileTypeException(studentType.ToString());
             }
+            this.students = this.studentParser.parse(studentPath);
 
             return (this.questions.Count != 0 && this.students.Count != 0);
         }
 
-        public bool export(ExportType type, Path path)
+        public bool export(OutputType type, String path)
         {
             switch (type) 
             {
-                case ExportType.HTMLJS:
+                case OutputType.HTMLJS:
                     this.exporter = new HTMLJSExport();
                     return this.exporter.export(path);
                 default:    

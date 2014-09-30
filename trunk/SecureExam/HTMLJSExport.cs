@@ -9,7 +9,7 @@ namespace SecureExam
 {
     class HTMLJSExport:IExport
     {
-        public bool export(Path filename)
+        public bool export(String filename)
         {
             throw new NotImplementedException();
         }
