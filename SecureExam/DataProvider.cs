@@ -48,10 +48,20 @@ namespace SecureExam
             {
                 case OutputType.HTMLJS:
                     this.exporter = new HTMLJSExport();
-                    return this.exporter.export(path);
+                    return this.exporter.export(path, this.exportQuestions, this.exportUserKeyDB);
                 default:    
                     throw new InvalidExportTypeException(type.ToString());
             }
+        }
+
+        private string exportQuestions()
+        {
+            throw new NotImplementedException();
+        }
+
+        private string exportUserKeyDB()
+        {
+            throw new NotImplementedException();
         }
     }
 }
