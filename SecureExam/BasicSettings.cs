@@ -14,8 +14,6 @@ namespace SecureExam
         private string professor;
         private string subject;
         private string examTitle;
-        private Path formularFilePath;
-        private Path studentFilePath;
         private int numberOfRandomCharsInStudentSecret;
         private int aesKeyLength;
         private int pbkdf2Iterations;
@@ -35,16 +33,6 @@ namespace SecureExam
         { 
             get { return examTitle; }; 
             set { examTitle = value; }; 
-        }
-        public Path FormularFilePath 
-        { 
-            get { return formularFilePath; }; 
-            set { formularFilePath = value; }; 
-        }
-        public Path StudentFilePath 
-        { 
-            get { return studentFilePath; }; 
-            set { studentFilePath = value; }; 
         }
         public int NumberOfRandomCharsInStudentSecret 
         { 

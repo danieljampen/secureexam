@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace SecureExam
 {
     interface IExport
     {
-        bool export(string filename);
+        bool export(Path filename);
     }
 }

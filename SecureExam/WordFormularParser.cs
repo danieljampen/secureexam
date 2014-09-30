@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace SecureExam
 {
     class WordFormularParser:IFormularParser
     {
-        public LinkedList<Question> parse()
+        public LinkedList<Question> parse(Path formularPath)
         {
             throw new NotImplementedException();
         }
