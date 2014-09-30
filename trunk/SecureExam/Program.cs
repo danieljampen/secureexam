@@ -21,15 +21,35 @@ namespace SecureExam
                 {
                     //
                     //FileInfo f = new FileInfo(token);
-                    //StreamReader sr = new StreamReader(token);
-                    //String line = sr.ReadLine();
-                    //while(line != ){
+                    StreamReader sr = new StreamReader(token);
+                    String line = sr.ReadLine();
+                    while(!line.Contains("\n")){
 
 
                     }
                     
                 }
+
+
+                Question q = new Question();
+                q.text = "Wie hoch ist der Mount Everest?";
+                List<Answer> answers = new List<Answer>();
+                Answer a1 = new Answer("1m");
+                Answer a2 = new Answer("1345m");
+                Answer a3 = new Answer("6890m");
+                Answer a4 = new Answer("8807m");
+                answers.Add(a1);
+                answers.Add(a2);
+                answers.Add(a3);
+                answers.Add(a4);
+                q.answers = answers;
+
             }
+
+
+
+
+
 
         }
     }
