@@ -11,48 +11,21 @@ namespace SecureExam
     {
         //members
         private static BasicSettings instance;
-        private string professor;
-        private string subject;
-        private string examTitle;
-        private int numberOfRandomCharsInStudentSecret;
-        private int aesKeyLength;
-        private int pbkdf2Iterations;
-
-        // getter n setter
-        public string Professor
-        {
-            get { return professor; }
-            set { professor = value; }
-        }
-        public string Subject 
-        { 
-            get { return subject; }; 
-            set { subject = value; }; 
-        }
-        public string ExamTitle 
-        { 
-            get { return examTitle; }; 
-            set { examTitle = value; }; 
-        }
-        public int NumberOfRandomCharsInStudentSecret 
-        { 
-            get { return numberOfRandomCharsInStudentSecret; }; 
-            set { numberOfRandomCharsInStudentSecret = value; }; 
-        }
-        public int AESKeyLength 
-        { 
-            get { return aesKeyLength; }; 
-            set { aesKeyLength = value; }; 
-        }
-        public int PBKDF2Iterations 
-        { 
-            get { return pbkdf2Iterations; }; 
-            set { pbkdf2Iterations = value; }; 
-        }
+        public string Professor { get; set; }
+        public string Subject { get; set; }
+        public string ExamTitle  { get; set; }
+        public int NumberOfRandomCharsInStudentSecret  { get; set; }
+        public int AESKeyLength  { get; set; }
+        public int PBKDF2Iterations  { get; set; }
+        public Dictionary<OutputType,String> exportSkeletons { get; set; }
         
 
         // singleton
-        private BasicSettings() { }
+        private BasicSettings() 
+        {
+            this.exportSkeletons = new Dictionary<OutputType, String>();
+            exportSkeletons.Add(OutputType.HTMLJS, System.Environment.CurrentDirectory + @"skeletons\htmljs.html");
+        }
 
         // methods
         public static BasicSettings getInstance()
