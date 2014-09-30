@@ -9,6 +9,6 @@ namespace SecureExam
 {
     interface IStudentParser
     {
-        LinkedList<Student> parse( Path studentPath );
+        LinkedList<Student> parse(String studentPath);
     }
 }

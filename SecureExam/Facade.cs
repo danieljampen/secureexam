@@ -44,8 +44,8 @@ namespace SecureExam
             get { return BasicSettings.getInstance().PBKDF2Iterations; }
         }
 
-        public bool export(ExportType type, Path path) { return dataProvider.export(type, path); }
-        public bool readData(FormularType fromularType, Path formularPath, StudentFileType studentType, Path studentPath) { return dataProvider.readData(formularType, formularPath, studentType, studentPath); }
+        public bool export(OutputType type, String path) { return dataProvider.export(type, path); }
+        public bool readData(QuestionFormularType fromularType, String formularPath, StudentFileType studentType, String studentPath) { return dataProvider.readData(formularType, formularPath, studentType, studentPath); }
 
     }
 }
