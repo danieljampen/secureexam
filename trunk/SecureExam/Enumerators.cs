@@ -20,10 +20,15 @@ namespace SecureExam
     {
         XML
     }
+
+    enum DataProviderExportType
+    {
+        XML
+    }
+
     enum QuestionType
     {
         CHECK_BOX,
-        RADIO_BUTTON,
         TEXT_BOX
     }
 }

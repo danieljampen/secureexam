@@ -54,12 +54,12 @@ namespace SecureExam
             }
         }
 
-        private string exportQuestions()
+        private string exportQuestions(DataProviderExportType type)
         {
             throw new NotImplementedException();
         }
 
-        private string exportUserKeyDB()
+        private string exportUserKeyDB(DataProviderExportType type)
         {
             throw new NotImplementedException();
         }
