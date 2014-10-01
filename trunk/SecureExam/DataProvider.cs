@@ -10,6 +10,7 @@ namespace SecureExam
     class DataProvider: IDataProvider
     {
         // members
+        private static DataProvider instance;
         private LinkedList<Question> questions = new LinkedList<Question>();
         private LinkedList<Student> students = new LinkedList<Student>();
         private IExport exporter;
@@ -17,6 +18,15 @@ namespace SecureExam
         private IStudentParser studentParser;
 
         // methods
+        public static DataProvider getInstance()
+        {
+            if( instance == null)
+            {
+                instance = new DataProvider();
+            }
+            return instance;
+        }
+
         public bool readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath)
         {
             switch (formularType)
@@ -48,18 +58,18 @@ namespace SecureExam
             {
                 case OutputType.HTMLJS:
                     this.exporter = new HTMLJSExport();
-                    return this.exporter.export(path, this.exportQuestions, this.exportUserKeyDB);
+                    return this.exporter.export(path);
                 default:    
                     throw new InvalidExportTypeException(type.ToString());
             }
         }
 
-        private string exportQuestions(DataProviderExportType type)
+        public string exportQuestions(DataProviderExportType type)
         {
             throw new NotImplementedException();
         }
 
-        private string exportUserKeyDB(DataProviderExportType type)
+        public string exportUserKeyDB(DataProviderExportType type)
         {
             throw new NotImplementedException();
         }

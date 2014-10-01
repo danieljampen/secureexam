@@ -9,9 +9,6 @@ namespace SecureExam
 {
     class Facade
     {
-        // members
-        private IDataProvider dataProvider = new DataProvider();
-
         // methods
         public string Professor
         {
@@ -44,8 +41,8 @@ namespace SecureExam
             get { return BasicSettings.getInstance().PBKDF2Iterations; }
         }
 
-        public bool export(OutputType type, String path) { return dataProvider.export(type, path); }
-        public bool readData(QuestionFormularType fromularType, String formularPath, StudentFileType studentType, String studentPath) { return dataProvider.readData(formularType, formularPath, studentType, studentPath); }
+        public bool export(OutputType type, String path) { return DataProvider.getInstance().export(type, path); }
+        public bool readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath) { return DataProvider.getInstance().readData(formularType, formularPath, studentType, studentPath); }
 
     }
 }
