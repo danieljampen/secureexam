@@ -9,6 +9,6 @@ namespace SecureExam
 {
     interface IExport
     {
-        bool export(String filename, Func<DataProviderExportType,String> getQuestions, Func<DataProviderExportType,String> getUserKeyDB);
+        bool export(String filename);
     }
 }
