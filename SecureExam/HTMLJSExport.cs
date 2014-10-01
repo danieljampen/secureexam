@@ -9,7 +9,7 @@ namespace SecureExam
 {
     class HTMLJSExport:IExport
     {
-        public bool export(String filename, Func<String>getQuestions, Func<String> getUserKeyDB )
+        public bool export(String filename, Func<DataProviderExportType,String>getQuestions, Func<DataProviderExportType,String> getUserKeyDB )
         {
             StreamReader htmlSkeleton = new StreamReader(BasicSettings.getInstance().exportSkeletons[OutputType.HTMLJS]);
             StreamWriter outFile = new StreamWriter(filename);
@@ -20,8 +20,8 @@ namespace SecureExam
                 String html = htmlSkeleton.ReadToEnd();
                 
                 // Replace the placeholders in HTML code with real data
-                html.Replace("$ENCRYPTEDDATA$", getQuestions());
-                html.Replace("$USERKEYDB$", getQuestions());
+                html.Replace("$ENCRYPTEDDATA$", getQuestions(DataProviderExportType.XML));
+                html.Replace("$USERKEYDB$", getQuestions(DataProviderExportType.XML));
 
                 // write data to file
                 outFile.Write(html);
