@@ -12,8 +12,6 @@ namespace SecureExam
         private const int RETURNERROR = -1;
         private const int RETURNOK = 0;
 
-        // usage: secureExam -qType WordHTML -q questionfile -sType xml -s studentfile -oType htmljs -o outputfile
-        //   alt: secureExam -q questionfile -s studentfile -o outputfile
         static int Main(string[] args)
         {
             if (args.Length >= 6 && args.Length <= 12)
@@ -23,7 +21,7 @@ namespace SecureExam
                 String questionFile = "", studentFile = "", outputFile = "";
                 QuestionFormularType questionFormularType = new QuestionFormularType();
                 StudentFileType studentFileType = new StudentFileType();
-                OutputType outputType = OutputType();
+                OutputType outputType = new OutputType();
                 
                 // fill arguments in dictionary
                 for( int i = 0; i < (args.Length / 2); i++ )

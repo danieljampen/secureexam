@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--- 
+	DataProvider XML Students import File Syntax
+	Version: 	0.1
+	Authors:	jampedan@zhaw,lukessim@zhaw
+ -->
+<data>
+	<professor>
+		<kuerzel>rege</kuerzel>
+	</professor>
+	<students>
+		<student>
+			<kuerzel>jampedan</kuerzel>
+			<number>S12198320</number>
+		</student>
+		<student>
+			<kuerzel>lukessim</kuerzel>
+			<number>S12198347</number>
+		</student>
+	</students>
+</data>

@@ -4,30 +4,35 @@
 	Version: 	0.1
 	Authors:	jampedan@zhaw,lukessim@zhaw
  -->
-<questions>
-	<question type="CHECK_BOX">
-		<title>Wie hoch ist der Mount. Everest?</title>
-		<answers>
-			<answer>
-				<value>8807m</value>
-			</answer>
-			<answer>
-				<value>8848m</value>
-			</answer>
-			<answer>
-				<value>100m</value>
-			</answer>
-			<answer>
-				<value>-300m</value>
-			</answer>
-		</answers>
-	</question>
-	<question type="TEXT_BOX">
-		<title>Wieso können Sie zwei der Antworten in Frage 1 definitiv ausschliessen?</title>
-		<answers>
-			<answer>
-				<value>Antwort in Stichworten reicht.</value>
-			</answer>
-		</answers>
-	</question>
-</questions>
+<data>
+	<subject>
+		<name>ADS</name>
+	</subject>
+	<questions>
+		<question type="CHECK_BOX">
+			<title>Wie hoch ist der Mount. Everest?</title>
+			<answers>
+				<answer>
+					<value>8807m</value>
+				</answer>
+				<answer>
+					<value>8848m</value>
+				</answer>
+				<answer>
+					<value>100m</value>
+				</answer>
+				<answer>
+					<value>-300m</value>
+				</answer>
+			</answers>
+		</question>
+		<question type="TEXT_BOX">
+			<title>Wieso können Sie zwei der Antworten in Frage 1 definitiv ausschliessen?</title>
+			<answers>
+				<answer>
+					<value>Antwort in Stichworten reicht.</value>
+				</answer>
+			</answers>
+		</question>
+	</questions>
+</data>
