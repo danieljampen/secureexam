@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="13.0">
-  <zoom_level>10</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>410</x>
-      <y>870</y>
-      <w>210</w>
-      <h>60</h>
+      <x>420</x>
+      <y>707</y>
+      <w>147</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>&lt;&lt;struct&gt;&gt;
 Answer
@@ -18,10 +18,10 @@ Answer
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>90</x>
-      <y>40</y>
-      <w>280</w>
-      <h>140</h>
+      <x>196</x>
+      <y>126</y>
+      <w>196</w>
+      <h>98</h>
     </coordinates>
     <panel_attributes>ch.zhaw.secureExam::consoleApplication
 --
@@ -33,10 +33,10 @@ Answer
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>410</x>
-      <y>510</y>
-      <w>510</w>
-      <h>180</h>
+      <x>420</x>
+      <y>455</y>
+      <w>357</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Singleton&gt;&gt;
 DataProvider
@@ -53,10 +53,10 @@ und nur verschlüsselt ausgi.</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>410</x>
-      <y>740</y>
-      <w>210</w>
-      <h>100</h>
+      <x>420</x>
+      <y>616</y>
+      <w>147</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>&lt;&lt;struct&gt;&gt;
 Question
@@ -69,10 +69,10 @@ Question
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>450</x>
-      <y>40</y>
-      <w>690</w>
-      <h>200</h>
+      <x>448</x>
+      <y>126</y>
+      <w>483</w>
+      <h>140</h>
     </coordinates>
     <panel_attributes>Facade
 --
@@ -91,37 +91,38 @@ Datenzurgiffe und Calls.</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>470</x>
-      <y>350</y>
-      <w>410</w>
-      <h>100</h>
+      <x>462</x>
+      <y>343</y>
+      <w>287</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 IDataProvider
 --
 +export( exportType:enum, filename:Path ): bool
 +readData( formularType:enum, formularFilePath:Path, studentFileType:enum, studentFilePath:Path): bool
-</panel_attributes>
++exportUserKeyDB(type:DataProviderExportType ):string
++exportQuestions(type:DataProviderExportType):string</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>660</x>
-      <y>440</y>
-      <w>30</w>
-      <h>90</h>
+      <x>595</x>
+      <y>420</y>
+      <w>21</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>660</x>
-      <y>230</y>
-      <w>30</w>
-      <h>140</h>
+      <x>595</x>
+      <y>259</y>
+      <w>21</w>
+      <h>98</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
@@ -129,10 +130,10 @@ IDataProvider
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>360</x>
-      <y>80</y>
-      <w>110</w>
-      <h>30</h>
+      <x>385</x>
+      <y>154</y>
+      <w>77</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
@@ -140,10 +141,10 @@ IDataProvider
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>530</x>
-      <y>680</y>
-      <w>30</w>
-      <h>80</h>
+      <x>504</x>
+      <y>574</y>
+      <w>21</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
@@ -151,10 +152,10 @@ IDataProvider
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>530</x>
-      <y>830</y>
-      <w>50</w>
-      <h>60</h>
+      <x>504</x>
+      <y>679</y>
+      <w>35</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1=1..*
@@ -164,10 +165,10 @@ m2=1..1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1370</x>
-      <y>470</y>
-      <w>210</w>
-      <h>90</h>
+      <x>1092</x>
+      <y>427</y>
+      <w>147</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>WordFormularParser
 --</panel_attributes>
@@ -176,10 +177,10 @@ m2=1..1</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>20</x>
-      <y>510</y>
-      <w>300</w>
-      <h>210</h>
+      <x>147</x>
+      <y>455</y>
+      <w>210</w>
+      <h>147</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Singleton&gt;&gt;
 BasicSettings
@@ -198,10 +199,10 @@ Dataholder für Applikationssettings
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>310</x>
-      <y>550</y>
-      <w>120</w>
-      <h>30</h>
+      <x>350</x>
+      <y>483</y>
+      <w>84</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
@@ -209,10 +210,10 @@ Dataholder für Applikationssettings
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>910</x>
-      <y>530</y>
-      <w>90</w>
-      <h>30</h>
+      <x>770</x>
+      <y>469</y>
+      <w>63</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
@@ -220,10 +221,10 @@ Dataholder für Applikationssettings
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>980</x>
-      <y>470</y>
-      <w>320</w>
-      <h>90</h>
+      <x>819</x>
+      <y>427</y>
+      <w>224</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 IFormularParser
@@ -234,10 +235,10 @@ IFormularParser
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1370</x>
-      <y>590</y>
-      <w>210</w>
-      <h>90</h>
+      <x>1092</x>
+      <y>511</y>
+      <w>147</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>XMLStudentParser
 --</panel_attributes>
@@ -246,10 +247,10 @@ IFormularParser
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1290</x>
-      <y>510</y>
-      <w>100</w>
-      <h>30</h>
+      <x>1036</x>
+      <y>455</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
@@ -257,10 +258,10 @@ IFormularParser
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1290</x>
-      <y>620</y>
-      <w>100</w>
-      <h>30</h>
+      <x>1036</x>
+      <y>532</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
@@ -268,10 +269,10 @@ IFormularParser
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>980</x>
-      <y>700</y>
-      <w>320</w>
-      <h>80</h>
+      <x>819</x>
+      <y>588</y>
+      <w>224</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 IExport
@@ -282,10 +283,10 @@ IExport
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1370</x>
-      <y>710</y>
-      <w>210</w>
-      <h>90</h>
+      <x>1092</x>
+      <y>595</y>
+      <w>147</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>HTMLJSExport
 --</panel_attributes>
@@ -294,10 +295,10 @@ IExport
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>910</x>
-      <y>660</y>
-      <w>90</w>
-      <h>110</h>
+      <x>770</x>
+      <y>560</y>
+      <w>63</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>70.0;90.0;50.0;90.0;50.0;10.0;10.0;10.0</additional_attributes>
@@ -305,10 +306,10 @@ IExport
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1290</x>
-      <y>740</y>
-      <w>100</w>
-      <h>30</h>
+      <x>1036</x>
+      <y>616</y>
+      <w>70</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
@@ -316,10 +317,10 @@ IExport
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>980</x>
-      <y>590</y>
-      <w>320</w>
-      <h>80</h>
+      <x>819</x>
+      <y>511</y>
+      <w>224</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Interface&gt;&gt;
 IStudentParser
@@ -331,10 +332,10 @@ IStudentParser
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>690</x>
-      <y>740</y>
-      <w>210</w>
-      <h>90</h>
+      <x>616</x>
+      <y>616</y>
+      <w>147</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>Student
 --
@@ -347,10 +348,10 @@ IStudentParser
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>780</x>
-      <y>680</y>
-      <w>30</w>
-      <h>80</h>
+      <x>679</x>
+      <y>574</y>
+      <w>21</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
@@ -358,10 +359,10 @@ IStudentParser
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>910</x>
-      <y>600</y>
-      <w>90</w>
-      <h>30</h>
+      <x>770</x>
+      <y>518</y>
+      <w>63</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
@@ -369,12 +370,24 @@ IStudentParser
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>160</x>
-      <y>230</y>
-      <w>470</w>
-      <h>300</h>
+      <x>245</x>
+      <y>259</y>
+      <w>329</w>
+      <h>210</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;280.0;10.0;70.0;450.0;70.0;450.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1078</x>
+      <y>175</y>
+      <w>147</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Helper
+--</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
