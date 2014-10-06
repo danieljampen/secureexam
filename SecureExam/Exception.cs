@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    class InvalidExportTypeException : Exception
+    class InvalidExportTypeException : ApplicationException
     {
         public InvalidExportTypeException(string message) : base(message) { }
     }
 
-    class InvalidFormularTypeException : Exception
+    class InvalidFormularTypeException : ApplicationException
     {
         public InvalidFormularTypeException(string message) : base(message) { }
     }
 
-    class InvalidStudentFileTypeException : Exception
+    class InvalidStudentFileTypeException : ApplicationException
     {
         public InvalidStudentFileTypeException(string message) : base(message) { }
     }
