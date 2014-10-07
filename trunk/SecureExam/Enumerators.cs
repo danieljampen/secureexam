@@ -23,7 +23,7 @@ namespace SecureExam
 
     enum DataProviderExportType
     {
-        XML
+        HTML
     }
 
     enum QuestionType

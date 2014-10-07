@@ -20,4 +20,14 @@ namespace SecureExam
     {
         public InvalidStudentFileTypeException(string message) : base(message) { }
     }
+
+    class InvalidDataProviderExportTypeException : ApplicationException
+    {
+        public InvalidDataProviderExportTypeException(string message) : base(message) { }
+    }
+
+    class NoAESKeyException : ApplicationException
+    {
+        public NoAESKeyException(string message) : base(message) { }
+    }
 }

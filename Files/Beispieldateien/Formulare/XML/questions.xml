@@ -14,10 +14,10 @@
 	</question>
 	<question>
 		<legend>Wieso sind sie so clever? Texbox mit placeholder</legend>
-		<input type="textbox" placeholder="Hier text eingeben" />
+		<input type="text" placeholder="Hier text eingeben" />
 	</question>
 	<question>
 		<legend>Vervollständigen Sie bitte! Textbox mit value</legend>
-		<input type="textbox" value="if(true){}xxxx(dafaq?)" />
+		<input type="text" value="if(true){}xxxx(dafaq?)" />
 	</question>
 </questions>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace SecureExam
 {
@@ -15,9 +16,9 @@ namespace SecureExam
         public string Subject { get; set; }
         public string ExamTitle  { get; set; }
         public int NumberOfRandomCharsInStudentSecret  { get; set; }
-        public int AESKeyLength  { get; set; }
         public int PBKDF2Iterations  { get; set; }
         public Dictionary<OutputType,String> exportSkeletons { get; set; }
+        public Encryption Encryption = new Encryption();
         
 
         // singleton
@@ -36,5 +37,25 @@ namespace SecureExam
             }
             return instance;
         }
+    }
+
+    struct Encryption
+    {
+        public AESSettings AES = new AESSettings();
+        public PBKDF2Setttings PBKDF2 = new PBKDF2Setttings();
+    }
+
+    struct AESSettings
+    {
+        public int KEYLENGTH = 256;
+        public Byte[] questionsAESKey { get; set; }
+        public Byte[] questionsAESKeyIV { get; set; }
+    }
+
+    struct PBKDF2Setttings
+    {
+        public int ITERATIONS = 1000;
+        public int SALTLENGTH = 256;
+        public int LENGTH = 256;
     }
 }
