@@ -8,31 +8,21 @@ namespace SecureExam
 {
     class Student
     {
-        // members
-        private string StudentName;
-        private string StudentID;
 
         // setter n getter
-        public string studentName 
-        {
-            get { return StudentName; }
-            set { StudentName = value; }
-        }
-        public string studentID
-        {
-            get { return StudentID; }
-            set { StudentID = value; }
-        }
+        public string studentPreName { get; set; }
+        public string studentSurName { get; set; }
+        public string studentID { get; set; }
 
         // methods
         public string generateStudentSecret()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(studentName);
+            sb.Append(studentPreName);
+            sb.Append(studentSurName);
             sb.Append(studentID);
             sb.Append(Helper.GenerateRandomAlphaNumericChars(BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret));
             return sb.ToString();
         }
-        
     }
 }
