@@ -39,20 +39,20 @@ namespace SecureExam
         }
     }
 
-    struct Encryption
+    class Encryption
     {
         public AESSettings AES = new AESSettings();
         public PBKDF2Setttings PBKDF2 = new PBKDF2Setttings();
     }
 
-    struct AESSettings
+    class AESSettings
     {
         public int KEYLENGTH = 256;
         public Byte[] questionsAESKey { get; set; }
         public Byte[] questionsAESKeyIV { get; set; }
     }
 
-    struct PBKDF2Setttings
+    class PBKDF2Setttings
     {
         public int ITERATIONS = 1000;
         public int SALTLENGTH = 256;

@@ -50,7 +50,7 @@ namespace SecureExam
             }
             catch (DirectoryNotFoundException e)
             {
-                throw new NotImplementedException();
+                throw new NotImplementedException(e.ToString());
             }
             return students;
         }

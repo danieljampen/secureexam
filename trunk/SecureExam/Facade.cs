@@ -32,8 +32,8 @@ namespace SecureExam
         }
         public int AESKeyLength
         {
-            set { BasicSettings.getInstance().AESKeyLength = value; }
-            get { return BasicSettings.getInstance().AESKeyLength; }
+            set { BasicSettings.getInstance().Encryption.AES.KEYLENGTH = value; }
+            get { return BasicSettings.getInstance().Encryption.AES.KEYLENGTH; }
         }
         public int PBKDF2Iterations
         {

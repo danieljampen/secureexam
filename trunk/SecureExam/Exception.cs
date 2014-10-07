@@ -30,4 +30,14 @@ namespace SecureExam
     {
         public NoAESKeyException(string message) : base(message) { }
     }
+
+    class DataReadException : ApplicationException
+    {
+        public DataReadException(string message) : base(message) { }
+    }
+
+    class ExportException : ApplicationException
+    {
+        public ExportException(string message) : base(message) { }
+    }
 }
