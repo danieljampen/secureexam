@@ -151,7 +151,7 @@ namespace SecureExam
                     sb.Append(student.studentPreName + student.studentSurName + student.studentID + "," +
                                 encryptAES(BasicSettings.getInstance().Encryption.AES.questionsAESKey.ToString(), userSecretHash.GetBytes(BasicSettings.getInstance().Encryption.PBKDF2.LENGTH),aes.IV) + "," +
                                 BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV.ToString() + "," +
-                                salt.ToString() + "\n");
+                                salt.ToString() + "<br>\n");
                 }
                 return sb.ToString();
             }

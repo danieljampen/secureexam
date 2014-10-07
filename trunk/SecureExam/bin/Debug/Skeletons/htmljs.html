@@ -77,8 +77,10 @@
 	 *  description: decrypt the questions.
 	 */
 	function decrypt(divUserKeyDB, divSecretStuff, divQuestions) {
-		// load userKeyDB
+		// load userKeyDB & questionDiv
 		var userKeyDB = document.getElementById(divUserKeyDB).innerHTML.split("<br>");
+		var questionDiv = document.getElementById(divSecretStuff).innerHTML.split(",");
+
 		// remove empty last entry from userKeyDB
 		userKeyDB.pop();
 		// split username from secret
@@ -87,21 +89,20 @@
 		}
 
 		// Ask for Secret
-		var userSecret = prompt("UserCredentials:");
-
-		// start time measurement
-		var startTime = new Date();
+		var userSecret = prompt("UserCredentials: ");
 
 		// extract Username for comparison with userKeyDB
 		var userName = userSecret.substring(0,8);
 
 		// get encryptedMasterkey cypher for this user
 		var masterkeyCypher;
+		var masterkeyIV;
 		var salt;
 		for( i = 0; i < userKeyDB.length; i++ ) {
 			if( userName == userKeyDB[i][0]){
 				masterkeyCypher = userKeyDB[i][1];
-				salt = userKeyDB[i][2];
+				masterkeyIV = userKeyDB[i][2];
+				salt = userKeyDB[i][3];
 				break;
 			}
 
@@ -111,23 +112,14 @@
 		var key = CryptoJS.enc.Hex.stringify(CryptoJS.PBKDF2(userSecret, salt, { keySize: 256/32 , iterations: PBKDF2ITERATIONS}));
 
 		// decrypt masterkey
-		var masterKey = CryptoJS.AES.decrypt(masterkeyCypher , key).toString(CryptoJS.enc.Utf8);
+		var masterKey = CryptoJS.AES.decrypt(masterkeyCypher , key, { iv: masterkeyIV }).toString(CryptoJS.enc.Utf8);
 
 		// decrypt questions
-		var decrypted = CryptoJS.AES.decrypt(document.getElementById(divSecretStuff).innerHTML, masterKey);
-
-		// measure timediff
-		document.getElementById("decryptFieldsetLegend").innerHTML = "Erscheint auf Bildschirm | decrypted by: " + userName + " | decryption time: " + (new Date() - startTime) + "ms";
+		questionsIV = questionDiv[0];
+		encQuestions = questionDiv[1];
+		var decrypted = CryptoJS.AES.decrypt(encQuestions, masterKey, { iv: questionsIV });
 
 		// print questions
-		/*
-		 *
-		 *
-		 *
-		 *		BIG TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! => print as html elements
-		 *
-		 *
-		*/
 		document.getElementById(divQuestions).innerHTML = decrypted.toString(CryptoJS.enc.Utf8);
 
 	}
