@@ -9,10 +9,5 @@ namespace SecureExam
     struct Answer
     {
         public string text { get; set; }
-
-        public Answer(string text)
-        {
-            this.text = text;
-        }
     }
 }

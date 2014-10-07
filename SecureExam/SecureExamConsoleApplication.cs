@@ -14,25 +14,28 @@ namespace SecureExam
 
         static int Main(string[] args)
         {
-            if (args.Length >= 6 && args.Length <= 12)
+            try
             {
+                if (args.Length < 6 || args.Length > 12)
+                    throw new ArgumentException();
+
                 Facade facade = new Facade();
                 Dictionary<string, string> arguments = new Dictionary<string, string>();
                 String questionFile = "", studentFile = "", outputFile = "";
                 QuestionFormularType questionFormularType = new QuestionFormularType();
                 StudentFileType studentFileType = new StudentFileType();
                 OutputType outputType = new OutputType();
-                
+
                 // fill arguments in dictionary
-                for( int i = 0; i < (args.Length / 2); i++ )
+                for (int i = 0; i < (args.Length / 2); i++)
                 {
                     arguments.Add(args[i * 2].ToString().ToLower(), args[i * 2 + 1].ToString().ToLower());
                 }
 
                 // set options
-                foreach(KeyValuePair<string,string> pair in arguments)
+                foreach (KeyValuePair<string, string> pair in arguments)
                 {
-                    switch(pair.Key)
+                    switch (pair.Key)
                     {
                         case "-q":
                             questionFile = pair.Value;
@@ -44,58 +47,67 @@ namespace SecureExam
                             outputFile = pair.Value;
                             break;
                         case "-qtype":
-                            switch( pair.Value )
+                            switch (pair.Value)
                             {
                                 case "wordhtml":
                                     questionFormularType = QuestionFormularType.WordHTML;
                                     break;
                                 default:
-                                    printUsage();
-                                    return RETURNERROR;
+                                    throw new ArgumentException();
                             }
                             break;
                         case "-stype":
-                            switch( pair.Value )
+                            switch (pair.Value)
                             {
                                 case "xml":
                                     studentFileType = StudentFileType.XML;
                                     break;
                                 default:
-                                    printUsage();
-                                    return RETURNERROR;
+                                    throw new ArgumentException();
                             }
                             break;
                         case "-otype":
-                            switch( pair.Value )
+                            switch (pair.Value)
                             {
                                 case "htmljs":
                                     outputType = OutputType.HTMLJS;
                                     break;
                                 default:
-                                    printUsage();
-                                    return RETURNERROR;
+                                    throw new ArgumentException();
                             }
                             break;
                         default:
-                            printUsage();
-                            return RETURNERROR;
+                            throw new ArgumentException();
                     }
-                }
 
-
-                // SecureExam calls
-                if (facade.readData(questionFormularType, questionFile, studentFileType, studentFile))
-                {
-                    if (facade.export(outputType, outputFile))
-                        return RETURNOK;
+                    // SecureExam calls
+                    if (facade.readData(questionFormularType, questionFile, studentFileType, studentFile))
+                    {
+                        if (facade.export(outputType, outputFile))
+                        {
+                            return RETURNOK;
+                        }
+                        else
+                            throw new ExportException(outputFile);
+                    }
+                    else
+                        throw new DataReadException(questionFile + studentFile);
                 }
-                return RETURNERROR;
             }
-            else
+            catch (ArgumentException)
             {
                 printUsage();
-                return RETURNERROR;
-            }               
+            }
+            catch (DataReadException e)
+            {
+                Console.WriteLine("Data Read failed: " + e.Message);
+            }
+            catch (ExportException e)
+            {
+                Console.WriteLine("Export failed: " + e.Message);
+            }
+            Console.ReadLine();
+            return RETURNERROR;
         }
 
         private static void printUsage()
