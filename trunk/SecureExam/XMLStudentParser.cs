@@ -13,17 +13,46 @@ namespace SecureExam
         public LinkedList<Student> parse(String studentPath)
         {
             LinkedList<Student> students = new LinkedList<Student>();
-            XmlReader reader = XmlReader.Create(studentPath);
-            
-            while( reader.Read() )
+
+            //Create an instance of the XmlTextReader and call Read method to read the file
+            try
             {
-                switch(reader.NodeType)
+                XmlTextReader textReader = new XmlTextReader(studentPath);
+                textReader.Read();
+
+
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(textReader);
+
+                XmlNodeList studentList = xmlDoc.GetElementsByTagName("student");
+                for (int i = 0; i < studentList.Count; i++)
                 {
-                    case XmlNodeType.Element:
-                        
+                    XmlNodeList studentData = studentList[i].ChildNodes;
+                    Student student = new Student();
+
+                    for (int j = 0; j < studentData.Count; j++)
+                    {
+                        switch (studentData[j].Name)
+                        {
+                            case "name":
+                                student.studentSurName = studentData[j].InnerText;
+                                break;
+                            case "vorname":
+                                student.studentPreName = studentData[j].InnerText;
+                                break;
+                            case "number":
+                                student.studentID = studentData[j].InnerText;
+                                break;
+                        }
+                    }
+                    students.AddLast(student);
                 }
             }
-            throw new NotImplementedException();
+            catch (DirectoryNotFoundException e)
+            {
+                throw new NotImplementedException();
+            }
+            return students;
         }
     }
 }
