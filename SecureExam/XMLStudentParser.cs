@@ -24,6 +24,12 @@ namespace SecureExam
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(textReader);
 
+                //professor
+                XmlNodeList professor = xmlDoc.GetElementsByTagName("professor");
+                BasicSettings basicSettings = BasicSettings.getInstance();
+                basicSettings.Professor = professor[0].InnerText;
+
+                //student parsen
                 XmlNodeList studentList = xmlDoc.GetElementsByTagName("student");
                 for (int i = 0; i < studentList.Count; i++)
                 {
