@@ -9,5 +9,7 @@ namespace SecureExam
     struct Answer
     {
         public string text { get; set; }
+        public string placeHolder { get; set; }
+        public bool isCorrect { get; set; }
     }
 }
