@@ -13,7 +13,8 @@ namespace SecureExam
 
     enum QuestionFormularType
     {
-        WordHTML
+        WordHTML,
+        XML
     }
 
     enum StudentFileType
