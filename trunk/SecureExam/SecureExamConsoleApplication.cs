@@ -29,7 +29,7 @@ namespace SecureExam
                 // fill arguments in dictionary
                 for (int i = 0; i < (args.Length / 2); i++)
                 {
-                    arguments.Add(args[i * 2].ToString().ToLower(), args[i * 2 + 1].ToString().ToLower());
+                    arguments.Add(args[i * 2].ToString().ToLower().Trim(), args[i * 2 + 1].ToString().ToLower().Trim());
                 }
 
                 // set options
@@ -51,6 +51,8 @@ namespace SecureExam
                             {
                                 case "wordhtml":
                                     questionFormularType = QuestionFormularType.WordHTML;
+                                    break;
+                                case "xml":
                                     break;
                                 default:
                                     throw new ArgumentException();
@@ -79,20 +81,21 @@ namespace SecureExam
                         default:
                             throw new ArgumentException();
                     }
+                }
 
-                    // SecureExam calls
-                    if (facade.readData(questionFormularType, questionFile, studentFileType, studentFile))
+                // SecureExam calls
+                if (facade.readData(questionFormularType, questionFile, studentFileType, studentFile))
+                {
+                    if (facade.export(outputType, outputFile))
                     {
-                        if (facade.export(outputType, outputFile))
-                        {
-                            return RETURNOK;
-                        }
-                        else
-                            throw new ExportException(outputFile);
+                        return RETURNOK;
                     }
                     else
-                        throw new DataReadException(questionFile + studentFile);
+                        throw new ExportException(outputFile);
                 }
+                else
+                    throw new DataReadException(questionFile + studentFile);
+                
             }
             catch (ArgumentException)
             {
@@ -100,11 +103,15 @@ namespace SecureExam
             }
             catch (DataReadException e)
             {
-                Console.WriteLine("Data Read failed: " + e.Message);
+                printError("Data Read failed: " + e.Message);
             }
             catch (ExportException e)
             {
-                Console.WriteLine("Export failed: " + e.Message);
+                printError("Export failed: " + e.Message);
+            }
+            catch (NotImplementedException e)
+            {
+                printError("Unimplemented method called! " + e.Message);
             }
             Console.ReadLine();
             return RETURNERROR;
@@ -120,6 +127,11 @@ namespace SecureExam
             Console.WriteLine("QuestionFileTypes: WordHTML");
             Console.WriteLine("StudentFileTypes: XML");
             Console.WriteLine("OutputFileTypes: HTMLJS");
+        }
+
+        private static void printError( string message )
+        {
+            Console.WriteLine("[ERROR] " + DateTime.Now.ToString("u") + ": " + message);
         }
     }
 }
