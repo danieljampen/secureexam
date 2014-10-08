@@ -41,7 +41,7 @@ namespace SecureExam
                     this.formularParser = new WordFormularParser();
                     break;
                 case QuestionFormularType.XML:
-                    throw new NotImplementedException("QuestionFormular:XML");
+                    this.formularParser = new XMLFormularParser();
                     break;
                 default:
                     throw new InvalidFormularTypeException(formularType.ToString());
