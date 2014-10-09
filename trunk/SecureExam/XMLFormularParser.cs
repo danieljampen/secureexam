@@ -57,7 +57,6 @@ namespace SecureExam
                                             break;
                                         case "value":
                                             answer.text = attribute.Value;
-                                            question.answers.Add(answer);
                                             break;
                                         case "isCorrect":
                                             if (question.questionType == QuestionType.CHECK_BOX)// makes no sense with type textbox
@@ -70,18 +69,17 @@ namespace SecureExam
                                                 {
                                                     answer.isCorrect = false;
                                                 }
-                                                question.answers.Add(answer);
                                             }
                                             break;
                                         case "placeholder":
                                             if (question.answers.Count == 0)// If a answer already exists, a placeholder is not used
                                             {
                                                 answer.placeHolder = attribute.Value;
-                                                question.answers.Add(answer);
                                             }
                                             break;
                                     }
                                 }
+                                question.answers.Add(answer);
                                 break;
                         }
                     }

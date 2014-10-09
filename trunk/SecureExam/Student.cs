@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace SecureExam
 {
@@ -21,7 +22,13 @@ namespace SecureExam
             sb.Append(studentPreName);
             sb.Append(studentSurName);
             sb.Append(studentID);
-            sb.Append(Helper.GenerateRandomAlphaNumericChars(BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret));
+
+            using (RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider())
+            {
+                byte[] randomBytes = new byte[BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret * 8];
+                rngCsp.GetBytes(randomBytes);
+                sb.Append(Helper.ByteArrayToHexString(randomBytes);
+            }
             return sb.ToString();
         }
     }

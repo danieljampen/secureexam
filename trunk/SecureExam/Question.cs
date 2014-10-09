@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    struct Question
+    class Question
     {
         public string text { get; set; }
         public List<Answer> answers { get; set; }
         public QuestionType questionType { get; set; }
 
+        public Question()
+        {
+            answers = new List<Answer>();
+        }
     }
 }
