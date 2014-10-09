@@ -14,9 +14,23 @@ namespace SecureExam
         public string studentPreName { get; set; }
         public string studentSurName { get; set; }
         public string studentID { get; set; }
+        private string studentSecret;
+        public string StudentSecret
+        {
+            get
+            {
+                if (studentSecret == null)
+                    studentSecret = this.generateStudentSecret();
+                return studentSecret;
+            }
+            set
+            {
+                studentSecret = value;
+            }
+        }
 
         // methods
-        public string generateStudentSecret()
+        private string generateStudentSecret()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(studentPreName);
@@ -25,7 +39,7 @@ namespace SecureExam
 
             using (RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider())
             {
-                byte[] randomBytes = new byte[BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret * 8];
+                byte[] randomBytes = new byte[BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret];
                 rngCsp.GetBytes(randomBytes);
                 sb.Append(Helper.ByteArrayToHexString(randomBytes));
             }

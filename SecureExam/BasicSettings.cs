@@ -15,7 +15,7 @@ namespace SecureExam
         public string Professor { get; set; }
         public string Subject { get; set; }
         public string ExamTitle  { get; set; }
-        public int NumberOfRandomCharsInStudentSecret  { get; set; }
+        public int NumberOfRandomCharsInStudentSecret { get; set; }
         public int PBKDF2Iterations  { get; set; }
         public Dictionary<OutputType,String> exportSkeletons { get; set; }
         public Encryption Encryption = new Encryption();
@@ -26,6 +26,8 @@ namespace SecureExam
         {
             this.exportSkeletons = new Dictionary<OutputType, String>();
             exportSkeletons.Add(OutputType.HTMLJS, @"skeletons\htmljs.html");
+
+            this.NumberOfRandomCharsInStudentSecret = 10;
         }
 
         // methods
