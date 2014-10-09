@@ -53,6 +53,7 @@ namespace SecureExam
                                     questionFormularType = QuestionFormularType.WordHTML;
                                     break;
                                 case "xml":
+                                    questionFormularType = QuestionFormularType.XML;
                                     break;
                                 default:
                                     throw new ArgumentException();
@@ -124,7 +125,7 @@ namespace SecureExam
             Console.WriteLine("usage: secureExam -q questionFile -s studentsFile -o Outputfile");
             Console.WriteLine("       secureExam -q questionFile [-qType QuestionFileType] -s studentsFile [-sType StudentsFileType] -o Outputfile [-oType OutputFileType]");
             Console.WriteLine("");
-            Console.WriteLine("QuestionFileTypes: WordHTML");
+            Console.WriteLine("QuestionFileTypes: XML, WordHTML");
             Console.WriteLine("StudentFileTypes: XML");
             Console.WriteLine("OutputFileTypes: HTMLJS");
         }
