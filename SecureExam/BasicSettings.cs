@@ -16,7 +16,6 @@ namespace SecureExam
         public string Subject { get; set; }
         public string ExamTitle  { get; set; }
         public int NumberOfRandomCharsInStudentSecret { get; set; }
-        public int PBKDF2Iterations  { get; set; }
         public Dictionary<OutputType,String> exportSkeletons { get; set; }
         public Encryption Encryption = new Encryption();
         
