@@ -25,7 +25,7 @@ namespace SecureExam
         private BasicSettings() 
         {
             this.exportSkeletons = new Dictionary<OutputType, String>();
-            exportSkeletons.Add(OutputType.HTMLJS, System.Environment.CurrentDirectory + @"skeletons\htmljs.html");
+            exportSkeletons.Add(OutputType.HTMLJS, @"skeletons\htmljs.html");
         }
 
         // methods
@@ -55,7 +55,7 @@ namespace SecureExam
     class PBKDF2Setttings
     {
         public int ITERATIONS = 1000;
-        public int SALTLENGTH = 256;
-        public int LENGTH = 256;
+        public int SALTLENGTH = 256/8;
+        public int LENGTH = 256/8;
     }
 }
