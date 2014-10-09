@@ -27,7 +27,7 @@ namespace SecureExam
             {
                 byte[] randomBytes = new byte[BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret * 8];
                 rngCsp.GetBytes(randomBytes);
-                sb.Append(Helper.ByteArrayToHexString(randomBytes);
+                sb.Append(Helper.ByteArrayToHexString(randomBytes));
             }
             return sb.ToString();
         }

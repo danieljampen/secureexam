@@ -27,7 +27,7 @@ namespace SecureExam
                 //professor
                 XmlNodeList professor = xmlDoc.GetElementsByTagName("professor");
                 BasicSettings basicSettings = BasicSettings.getInstance();
-                basicSettings.Professor = professor[0].InnerText;
+                basicSettings.Professor = professor[0].InnerText.ToLower();
 
                 //student parsen
                 XmlNodeList studentList = xmlDoc.GetElementsByTagName("student");
