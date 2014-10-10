@@ -39,7 +39,7 @@ namespace SecureExam
 
             using (RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider())
             {
-                byte[] randomBytes = new byte[BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret];
+                byte[] randomBytes = new byte[BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret/2];
                 rngCsp.GetBytes(randomBytes);
                 sb.Append(Helper.ByteArrayToHexString(randomBytes));
             }
