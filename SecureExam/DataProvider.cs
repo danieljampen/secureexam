@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using System.Diagnostics;
 
 namespace SecureExam
 {
@@ -85,9 +86,11 @@ namespace SecureExam
                 Aes aes = Aes.Create();
                 BasicSettings.getInstance().Encryption.AES.questionsAESKey = aes.Key;
                 BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV = aes.IV;
+                Debug.WriteLine("MasterKey: " + Helper.ByteArrayToHexString(aes.Key));
+                Debug.WriteLine("MasterKeyIV: " + Helper.ByteArrayToHexString(aes.IV));
             }
 
-            sb.Append(BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV.ToString());
+            sb.Append( Helper.ByteArrayToHexString( BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV ) );
             sb.Append(",");
             
             switch (type)
@@ -126,12 +129,16 @@ namespace SecureExam
                     case QuestionType.CHECK_BOX:
                         foreach (Answer answer in question.answers)
                         {
-                            String value = answer.text.Substring(answer.text.IndexOf("value=") + 7, answer.text.LastIndexOf("\"") - (answer.text.IndexOf("value=") + 7));
-                            sb.Append(answer.text.Substring(answer.text.IndexOf("value="), answer.text.Length - answer.text.IndexOf("value=")) + " class=\"checkBox\" />" + value + "<br>\n");
+                            sb.Append("<input type=\"radio\" class=\"radio\" />" + answer.text + "<br>\n");
                         }
                         break;
                     case QuestionType.TEXT_BOX:
-                        sb.Append(question.answers[0].text.Substring(0, question.answers[0].text.Length - 2) + " class=\"textBox\">\n");
+                        sb.Append("<input type=\"checkbox\" class=\"textBox\" ");
+                        if (question.answers[0].text != null)
+                            sb.Append("value=\"" + question.answers[0].text + "\"");
+                        else
+                            sb.Append("placeholder=\"" + question.answers[0].placeHolder + "\"");
+                        sb.Append(">\n");
                         break;
                 }
                 sb.Append("</fieldset>\n");
@@ -147,14 +154,37 @@ namespace SecureExam
                 StringBuilder sb = new StringBuilder();
                 foreach (Student student in this.students)
                 {
-                    byte[] salt = new byte[BasicSettings.getInstance().Encryption.PBKDF2.SALTLENGTH];
-                    Rfc2898DeriveBytes userSecretHash = new Rfc2898DeriveBytes(student.generateStudentSecret(), salt, BasicSettings.getInstance().Encryption.PBKDF2.ITERATIONS);
-                    Aes aes = Aes.Create();
+                    using(RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider())
+                    {
+                        byte[] salt = new byte[BasicSettings.getInstance().Encryption.PBKDF2.SALTLENGTH];
+                        rngCsp.GetBytes(salt);
 
-                    sb.Append(student.studentPreName + student.studentSurName + student.studentID + "," +
-                                encryptAES(BasicSettings.getInstance().Encryption.AES.questionsAESKey.ToString(), userSecretHash.GetBytes(BasicSettings.getInstance().Encryption.PBKDF2.LENGTH),aes.IV) + "," +
-                                BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV.ToString() + "," +
-                                salt.ToString() + "<br>\n");
+                        using(Rfc2898DeriveBytes userSecretHash = new Rfc2898DeriveBytes(student.StudentSecret, salt, BasicSettings.getInstance().Encryption.PBKDF2.ITERATIONS) )
+                        {
+                            using (Aes aes = Aes.Create())
+                            {
+                                sb.Append(student.studentPreName);
+                                sb.Append(student.studentSurName);
+                                sb.Append(student.studentID);
+                                sb.Append(",");
+                                byte[] userHAsh = userSecretHash.GetBytes(BasicSettings.getInstance().Encryption.PBKDF2.LENGTH);
+                                sb.Append(encryptAES(Convert.ToBase64String(BasicSettings.getInstance().Encryption.AES.questionsAESKey), userHAsh, aes.IV));
+                                sb.Append(",");
+                                sb.Append(Convert.ToBase64String(aes.IV));
+                                sb.Append(",");
+                                sb.Append(Helper.ByteArrayToHexString(salt));
+                                sb.Append("<br>\n");
+
+                                Debug.WriteLine(student.studentSurName + " UserSecret: " + student.StudentSecret);
+                                Debug.WriteLine(student.studentSurName + " PBKDF2 Hash Hex: " + Helper.ByteArrayToHexString(userHAsh));
+                                Debug.WriteLine(student.studentSurName + " PBKDF2 Hash B64: " + Convert.ToBase64String(userHAsh));
+                                Debug.WriteLine(student.studentSurName + " PBKDF2 Salt hex: " + Helper.ByteArrayToHexString(salt));
+                                Debug.WriteLine(student.studentSurName + " PBKDF2 Salt B64: " + Convert.ToBase64String(salt));
+                                Debug.WriteLine(student.studentSurName + " User AES IV Hex: " + Helper.ByteArrayToHexString(aes.IV));
+                                Debug.WriteLine(student.studentSurName + " User AES IV B64: " + Convert.ToBase64String(aes.IV));
+                            }
+                        }
+                    }
                 }
                 return sb.ToString();
             }
@@ -188,7 +218,7 @@ namespace SecureExam
                         {
                             swEncrypt.Write(data);
                         }
-                        encrypted = msEncrypt.ToString();
+                        encrypted = Helper.ByteArrayToHexString(msEncrypt.ToArray());
                     }
                 }
             } 
