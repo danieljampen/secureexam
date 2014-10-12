@@ -5,7 +5,7 @@
 	<title></title>
 	<style>
 	.longShizzle { display: inline-block;width: 60em;word-wrap: break-word}
-	.hidden { display: none;}
+	.hidden { display: block;}
 	</style>
 	<script>
 	/*
@@ -128,9 +128,9 @@
 <body onload="decrypt('userKeyDB','secretStuff','questions')">
 	<fieldset class="hidden">
 		<legend>Crypto-Inhalt des HTML Files</legend>
-		<h2>Verschlüsselter Text (AES-256)</h1>
+		<h2>Verschlüsselter Text</h1>
 		<div id="secretStuff" class="longShizzle">$ENCRYPTEDDATA$</div>
-		<h2></h2>UserKeyDB (username, encrypted masterkey(AES-256), salt for PBKDF2:128bit salt, 1000 iterations)</h2>
+		<h2></h2>UserKeyDB</h2>
 		<div id="userKeyDB">$USERKEYDB$</div>
 	</fieldset>
 	<fieldset>
