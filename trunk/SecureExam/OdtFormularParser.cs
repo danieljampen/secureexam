@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    class WordFormularParser:IFormularParser
+    class OdtFormularParser:IFormularParser
     {
         public LinkedList<Question> parse(String formularPath)
         {
+            // XSLT odt -> xml dann mit xml parser einlesen
             throw new NotImplementedException();
         }
     }

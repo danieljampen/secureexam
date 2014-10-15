@@ -49,8 +49,8 @@ namespace SecureExam
                         case "-qtype":
                             switch (pair.Value)
                             {
-                                case "wordhtml":
-                                    questionFormularType = QuestionFormularType.WordHTML;
+                                case "odt":
+                                    questionFormularType = QuestionFormularType.ODT;
                                     break;
                                 case "xml":
                                     questionFormularType = QuestionFormularType.XML;
