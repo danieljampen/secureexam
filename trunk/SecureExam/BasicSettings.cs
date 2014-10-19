@@ -43,7 +43,7 @@ namespace SecureExam
     class Encryption
     {
         public AESSettings AES = new AESSettings();
-        public PBKDF2Setttings PBKDF2 = new PBKDF2Setttings();
+        public SHA256Setttings SHA256 = new SHA256Setttings();
     }
 
     class AESSettings
@@ -53,7 +53,7 @@ namespace SecureExam
         public Byte[] questionsAESKeyIV { get; set; }
     }
 
-    class PBKDF2Setttings
+    class SHA256Setttings
     {
         public int ITERATIONS = 1000;
         public int SALTLENGTH = 256/8;

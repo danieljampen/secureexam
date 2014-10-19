@@ -20,7 +20,7 @@ namespace SecureExam
                 String html = htmlSkeleton.ReadToEnd();
                 
                 // Replace the placeholders in HTML code with real data
-                html = html.Replace("$PBKDF2ITERATIONS$", BasicSettings.getInstance().Encryption.PBKDF2.ITERATIONS.ToString());
+                html = html.Replace("$SHA256ITERATIONS$", BasicSettings.getInstance().Encryption.SHA256.ITERATIONS.ToString());
                 html = html.Replace("$RANDOMCHARSINUSERSECRET$", BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret.ToString());
                 html = html.Replace("$ENCRYPTEDDATA$", DataProvider.getInstance().exportQuestions(DataProviderExportType.HTML));
                 html = html.Replace("$USERKEYDB$", DataProvider.getInstance().exportUserKeyDB(DataProviderExportType.HTML));

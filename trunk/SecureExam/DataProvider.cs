@@ -38,8 +38,8 @@ namespace SecureExam
 
             switch (formularType)
             {
-                case QuestionFormularType.WordHTML:
-                    this.formularParser = new WordFormularParser();
+                case QuestionFormularType.ODT:
+                    this.formularParser = new OdtFormularParser();
                     break;
                 case QuestionFormularType.XML:
                     this.formularParser = new XMLFormularParser();
@@ -86,11 +86,9 @@ namespace SecureExam
                 Aes aes = Aes.Create();
                 BasicSettings.getInstance().Encryption.AES.questionsAESKey = aes.Key;
                 BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV = aes.IV;
-                Debug.WriteLine("MasterKey: " + Helper.ByteArrayToHexString(aes.Key));
-                Debug.WriteLine("MasterKeyIV: " + Helper.ByteArrayToHexString(aes.IV));
             }
 
-            sb.Append( Helper.ByteArrayToHexString( BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV ) );
+            sb.Append(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV));
             sb.Append(",");
             
             switch (type)
@@ -156,35 +154,33 @@ namespace SecureExam
                 {
                     using(RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider())
                     {
-                        byte[] salt = new byte[BasicSettings.getInstance().Encryption.PBKDF2.SALTLENGTH];
+                        byte[] salt = new byte[BasicSettings.getInstance().Encryption.SHA256.SALTLENGTH];
                         rngCsp.GetBytes(salt);
 
-                        using(Rfc2898DeriveBytes userSecretHash = new Rfc2898DeriveBytes(student.StudentSecret, salt, BasicSettings.getInstance().Encryption.PBKDF2.ITERATIONS) )
+                        using (Aes aes = Aes.Create())
                         {
-                            using (Aes aes = Aes.Create())
-                            {
-                                sb.Append(student.studentPreName);
-                                sb.Append(student.studentSurName);
-                                sb.Append(student.studentID);
-                                sb.Append(",");
-                                byte[] userHAsh = userSecretHash.GetBytes(BasicSettings.getInstance().Encryption.PBKDF2.LENGTH);
-                                sb.Append(encryptAES(Convert.ToBase64String(BasicSettings.getInstance().Encryption.AES.questionsAESKey), userHAsh, aes.IV));
-                                sb.Append(",");
-                                sb.Append(Convert.ToBase64String(aes.IV));
-                                sb.Append(",");
-                                sb.Append(Helper.ByteArrayToHexString(salt));
-                                sb.Append("<br>\n");
+                            Debug.Print(aes.Padding.ToString());
+                            sb.Append(student.studentPreName);
+                            sb.Append(student.studentSurName);
+                            sb.Append(student.studentID);
+                            sb.Append(",");
+                            byte[] userHAsh = Helper.SHA256(student.StudentSecret, salt, BasicSettings.getInstance().Encryption.SHA256.ITERATIONS);
+                            Debug.WriteLine("MasterKeyCipher: " + encryptAES(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey), userHAsh, aes.IV));
+                            sb.Append(encryptAES(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey), userHAsh, aes.IV));
+                            sb.Append(",");
+                            sb.Append(Helper.ByteArrayToHexString(aes.IV));
+                            sb.Append(",");
+                            sb.Append(Convert.ToBase64String(salt));
+                            sb.Append("<br>\n");
 
-                                Debug.WriteLine(student.studentSurName + " UserSecret: " + student.StudentSecret);
-                                Debug.WriteLine(student.studentSurName + " PBKDF2 Hash Hex: " + Helper.ByteArrayToHexString(userHAsh));
-                                Debug.WriteLine(student.studentSurName + " PBKDF2 Hash B64: " + Convert.ToBase64String(userHAsh));
-                                Debug.WriteLine(student.studentSurName + " PBKDF2 Salt hex: " + Helper.ByteArrayToHexString(salt));
-                                Debug.WriteLine(student.studentSurName + " PBKDF2 Salt B64: " + Convert.ToBase64String(salt));
-                                Debug.WriteLine(student.studentSurName + " User AES IV Hex: " + Helper.ByteArrayToHexString(aes.IV));
-                                Debug.WriteLine(student.studentSurName + " User AES IV B64: " + Convert.ToBase64String(aes.IV));
-                            }
+                            Debug.WriteLine(student.studentSurName + " UserSecret: " + student.StudentSecret);
+                            Debug.WriteLine(student.studentSurName + " SHA256: in: " + student.StudentSecret + 
+                                " + " + Helper.ByteArrayToHexString(salt) + " iterations: " + BasicSettings.getInstance().Encryption.SHA256.ITERATIONS + 
+                                " = " + Helper.ByteArrayToHexString(userHAsh));
+                            Debug.WriteLine(student.studentSurName + " AES: IV: " + Helper.ByteArrayToHexString(aes.IV) + "");
                         }
                     }
+                    Debug.WriteLine("AES MasterKey: " + Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey) + " iv: " + Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV));
                 }
                 return sb.ToString();
             }

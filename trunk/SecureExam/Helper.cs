@@ -3,20 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Diagnostics;
 
 namespace SecureExam
 {
     class Helper
     {
         private static Random random = new Random();
-
-        public static string GenerateRandomAlphaNumericChars( int amountOfChars )
-        {
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"+
-                        "abcdefghijklmnopqerstuvwxyz" +
-                        "0123456789";
-            return new string(Enumerable.Repeat(chars, amountOfChars).Select(s => s[random.Next(s.Length)]).ToArray());
-        }
 
         public static string ByteArrayToHexString( Byte[] array )
         {
@@ -29,6 +23,28 @@ namespace SecureExam
                 sb.Append( hex );
             }
             return sb.ToString().ToUpper();
+        }
+
+        public static byte[] SHA256(string data, byte[] iv, int iterations)
+        {
+            using(SHA256 mySHA256 = SHA256Managed.Create())
+            {
+                if(iv.Length != BasicSettings.getInstance().Encryption.SHA256.SALTLENGTH)
+                    throw new ArgumentException("SHA256 IV length invalid");
+                if (iterations <= 0)
+                    throw new ArgumentException("SHA256 Iterations invalid");
+
+                String ivB64 = Convert.ToBase64String(iv);
+                Debug.WriteLine("hashing:" + data + " + " + ivB64);
+
+                byte[] hash = mySHA256.ComputeHash(Encoding.UTF8.GetBytes(data + ivB64));
+                for( int i = 0; i < iterations; i++ )
+                {
+                    hash = mySHA256.ComputeHash(hash);
+                }
+
+                return hash;
+            }
         }
     }
 }
