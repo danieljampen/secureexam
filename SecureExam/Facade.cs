@@ -37,8 +37,8 @@ namespace SecureExam
         }
         public int PBKDF2Iterations
         {
-            set { BasicSettings.getInstance().Encryption.PBKDF2.ITERATIONS = value; }
-            get { return BasicSettings.getInstance().Encryption.PBKDF2.ITERATIONS; }
+            set { BasicSettings.getInstance().Encryption.SHA256.ITERATIONS = value; }
+            get { return BasicSettings.getInstance().Encryption.SHA256.ITERATIONS; }
         }
 
         public bool export(OutputType type, String path) { return DataProvider.getInstance().export(type, path); }
