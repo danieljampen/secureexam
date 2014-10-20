@@ -41,7 +41,7 @@ namespace SecureExam
             get { return BasicSettings.getInstance().Encryption.SHA256.ITERATIONS; }
         }
 
-        public bool export(OutputType type, String path) { return DataProvider.getInstance().export(type, path); }
+        public bool export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat) { return DataProvider.getInstance().export(type, path, studentSecretsFileFormat); }
         public bool readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath) { return DataProvider.getInstance().readData(formularType, formularPath, studentType, studentPath); }
 
     }

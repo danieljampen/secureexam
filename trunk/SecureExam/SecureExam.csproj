@@ -50,9 +50,10 @@
     <Compile Include="Helper.cs" />
     <Compile Include="HTMLJSExport.cs" />
     <Compile Include="IDataProvider.cs" />
-    <Compile Include="IExport.cs" />
+    <Compile Include="IQuestionsExport.cs" />
     <Compile Include="IFormularParser.cs" />
     <Compile Include="IStudentParser.cs" />
+    <Compile Include="IStudentsSecretExport.cs" />
     <Compile Include="OdtFormularParser.cs" />
     <Compile Include="SecureExamConsoleApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Student.cs" />
     <Compile Include="XMLFormularParser.cs" />
     <Compile Include="XMLStudentParser.cs" />
+    <Compile Include="XMLStudentsSecretsExporter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

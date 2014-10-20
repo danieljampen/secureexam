@@ -35,7 +35,6 @@ namespace SecureExam
                     throw new ArgumentException("SHA256 Iterations invalid");
 
                 String ivB64 = Convert.ToBase64String(iv);
-                Debug.WriteLine("hashing:" + data + " + " + ivB64);
 
                 byte[] hash = mySHA256.ComputeHash(Encoding.UTF8.GetBytes(data + ivB64));
                 for( int i = 0; i < iterations -1; i++ )

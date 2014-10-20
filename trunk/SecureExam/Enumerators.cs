@@ -32,4 +32,9 @@ namespace SecureExam
         CHECK_BOX,
         TEXT_BOX
     }
+
+    enum StudentSecretsFileFormat
+    {
+        XML
+    }
 }

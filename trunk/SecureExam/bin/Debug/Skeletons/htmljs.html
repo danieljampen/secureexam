@@ -5,7 +5,8 @@
 	<title></title>
 	<style>
 	.longShizzle { display: inline-block;width: 60em;word-wrap: break-word}
-	.hidden { display: block;}
+	.hidden { display: none;}
+	.questionFieldset {margin-bottom: 10px;}
 	</style>
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js"></script>
@@ -114,8 +115,8 @@
 		<div id="userKeyDB">$USERKEYDB$</div>
 	</fieldset>
 	<fieldset>
-		<legend id="decryptFieldsetLegend">Erscheint auf Bildschirm</legend>
-		<h1>Unverschlüsselte Fragen</h1>
+		<legend id="decryptFieldsetLegend">Prüfung</legend>
+		<h1>$SUBJECT$</h1>
 		<div id="questions" class="longShizzle"></div>
 	</fieldset>
 </body>

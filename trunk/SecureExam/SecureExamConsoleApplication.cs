@@ -25,6 +25,7 @@ namespace SecureExam
                 QuestionFormularType questionFormularType = new QuestionFormularType();
                 StudentFileType studentFileType = new StudentFileType();
                 OutputType outputType = new OutputType();
+                StudentSecretsFileFormat studentsSecretFileFormat = StudentSecretsFileFormat.XML;
 
                 // fill arguments in dictionary
                 for (int i = 0; i < (args.Length / 2); i++)
@@ -79,6 +80,17 @@ namespace SecureExam
                                     throw new ArgumentException();
                             }
                             break;
+                        case "-oStudentSecretsFileFormat":
+                            switch (pair.Value)
+                            {
+                                case "xml":
+                                    studentsSecretFileFormat = StudentSecretsFileFormat.XML;
+                                    break;
+                                default:
+                                    throw new ArgumentException();
+                            }
+                            break;
+                        
                         default:
                             throw new ArgumentException();
                     }
@@ -87,7 +99,7 @@ namespace SecureExam
                 // SecureExam calls
                 if (facade.readData(questionFormularType, questionFile, studentFileType, studentFile))
                 {
-                    if (facade.export(outputType, outputFile))
+                    if (facade.export(outputType, outputFile, studentsSecretFileFormat))
                     {
                         return RETURNOK;
                     }
@@ -123,11 +135,12 @@ namespace SecureExam
             Console.WriteLine("Error: invalid arguments");
             Console.WriteLine("");
             Console.WriteLine("usage: secureExam -q questionFile -s studentsFile -o Outputfile");
-            Console.WriteLine("       secureExam -q questionFile [-qType QuestionFileType] -s studentsFile [-sType StudentsFileType] -o Outputfile [-oType OutputFileType]");
+            Console.WriteLine("       secureExam -q questionFile [-qType QuestionFileType] -s studentsFile [-sType StudentsFileType] -o Outputfile [-oType OutputFileType] [-oStudentSecretsFileFormat studentSecretsFileFormat]");
             Console.WriteLine("");
-            Console.WriteLine("QuestionFileTypes: XML, WordHTML");
+            Console.WriteLine("QuestionFileTypes: XML, ODT");
             Console.WriteLine("StudentFileTypes: XML");
             Console.WriteLine("OutputFileTypes: HTMLJS");
+            Console.WriteLine("StudentSecretsFileFormat: XML");
         }
 
         private static void printError( string message )
