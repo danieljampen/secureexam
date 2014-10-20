@@ -22,11 +22,6 @@ namespace SecureExam
         XML
     }
 
-    enum DataProviderExportType
-    {
-        HTML
-    }
-
     enum QuestionType
     {
         CHECK_BOX,

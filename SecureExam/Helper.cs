@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Diagnostics;
+using System.IO;
 
 namespace SecureExam
 {
@@ -44,6 +45,52 @@ namespace SecureExam
 
                 return hash;
             }
+        }
+
+        public static byte[] getSecureRandomBytes(int length)
+        {
+            Byte[] array = new Byte[length];
+
+            using (RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider())
+            {
+                rngCsp.GetBytes(array);
+            }
+
+            return array;
+        }
+
+        public static string encryptAES(string data, byte[] Key, byte[] IV)
+        {
+            if (data == null || data.Length <= 0)
+                throw new ArgumentNullException("data");
+            if (Key == null || Key.Length <= 0)
+                throw new ArgumentNullException("Key");
+            if (IV == null || IV.Length <= 0)
+                throw new ArgumentNullException("Key");
+
+            string encrypted;
+
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = Key;
+                aesAlg.IV = IV;
+
+                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+                using (MemoryStream msEncrypt = new MemoryStream())
+                {
+                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            swEncrypt.Write(data);
+                        }
+                        encrypted = Helper.ByteArrayToHexString(msEncrypt.ToArray());
+                    }
+                }
+            }
+
+            return encrypted;
         }
     }
 }
