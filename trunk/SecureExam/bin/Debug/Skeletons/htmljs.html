@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+	.longShizzle { display: inline-block;width: 60em;word-wrap: break-word}
+	.hidden { display: none;}
+	.questionFieldset {margin-bottom: 10px;}
+	</style>
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js"></script>
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/core-min.js"></script>
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-utf16-min.js"></script>
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
+
+
+	<script>
+	var PBKDF2ITERATIONS = $SHA256ITERATIONS$;
+	/*
+	 *	FUNCTION decrypt()
+	 *	arguments: - (string) divUserKeyDB = div ID where the UserKey Information is written
+	 *			   - (string) divSecretStuff = div ID where the encrypted data is stored
+	 *			   - (string) divQuestions = div ID where the decrypted data will be written into
+	 *
+	 *  description: decrypt the questions.
+	 */
+	function decrypt(divUserKeyDB, divSecretStuff, divQuestions) {
+		// load userKeyDB & questionDiv
+		var userKeyDB = document.getElementById(divUserKeyDB).innerHTML.split("<br>");
+		var questionDiv = document.getElementById(divSecretStuff).innerHTML.split(",");
+
+		// remove empty last entry from userKeyDB
+		userKeyDB.pop();
+		// split username from secret
+		for( i = 0; i < userKeyDB.length; i++) {
+			userKeyDB[i] = userKeyDB[i].split(",");
+		}
+
+		// Ask for Secret
+		var userSecret = prompt("UserCredentials: ");
+
+		// extract Username for comparison with userKeyDB
+		var userName = userSecret.substring(0,userSecret.length - $RANDOMCHARSINUSERSECRET$);
+
+		// get encryptedMasterkey cypher for this user
+		var masterkeyCypher;
+		var masterkeyIV;
+		var saltB64;
+		for( i = 0; i < userKeyDB.length; i++ ) {
+			if( userName == userKeyDB[i][0]){
+				masterkeyCypher = CryptoJS.enc.Hex.parse( userKeyDB[i][1] );
+				masterkeyIV = CryptoJS.enc.Hex.parse( userKeyDB[i][2] );
+				saltB64 = userKeyDB[i][3];
+				break;
+			}
+
+		}
+
+		// generate key
+		userSecret = userSecret + saltB64;
+		var key = CryptoJS.SHA256( userSecret );
+
+		for( i = 0; i < PBKDF2ITERATIONS -1; i ++)
+		{
+			key = CryptoJS.SHA256(key);
+		}
+
+		// WORKS UNTIL HERE
+
+		// decrypt masterkey
+	    var masterKeyCipherParams = CryptoJS.lib.CipherParams.create({
+	         ciphertext: masterkeyCypher,
+	         key: key,
+	         iv: masterkeyIV,
+	         algorithm: CryptoJS.algo.AES,
+	         mode: CryptoJS.mode.CBC,
+	         padding: CryptoJS.pad.PKCS7,
+	         blockSize: 4,
+	         formatter: CryptoJS.format.OpenSSL
+		});
+
+		var decMasterKey = CryptoJS.AES.decrypt(masterKeyCipherParams, key, {iv: masterkeyIV});
+		var masterKeyString = decMasterKey.toString(CryptoJS.enc.Utf8);
+		var masterKey = CryptoJS.enc.Hex.parse(masterKeyString);
+
+		// decrypt questions
+		var questionsIV = CryptoJS.enc.Hex.parse( questionDiv[0] );
+		var questionsCipher = CryptoJS.enc.Hex.parse( questionDiv[1] );
+
+		var questionsCipherParams = CryptoJS.lib.CipherParams.create({
+			ciphertext: questionsCipher,
+			key: masterKey,
+			iv: questionsIV,
+			algorithm: CryptoJS.algo.AES,
+			mode: CryptoJS.mode.CBC,
+			padding: CryptoJS.pad.PKCS7,
+			blockSize: 4,
+			formatter: CryptoJS.format.OpenSSL
+		});
+
+		var decrypted = CryptoJS.AES.decrypt(questionsCipherParams, masterKey, { iv: questionsIV });
+		var decryptedString = decrypted.toString(CryptoJS.enc.Utf8);
+		// print questions
+		document.getElementById(divQuestions).innerHTML = decryptedString;
+	}
+	</script>
+</head>
+<body onload="decrypt('userKeyDB','secretStuff','questions')">
+	<fieldset class="hidden">
+		<legend>Crypto-Inhalt des HTML Files</legend>
+		<h2>Verschlüsselter Text</h1>
+		<div id="secretStuff" class="longShizzle">$ENCRYPTEDDATA$</div>
+		<h2></h2>UserKeyDB</h2>
+		<div id="userKeyDB">$USERKEYDB$</div>
+	</fieldset>
+	<fieldset>
+		<legend id="decryptFieldsetLegend">Prüfung</legend>
+		<h1>$SUBJECT$</h1>
+		<div id="questions" class="longShizzle"></div>
+	</fieldset>
+</body>
+</html>
