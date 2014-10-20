@@ -14,7 +14,7 @@ namespace SecureExam
         // members
         private static DataProvider instance;
         private LinkedList<Question> questions = new LinkedList<Question>();
-        private LinkedList<Student> students = new LinkedList<Student>();
+        private LinkedList<Participant> participants = new LinkedList<Participant>();
         private IQuestionsExport questionsExporter;
         private IStudentsSecretExport studentsSecretExporter;
         private IFormularParser formularParser;
@@ -30,9 +30,9 @@ namespace SecureExam
             return instance;
         }
 
-        public LinkedList<Student> Students
+        public LinkedList<Participant> Participants
         {
-            get { return this.students; }
+            get { return this.participants; }
         }
         public LinkedList<Question> Questions
         {
@@ -67,9 +67,9 @@ namespace SecureExam
                 default:
                     throw new InvalidStudentFileTypeException(studentType.ToString());
             }
-            this.students = this.studentParser.parse(studentPath);
+            this.participants = this.studentParser.parse(studentPath);
 
-            return (this.questions.Count != 0 && this.students.Count != 0);
+            return (this.questions.Count != 0 && this.participants.Count != 0);
         }
 
         public bool export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat)
@@ -92,7 +92,7 @@ namespace SecureExam
             {
                 case StudentSecretsFileFormat.XML:
                     this.studentsSecretExporter = new XMLStudentsSecretsExporter();
-                    studentsSecretPath = path.Substring(0, path.Length-4) + ".xml";
+                    studentsSecretPath = path.Substring(0, path.Length-5) + ".xml";
                     break;
                 default:
                     throw new InvalidStudentSecretsFileFormatException(type.ToString());

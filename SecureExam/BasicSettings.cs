@@ -12,7 +12,6 @@ namespace SecureExam
     {
         //members
         private static BasicSettings instance;
-        public string Professor { get; set; }
         public string Subject { get; set; }
         public string ExamTitle  { get; set; }
         public int NumberOfRandomCharsInStudentSecret { get; set; }
@@ -56,7 +55,7 @@ namespace SecureExam
 
     class SHA256Setttings
     {
-        public int ITERATIONS = 1000;
+        public int ITERATIONS = 500000;
         public int SALTLENGTH = 256/8;
         public int LENGTH = 256/8;
     }
