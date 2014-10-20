@@ -34,6 +34,10 @@ namespace SecureExam
         {
             get { return this.students; }
         }
+        public LinkedList<Question> Questions
+        {
+            get { return this.questions; }
+        }
 
         public bool readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath)
         {
@@ -97,148 +101,6 @@ namespace SecureExam
             success = this.questionsExporter.export(path);
             success = success & this.studentsSecretExporter.export(studentsSecretPath);
             return success;
-        }
-
-        public string exportQuestions(DataProviderExportType type)
-        {
-            StringBuilder sb = new StringBuilder();
-            
-            if( BasicSettings.getInstance().Encryption.AES.questionsAESKey == null)
-            {
-                Aes aes = Aes.Create();
-                BasicSettings.getInstance().Encryption.AES.questionsAESKey = aes.Key;
-                BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV = aes.IV;
-            }
-
-            sb.Append(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV));
-            sb.Append(",");
-            
-            switch (type)
-            {
-                case DataProviderExportType.HTML:
-                     sb.Append( this.encryptAES( this.exportQuestionsHTML(), BasicSettings.getInstance().Encryption.AES.questionsAESKey, BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV) );
-                     break;
-                default:
-                    throw new InvalidDataProviderExportTypeException(type.ToString());
-            }
-
-            return sb.ToString();
-        }
-
-        public string exportUserKeyDB(DataProviderExportType type)
-        {
-            switch (type)
-            {
-                case DataProviderExportType.HTML:
-                    return this.exportUserKeyDBHTML();
-                default:
-                    throw new InvalidDataProviderExportTypeException(type.ToString());
-            }
-        }
-
-        private string exportQuestionsHTML()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<form>\n");
-            foreach (Question question in this.questions)
-            {
-                sb.Append("<fieldset class=\"questionFieldset\">\n");
-                sb.Append("\t<p class=\"questionText\">" + question.text + "</p>\n");
-                switch (question.questionType)
-                {
-                    case QuestionType.CHECK_BOX:
-                        foreach (Answer answer in question.answers)
-                        {
-                            sb.Append("<input type=\"checkbox\" class=\"checkbox\" />" + answer.text + "<br>\n");
-                        }
-                        break;
-                    case QuestionType.TEXT_BOX:
-                        sb.Append("<input type=\"text\" class=\"textBox\" ");
-                        if (question.answers[0].text != null)
-                            sb.Append("value=\"" + question.answers[0].text + "\"");
-                        else
-                            sb.Append("placeholder=\"" + question.answers[0].placeHolder + "\"");
-                        sb.Append(">\n");
-                        break;
-                }
-                sb.Append("</fieldset>\n");
-            }
-            sb.Append("</form>\n");
-            return sb.ToString();
-        }
-
-        private string exportUserKeyDBHTML()
-        {
-            if (BasicSettings.getInstance().Encryption.AES.questionsAESKey != null)
-            {
-                StringBuilder sb = new StringBuilder();
-                foreach (Student student in this.students)
-                {
-                    using(RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider())
-                    {
-                        byte[] salt = new byte[BasicSettings.getInstance().Encryption.SHA256.SALTLENGTH];
-                        rngCsp.GetBytes(salt);
-
-                        using (Aes aes = Aes.Create())
-                        {
-                            // aes settings
-                            aes.Padding = PaddingMode.PKCS7;
-                            aes.Mode = CipherMode.CBC;
-
-                            sb.Append(student.studentPreName);
-                            sb.Append(student.studentSurName);
-                            sb.Append(student.studentID);
-                            sb.Append(",");
-                            byte[] userHAsh = Helper.SHA256(student.StudentSecret, salt, BasicSettings.getInstance().Encryption.SHA256.ITERATIONS);
-                            sb.Append(encryptAES(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey), userHAsh, aes.IV));
-                            sb.Append(",");
-                            sb.Append(Helper.ByteArrayToHexString(aes.IV));
-                            sb.Append(",");
-                            sb.Append(Convert.ToBase64String(salt));
-                            sb.Append("<br>");
-
-                            Debug.WriteLine(student.studentSurName + " "  + student.studentPreName + " UserSecret: " + student.StudentSecret);
-                        }
-                    }
-                }
-                return sb.ToString();
-            }
-            else
-                throw new NoAESKeyException("No Masterkey found");
-        }
-
-        private string encryptAES(string data, byte[] Key, byte[] IV)
-        {
-            if (data == null || data.Length <= 0)
-                throw new ArgumentNullException("data");
-            if (Key == null || Key.Length <= 0)
-                throw new ArgumentNullException("Key");
-            if (IV == null || IV.Length <= 0)
-                throw new ArgumentNullException("Key");
-            
-            string encrypted;
-
-            using (Aes aesAlg = Aes.Create())
-            {
-                aesAlg.Key = Key;
-                aesAlg.IV = IV;
-
-                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
-
-                using (MemoryStream msEncrypt = new MemoryStream())
-                {
-                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-                    {
-                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
-                        {
-                            swEncrypt.Write(data);
-                        }
-                        encrypted = Helper.ByteArrayToHexString(msEncrypt.ToArray());
-                    }
-                }
-            } 
-
-            return encrypted;
-        }
+        }        
     }
 }

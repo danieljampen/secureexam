@@ -5,6 +5,7 @@
 	Authors:	jampedan@zhaw,lukessim@zhaw
  -->
  <questions>
+	<examTitle>Testprüfung:</examTitle>
 	<question>
 		<legend>Dies ist die Frage 1: Checkbox mit isCorrect</legend>
 			<input type="checkbox" isCorrect="true" value="Antwort 1" />
