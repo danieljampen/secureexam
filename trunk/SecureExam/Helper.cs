@@ -59,7 +59,7 @@ namespace SecureExam
             return array;
         }
 
-        public static string encryptAES(string data, byte[] Key, byte[] IV)
+        public static byte[] encryptAES(string data, byte[] Key, byte[] IV)
         {
             if (data == null || data.Length <= 0)
                 throw new ArgumentNullException("data");
@@ -67,8 +67,6 @@ namespace SecureExam
                 throw new ArgumentNullException("Key");
             if (IV == null || IV.Length <= 0)
                 throw new ArgumentNullException("Key");
-
-            string encrypted;
 
             using (Aes aesAlg = Aes.Create())
             {
@@ -85,12 +83,10 @@ namespace SecureExam
                         {
                             swEncrypt.Write(data);
                         }
-                        encrypted = Helper.ByteArrayToHexString(msEncrypt.ToArray());
+                        return msEncrypt.ToArray();
                     }
                 }
             }
-
-            return encrypted;
         }
     }
 }
