@@ -18,11 +18,8 @@ namespace SecureExam
 
             if (BasicSettings.getInstance().Encryption.AES.questionsAESKey == null)
             {
-                using( Aes aes = Aes.Create() )
-                {
-                    BasicSettings.getInstance().Encryption.AES.questionsAESKey = aes.Key;
-                    BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV = aes.IV;
-                }
+                BasicSettings.getInstance().Encryption.AES.questionsAESKey = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.AES.KEYLENGTH);
+                BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.AES.IVLENGTH);
             }
 
             try
@@ -36,6 +33,7 @@ namespace SecureExam
                 html = html.Replace("$ENCRYPTEDDATA$", this.exportQuestions());
                 html = html.Replace("$USERKEYDB$", this.exportUserKeyDB());
                 html = html.Replace("$SUBJECT$", BasicSettings.getInstance().Subject);
+                html = html.Replace("$EXAMTITLE$", BasicSettings.getInstance().ExamTitle);
 
                 // write data to file
                 outFile.Write(html);
@@ -70,27 +68,22 @@ namespace SecureExam
                 foreach (Student student in DataProvider.getInstance().Students)
                 {
                     byte[] salt = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.SHA256.SALTLENGTH);
+                    byte[] aesIV = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.AES.IVLENGTH);
+                    byte[] userHAsh = Helper.SHA256(student.StudentSecret, salt, BasicSettings.getInstance().Encryption.SHA256.ITERATIONS);
+                    string encryptedMasterKey = Helper.encryptAES(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey), userHAsh, aesIV);
 
-                    using (Aes aes = Aes.Create())
-                    {
-                        // aes settings
-                        aes.Padding = PaddingMode.PKCS7;
-                        aes.Mode = CipherMode.CBC;
+                    sb.Append(student.studentPreName);
+                    sb.Append(student.studentSurName);
+                    sb.Append(student.studentID);
+                    sb.Append(",");
+                    sb.Append(encryptedMasterKey);
+                    sb.Append(",");
+                    sb.Append(Helper.ByteArrayToHexString(aesIV));
+                    sb.Append(",");
+                    sb.Append(Convert.ToBase64String(salt));
+                    sb.Append("<br>");
 
-                        sb.Append(student.studentPreName);
-                        sb.Append(student.studentSurName);
-                        sb.Append(student.studentID);
-                        sb.Append(",");
-                        byte[] userHAsh = Helper.SHA256(student.StudentSecret, salt, BasicSettings.getInstance().Encryption.SHA256.ITERATIONS);
-                        sb.Append(Helper.encryptAES(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey), userHAsh, aes.IV));
-                        sb.Append(",");
-                        sb.Append(Helper.ByteArrayToHexString(aes.IV));
-                        sb.Append(",");
-                        sb.Append(Convert.ToBase64String(salt));
-                        sb.Append("<br>");
-
-                        Debug.WriteLine(student.studentSurName + " " + student.studentPreName + " UserSecret: " + student.StudentSecret);
-                    }
+                    Debug.WriteLine(student.studentSurName + " " + student.studentPreName + " UserSecret: " + student.StudentSecret);
                 }
                 return sb.ToString();
             }
