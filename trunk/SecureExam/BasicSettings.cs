@@ -48,8 +48,8 @@ namespace SecureExam
 
     class AESSettings
     {
-        public int KEYLENGTH = 256;
-        public int IVLENGTH = 128;
+        public int KEYLENGTH = 256/8;
+        public int IVLENGTH = 128/8;
         public Byte[] questionsAESKey { get; set; }
         public Byte[] questionsAESKeyIV { get; set; }
     }

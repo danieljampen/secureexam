@@ -27,6 +27,9 @@ namespace SecureExam
                 string examTitle = xmlDoc.GetElementsByTagName("examTitle")[0].InnerText;
                 BasicSettings.getInstance().ExamTitle = examTitle;
 
+                string subject = xmlDoc.GetElementsByTagName("subject")[0].InnerText;
+                BasicSettings.getInstance().Subject = subject;
+
                 //question
                 XmlNodeList questionlist = xmlDoc.GetElementsByTagName("question");
                 for (int i = 0; i < questionlist.Count; i++)

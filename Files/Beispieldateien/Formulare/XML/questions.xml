@@ -5,6 +5,7 @@
 	Authors:	jampedan@zhaw,lukessim@zhaw
  -->
  <questions>
+	<subject>ADS</subject>
 	<examTitle>Testprüfung:</examTitle>
 	<question>
 		<legend>Dies ist die Frage 1: Checkbox mit isCorrect</legend>
