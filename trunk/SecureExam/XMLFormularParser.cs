@@ -23,6 +23,10 @@ namespace SecureExam
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(textReader);
 
+                //exam title
+                string examTitle = xmlDoc.GetElementsByTagName("examTitle")[0].InnerText;
+                BasicSettings.getInstance().ExamTitle = examTitle;
+
                 //question
                 XmlNodeList questionlist = xmlDoc.GetElementsByTagName("question");
                 for (int i = 0; i < questionlist.Count; i++)
@@ -86,14 +90,6 @@ namespace SecureExam
                     questions.AddLast(question);
                 }
             }
-
-
-
-
-
-
-
-
             catch (DirectoryNotFoundException e)
             {
                 throw new NotImplementedException(e.ToString());
