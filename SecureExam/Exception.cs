@@ -26,6 +26,11 @@ namespace SecureExam
         public InvalidDataProviderExportTypeException(string message) : base(message) { }
     }
 
+    class InvalidStudentSecretsFileFormatException : ApplicationException
+    {
+        public InvalidStudentSecretsFileFormatException(string message) : base(message) { }
+    }
+
     class NoAESKeyException : ApplicationException
     {
         public NoAESKeyException(string message) : base(message) { }

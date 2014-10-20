@@ -15,7 +15,8 @@ namespace SecureExam
         private static DataProvider instance;
         private LinkedList<Question> questions = new LinkedList<Question>();
         private LinkedList<Student> students = new LinkedList<Student>();
-        private IExport exporter;
+        private IQuestionsExport questionsExporter;
+        private IStudentsSecretExport studentsSecretExporter;
         private IFormularParser formularParser;
         private IStudentParser studentParser;
 
@@ -27,6 +28,11 @@ namespace SecureExam
                 instance = new DataProvider();
             }
             return instance;
+        }
+
+        public LinkedList<Student> Students
+        {
+            get { return this.students; }
         }
 
         public bool readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath)
@@ -62,19 +68,35 @@ namespace SecureExam
             return (this.questions.Count != 0 && this.students.Count != 0);
         }
 
-        public bool export(OutputType type, String path)
+        public bool export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat)
         {
             if( path == null || path.Length == 0 )
                 throw new ArgumentNullException("path");
+            bool success = false;
+            String studentsSecretPath;
 
             switch (type)
             {
                 case OutputType.HTMLJS:
-                    this.exporter = new HTMLJSExport();
-                    return this.exporter.export(path);
+                    this.questionsExporter = new HTMLJSExport();
+                    break;
                 default:
                     throw new InvalidExportTypeException(type.ToString());
             }
+
+            switch (studentSecretsFileFormat)
+            {
+                case StudentSecretsFileFormat.XML:
+                    this.studentsSecretExporter = new XMLStudentsSecretsExporter();
+                    studentsSecretPath = path.Substring(0, path.Length-4) + ".xml";
+                    break;
+                default:
+                    throw new InvalidStudentSecretsFileFormatException(type.ToString());
+            }
+
+            success = this.questionsExporter.export(path);
+            success = success & this.studentsSecretExporter.export(studentsSecretPath);
+            return success;
         }
 
         public string exportQuestions(DataProviderExportType type)
@@ -127,11 +149,11 @@ namespace SecureExam
                     case QuestionType.CHECK_BOX:
                         foreach (Answer answer in question.answers)
                         {
-                            sb.Append("<input type=\"radio\" class=\"radio\" />" + answer.text + "<br>\n");
+                            sb.Append("<input type=\"checkbox\" class=\"checkbox\" />" + answer.text + "<br>\n");
                         }
                         break;
                     case QuestionType.TEXT_BOX:
-                        sb.Append("<input type=\"checkbox\" class=\"textBox\" ");
+                        sb.Append("<input type=\"text\" class=\"textBox\" ");
                         if (question.answers[0].text != null)
                             sb.Append("value=\"" + question.answers[0].text + "\"");
                         else
@@ -173,18 +195,12 @@ namespace SecureExam
                             sb.Append(Helper.ByteArrayToHexString(aes.IV));
                             sb.Append(",");
                             sb.Append(Convert.ToBase64String(salt));
-                            sb.Append("<br>\n");
+                            sb.Append("<br>");
 
-                            Debug.WriteLine(student.studentSurName + " UserSecret: " + student.StudentSecret);
-                            Debug.WriteLine(student.studentSurName + " SHA256: in: " + student.StudentSecret + 
-                                " + " + Helper.ByteArrayToHexString(salt) + " iterations: " + BasicSettings.getInstance().Encryption.SHA256.ITERATIONS + 
-                                " = " + Helper.ByteArrayToHexString(userHAsh));
-                            Debug.WriteLine(student.studentSurName + " AES: IV: " + Helper.ByteArrayToHexString(aes.IV) + "");
+                            Debug.WriteLine(student.studentSurName + " "  + student.studentPreName + " UserSecret: " + student.StudentSecret);
                         }
                     }
                 }
-                Debug.WriteLine("AES MasterKey: " + Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey) + " iv: " + Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV));
-              
                 return sb.ToString();
             }
             else

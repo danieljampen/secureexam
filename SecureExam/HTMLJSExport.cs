@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    class HTMLJSExport:IExport
+    class HTMLJSExport:IQuestionsExport
     {
         public bool export(String filename)
         {
@@ -24,6 +24,7 @@ namespace SecureExam
                 html = html.Replace("$RANDOMCHARSINUSERSECRET$", BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret.ToString());
                 html = html.Replace("$ENCRYPTEDDATA$", DataProvider.getInstance().exportQuestions(DataProviderExportType.HTML));
                 html = html.Replace("$USERKEYDB$", DataProvider.getInstance().exportUserKeyDB(DataProviderExportType.HTML));
+                html = html.Replace("$SUBJECT$", BasicSettings.getInstance().Subject);
 
                 // write data to file
                 outFile.Write(html);
