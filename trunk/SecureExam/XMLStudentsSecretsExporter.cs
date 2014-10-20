@@ -17,11 +17,11 @@ namespace SecureExam
                 using (XmlWriter writer = XmlWriter.Create(filename))
                 {
                     writer.WriteStartDocument();
-                    writer.WriteStartElement("StudentsSecrets");
+                    writer.WriteStartElement("ParticipantSecrets");
 
-                    foreach (Student student in DataProvider.getInstance().Students)
+                    foreach (Participant student in DataProvider.getInstance().Participants)
                     {
-                        writer.WriteStartElement("Student");
+                        writer.WriteStartElement("Participant");
 
                         writer.WriteElementString("Secret", student.StudentSecret);
 

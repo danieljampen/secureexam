@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace SecureExam
 {
-    class Student
+    class Student : Participant
     {
 
         // setter n getter
@@ -23,26 +23,16 @@ namespace SecureExam
                     studentSecret = this.generateStudentSecret();
                 return studentSecret;
             }
-            set
-            {
-                studentSecret = value;
-            }
         }
 
         // methods
-        private string generateStudentSecret()
+        protected override string generateStudentSecret()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(studentPreName);
             sb.Append(studentSurName);
             sb.Append(studentID);
-
-            using (RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider())
-            {
-                byte[] randomBytes = new byte[BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret/2];
-                rngCsp.GetBytes(randomBytes);
-                sb.Append(Helper.ByteArrayToHexString(randomBytes));
-            }
+            sb.Append(Helper.ByteArrayToHexString(Helper.getSecureRandomBytes(BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret/2)));
             return sb.ToString();
         }
     }

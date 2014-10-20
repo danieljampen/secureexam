@@ -10,11 +10,6 @@ namespace SecureExam
     class Facade
     {
         // methods
-        public string Professor
-        {
-            set { BasicSettings.getInstance().Professor = value; }
-            get { return BasicSettings.getInstance().Professor; }
-        }
         public string Subject
         {
             set { BasicSettings.getInstance().Subject = value; }

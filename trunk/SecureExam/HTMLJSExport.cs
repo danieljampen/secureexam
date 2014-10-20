@@ -56,7 +56,7 @@ namespace SecureExam
             StringBuilder sb = new StringBuilder();
             sb.Append(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV));
             sb.Append(",");
-            sb.Append(Helper.encryptAES(this.generateQuestionsHTML(), BasicSettings.getInstance().Encryption.AES.questionsAESKey, BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV));
+            sb.Append(Helper.ByteArrayToHexString(Helper.encryptAES(this.generateQuestionsHTML(), BasicSettings.getInstance().Encryption.AES.questionsAESKey, BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV)));
             return sb.ToString();
         }
 
@@ -65,16 +65,23 @@ namespace SecureExam
             if (BasicSettings.getInstance().Encryption.AES.questionsAESKey != null)
             {
                 StringBuilder sb = new StringBuilder();
-                foreach (Student student in DataProvider.getInstance().Students)
+                foreach (Participant participant in DataProvider.getInstance().Participants)
                 {
                     byte[] salt = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.SHA256.SALTLENGTH);
                     byte[] aesIV = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.AES.IVLENGTH);
-                    byte[] userHAsh = Helper.SHA256(student.StudentSecret, salt, BasicSettings.getInstance().Encryption.SHA256.ITERATIONS);
+                    byte[] userHAsh = Helper.SHA256(participant.StudentSecret, salt, BasicSettings.getInstance().Encryption.SHA256.ITERATIONS);
                     string encryptedMasterKey = Helper.ByteArrayToHexString( Helper.encryptAES(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey), userHAsh, aesIV) );
 
-                    sb.Append(student.studentPreName);
-                    sb.Append(student.studentSurName);
-                    sb.Append(student.studentID);
+                    if( participant.GetType() == typeof(Student))
+                    {
+                        sb.Append(((Student)participant).studentPreName);
+                        sb.Append(((Student)participant).studentSurName);
+                        sb.Append(((Student)participant).studentID);
+                    }
+                    else if( participant.GetType() == typeof(Professor))
+                    {
+                        sb.Append(((Professor)participant).name);
+                    }
                     sb.Append(",");
                     sb.Append(encryptedMasterKey);
                     sb.Append(",");
@@ -83,7 +90,7 @@ namespace SecureExam
                     sb.Append(Convert.ToBase64String(salt));
                     sb.Append("<br>");
 
-                    Debug.WriteLine(student.studentSurName + " " + student.studentPreName + " UserSecret: " + student.StudentSecret);
+                    Debug.WriteLine("-> UserSecret: " + participant.StudentSecret);
                 }
                 return sb.ToString();
             }

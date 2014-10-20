@@ -10,9 +10,9 @@ namespace SecureExam
 {
     class XMLStudentParser:IStudentParser
     {
-        public LinkedList<Student> parse(String studentPath)
+        public LinkedList<Participant> parse(String studentPath)
         {
-            LinkedList<Student> students = new LinkedList<Student>();
+            LinkedList<Participant> participants = new LinkedList<Participant>();
 
             //Create an instance of the XmlTextReader and call Read method to read the file
             try
@@ -27,9 +27,10 @@ namespace SecureExam
                 //professor
                 XmlNodeList professor = xmlDoc.GetElementsByTagName("professor");
                 BasicSettings basicSettings = BasicSettings.getInstance();
-                basicSettings.Professor = professor[0].InnerText.ToLower();
+                participants.AddLast(new Professor(professor[0].InnerText.ToLower()));
 
-                //student parsen
+
+                //participant parsen
                 XmlNodeList studentList = xmlDoc.GetElementsByTagName("student");
                 for (int i = 0; i < studentList.Count; i++)
                 {
@@ -51,14 +52,14 @@ namespace SecureExam
                                 break;
                         }
                     }
-                    students.AddLast(student);
+                    participants.AddLast(student);
                 }
             }
             catch (DirectoryNotFoundException e)
             {
                 throw new NotImplementedException(e.ToString());
             }
-            return students;
+            return participants;
         }
     }
 }
