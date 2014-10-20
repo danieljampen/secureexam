@@ -13,6 +13,7 @@
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-utf16-min.js"></script>
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
 
+
 	<script>
 	var PBKDF2ITERATIONS = $SHA256ITERATIONS$;
 	/*
@@ -47,8 +48,8 @@
 		var saltB64;
 		for( i = 0; i < userKeyDB.length; i++ ) {
 			if( userName == userKeyDB[i][0]){
-				masterkeyCypher = userKeyDB[i][1];
-				masterkeyIV = userKeyDB[i][2];
+				masterkeyCypher = CryptoJS.enc.Hex.parse( userKeyDB[i][1] );
+				masterkeyIV = CryptoJS.enc.Hex.parse( userKeyDB[i][2] );
 				saltB64 = userKeyDB[i][3];
 				break;
 			}
@@ -68,7 +69,20 @@
 		// WORKS UNTIL HERE
 
 		// decrypt masterkey
-		var masterKey = CryptoJS.AES.decrypt(masterkeyCypher , key_hex).toString(CryptoJS.enc.Utf8);
+	     var cipherParams = CryptoJS.lib.CipherParams.create({
+	         ciphertext: masterkeyCypher,
+	         key: key,
+	         iv: masterkeyIV,
+	         algorithm: CryptoJS.algo.AES,
+	         mode: CryptoJS.mode.CBC,
+	         padding: CryptoJS.pad.PKCS7,
+	         blockSize: 4,
+	         formatter: CryptoJS.format.OpenSSL
+		});
+
+		//var masterKey = CryptoJS.AES.decrypt(masterkeyCypher , key,  { iv: masterkeyIV, keySize: 256/32,  mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+		var masterKey = CryptoJS.AES.decrypt(cipherParams, key, {iv: masterkeyIV});
+		var masterKeyString = masterKey.toString(CryptoJS.enc.Utf8);
 
 		// decrypt questions
 		questionsIV = CryptoJS.enc.Hex.parse( questionDiv[0] );
