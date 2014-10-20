@@ -60,16 +60,15 @@
 		userSecret = userSecret + saltB64;
 		var key = CryptoJS.SHA256( userSecret );
 
-		for( i = 0; i < PBKDF2ITERATIONS; i ++)
+		for( i = 0; i < PBKDF2ITERATIONS -1; i ++)
 		{
 			key = CryptoJS.SHA256(key);
 		}
-		var key_hex = CryptoJS.enc.Hex.stringify(key);
 
 		// WORKS UNTIL HERE
 
 		// decrypt masterkey
-	     var cipherParams = CryptoJS.lib.CipherParams.create({
+	    var masterKeyCipherParams = CryptoJS.lib.CipherParams.create({
 	         ciphertext: masterkeyCypher,
 	         key: key,
 	         iv: masterkeyIV,
@@ -80,18 +79,29 @@
 	         formatter: CryptoJS.format.OpenSSL
 		});
 
-		//var masterKey = CryptoJS.AES.decrypt(masterkeyCypher , key,  { iv: masterkeyIV, keySize: 256/32,  mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
-		var masterKey = CryptoJS.AES.decrypt(cipherParams, key, {iv: masterkeyIV});
-		var masterKeyString = masterKey.toString(CryptoJS.enc.Utf8);
+		var decMasterKey = CryptoJS.AES.decrypt(masterKeyCipherParams, key, {iv: masterkeyIV});
+		var masterKeyString = decMasterKey.toString(CryptoJS.enc.Utf8);
+		var masterKey = CryptoJS.enc.Hex.parse(masterKeyString);
 
 		// decrypt questions
-		questionsIV = CryptoJS.enc.Hex.parse( questionDiv[0] );
-		encQuestions = questionDiv[1];
-		var decrypted = CryptoJS.AES.decrypt(encQuestions, masterKey, { iv: questionsIV });
+		var questionsIV = CryptoJS.enc.Hex.parse( questionDiv[0] );
+		var questionsCipher = CryptoJS.enc.Hex.parse( questionDiv[1] );
 
+		var questionsCipherParams = CryptoJS.lib.CipherParams.create({
+			ciphertext: questionsCipher,
+			key: masterKey,
+			iv: questionsIV,
+			algorithm: CryptoJS.algo.AES,
+			mode: CryptoJS.mode.CBC,
+			padding: CryptoJS.pad.PKCS7,
+			blockSize: 4,
+			formatter: CryptoJS.format.OpenSSL
+		});
+
+		var decrypted = CryptoJS.AES.decrypt(questionsCipherParams, masterKey, { iv: questionsIV });
+		var decryptedString = decrypted.toString(CryptoJS.enc.Utf8);
 		// print questions
-		document.getElementById(divQuestions).innerHTML = decrypted.toString(CryptoJS.enc.Utf8);
-
+		document.getElementById(divQuestions).innerHTML = decryptedString;
 	}
 	</script>
 </head>

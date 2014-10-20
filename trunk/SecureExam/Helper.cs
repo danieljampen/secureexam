@@ -38,7 +38,7 @@ namespace SecureExam
                 Debug.WriteLine("hashing:" + data + " + " + ivB64);
 
                 byte[] hash = mySHA256.ComputeHash(Encoding.UTF8.GetBytes(data + ivB64));
-                for( int i = 0; i < iterations; i++ )
+                for( int i = 0; i < iterations -1; i++ )
                 {
                     hash = mySHA256.ComputeHash(hash);
                 }
