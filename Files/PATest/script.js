@@ -4,7 +4,7 @@
  */
 
 // Global Variables
-var PBKDF2ITERATIONS = 1000;						// amount of PBKDF2 Iterations
+var PBKDF2ITERATIONS = 1;						// amount of PBKDF2 Iterations
 
 
 /*
@@ -52,7 +52,9 @@ function encrypt() {
 
 		// actual encryption of the master key
 		// ---> We could add PBKDF2 support here (generate key for masterkey encryption)
-		encryptedMasterKeys.push(CryptoJS.AES.encrypt( AESkey, key).toString());
+		var encryted = CryptoJS.AES.encrypt( AESkey, key);
+		var key = CryptoJS.enc.Hex.stringify( encryted.key);
+		encryptedMasterKeys.push(encryted.toString());
 
 	}
 

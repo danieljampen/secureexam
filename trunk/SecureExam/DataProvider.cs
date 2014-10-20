@@ -159,13 +159,15 @@ namespace SecureExam
 
                         using (Aes aes = Aes.Create())
                         {
-                            Debug.Print(aes.Padding.ToString());
+                            // aes settings
+                            aes.Padding = PaddingMode.PKCS7;
+                            aes.Mode = CipherMode.CBC;
+
                             sb.Append(student.studentPreName);
                             sb.Append(student.studentSurName);
                             sb.Append(student.studentID);
                             sb.Append(",");
                             byte[] userHAsh = Helper.SHA256(student.StudentSecret, salt, BasicSettings.getInstance().Encryption.SHA256.ITERATIONS);
-                            Debug.WriteLine("MasterKeyCipher: " + encryptAES(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey), userHAsh, aes.IV));
                             sb.Append(encryptAES(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey), userHAsh, aes.IV));
                             sb.Append(",");
                             sb.Append(Helper.ByteArrayToHexString(aes.IV));
@@ -180,8 +182,9 @@ namespace SecureExam
                             Debug.WriteLine(student.studentSurName + " AES: IV: " + Helper.ByteArrayToHexString(aes.IV) + "");
                         }
                     }
-                    Debug.WriteLine("AES MasterKey: " + Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey) + " iv: " + Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV));
                 }
+                Debug.WriteLine("AES MasterKey: " + Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey) + " iv: " + Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV));
+              
                 return sb.ToString();
             }
             else
