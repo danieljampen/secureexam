@@ -7,19 +7,31 @@
  <questions>
 	<subject>ADS</subject>
 	<examTitle>Testprüfung:</examTitle>
-	<question>
+	<question nr="1">
 		<legend>Dies ist die Frage 1: Checkbox mit isCorrect</legend>
-			<input type="checkbox" isCorrect="true" value="Antwort 1" />
-			<input type="checkbox" value="Antwort 2" />
-			<input type="checkbox" value="Antwort 3" />
-			<input type="checkbox" value="Antwort 4" />
 	</question>
-	<question>
+	<answer questionNr="1">
+		<input type="checkbox" isCorrect="true" value="Antwort 1" />
+	</answer>
+	<answer questionNr="1">
+		<input type="checkbox" value="Antwort 2" />
+	</answer>
+	<answer questionNr="1">
+		<input type="checkbox" value="Antwort 3" />
+	</answer>
+	<answer questionNr="1">
+		<input type="checkbox" value="Antwort 4" />
+	</answer>
+	<question nr="2">
 		<legend>Wieso sind sie so clever? Texbox mit placeholder</legend>
+	</question>
+	<answer questionNr="2">
 		<input type="text" placeholder="Hier text eingeben" />
-	</question>
-	<question>
+	</answer>
+	<question nr="3">
 		<legend>Vervollständigen Sie bitte! Textbox mit value</legend>
-		<input type="text" value="if(true){}xxxx(dafaq?)" />
 	</question>
+	<answer questionNr="3">
+		<input type="text" value="if(true){}xxxx(dafaq?)" />
+	</answer>
 </questions>
