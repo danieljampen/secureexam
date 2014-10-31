@@ -19,6 +19,7 @@ namespace SecureExam
         private IStudentsSecretExport studentsSecretExporter;
         private IFormularParser formularParser;
         private IStudentParser studentParser;
+        public String examNotes { get; set; }
 
         // methods
         public static DataProvider getInstance()
