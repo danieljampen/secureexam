@@ -283,7 +283,7 @@
         <draw:control text:anchor-type="as-char" draw:z-index="26" draw:style-name="gr1" draw:text-style-name="P5" svg:width="5.502cm" svg:height="0.634cm" draw:control="control1" />
       </text:span></text:p>
       <text:h text:style-name="Heading_20_2" text:outline-level="2">Einführung in Algorithmen - Kontrollfragen</text:h>
-      <text:p text:style-name="Standard">Mehrere Antworten können richtig sein</text:p>
+      <text:p text:style-name="Standard">Prüfungshinweis: Mehrere Antworten können richtig sein</text:p>
       <text:p text:style-name="Standard" />
       <text:p text:style-name="Standard">Frage 1. Welche der folgenden Operationen kommen in einem Stack vor?</text:p>
       <text:p text:style-name="P1">
