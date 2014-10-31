@@ -25,12 +25,24 @@ namespace SecureExam
                 xmlDoc.Load(textReader);
 
                 //exam title
-                string examTitle = xmlDoc.GetElementsByTagName("examTitle")[0].InnerText;
-                BasicSettings.getInstance().ExamTitle = examTitle;
+                if (xmlDoc.GetElementsByTagName("examTitle").Count > 0)
+                {
+                    string examTitle = xmlDoc.GetElementsByTagName("examTitle")[0].InnerText;
+                    BasicSettings.getInstance().ExamTitle = examTitle;
+                }
 
-                string subject = xmlDoc.GetElementsByTagName("subject")[0].InnerText;
-                BasicSettings.getInstance().Subject = subject;
+                if (xmlDoc.GetElementsByTagName("subject").Count > 0)
+                {
+                    string subject = xmlDoc.GetElementsByTagName("subject")[0].InnerText;
+                    BasicSettings.getInstance().Subject = subject;
+                }
 
+                if (xmlDoc.GetElementsByTagName("hint").Count > 0)
+                {
+                    string hints = xmlDoc.GetElementsByTagName("hint")[0].InnerText;
+                    DataProvider.getInstance().examNotes = hints;
+                    //BasicSettings.getInstance().Subject = subject;
+                }
                 //get all Answers
                 Hashtable answerToQuestionHashTable = new Hashtable();
                 Hashtable answerQuestionTypeHashTable = new Hashtable();
