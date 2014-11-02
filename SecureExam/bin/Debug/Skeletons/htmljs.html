@@ -3,11 +3,6 @@
 <head lang="en">
 	<meta charset="UTF-8">
 	<title></title>
-	<!-- Polymer -->
-	<link rel="import" href="https://www.polymer-project.org/components/polymer/polymer.html">
-	<link rel="stylesheet" type="text/css" href="components/css/site.css">
-	<link rel="import" href="https://www.polymer-project.org/elements/common_elements.vulcanized.html?20141020">
-	<script src="components/platform/platform.js"></script>
 
 	<!-- Import JS Libs -->
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
@@ -30,6 +25,13 @@
 	 *  description: decrypt the questions.
 	 */
 	function decrypt(divUserKeyDB, divSecretStuff, divQuestions) {
+		// Get Secret
+		var userSecret = document.getElementById("userSecret").value;
+		if( userSecret == "" ) {
+			document.getElementById("userSecret").style.border = "1px solid red";
+			return;
+		}
+
 		// load userKeyDB & questionDiv
 		var userKeyDB = document.getElementById(divUserKeyDB).innerHTML.split("<br>");
 		var questionDiv = document.getElementById(divSecretStuff).innerHTML.split(",");
@@ -40,9 +42,6 @@
 		for( i = 0; i < userKeyDB.length; i++) {
 			userKeyDB[i] = userKeyDB[i].split(",");
 		}
-
-		// Ask for Secret
-		var userSecret = prompt("UserCredentials: ");
 
 		// extract Username for comparison with userKeyDB
 		userName = userSecret.substring(0,userSecret.length - $RANDOMCHARSINUSERSECRET$);
@@ -107,50 +106,48 @@
 		var decryptedString = decrypted.toString(CryptoJS.enc.Utf8);
 		// print questions
 		document.getElementById(divQuestions).innerHTML = decryptedString;
+		document.getElementById(divQuestions).innerHTML += '<br><button onclick="finishExam()">Prüfung einreichen</button>';
 
 		var examDetails = document.getElementById("studentDetails");
 		var name = userName.substring(0,userName.length - 9);
 		var immnumber = userName.substring(userName.length -9, userName.length);
 		examDetails.innerHTML = examDetails.innerHTML.replace("$NAME$", name);
 		examDetails.innerHTML = examDetails.innerHTML.replace("$IMMNUMBER$", immnumber);
-
-		document.getElementById("scroll-area").style.display = "block";
 	}
 
-		function finishExam() {
-			if( confirm("Wollen Sie wirklich die Prüfung einreichen? Dies kann nicht rückgängig gemacht werden!")) {
-				xml = '<?xml version="1.0" encoding="iso-8859-1"?>';
-				xml += '<questions>';
-				var examNodes = document.getElementById("exam").childNodes[1].childNodes;
-				for( i = 1; i < examNodes.length; i = i + 2 ) {
-					xml += '<question>';
-					var questionNode = examNodes[i];
-					var questionText = questionNode.childNodes[1].innerHTML;
-					xml += '<legend>' + questionText + '</legend>';
-					var answerTag = questionNode.childNodes[3];
-					if( answerTag.children[0].localName === "textarea") {
-						xml += '<input type="text">' + answerTag.children[0].value + '</input>';
-					}
-					else {
-						for( j = 0; j < answerTag.children.length; j = j + 2) {
-							xml += '<input type="checkbox" ' + (answerTag.children[j].checked == true ? "checked=\"true\" " : "") + '/>';
-						}
-					}
-					xml += '</question>';
+	function finishExam() {
+		if( confirm("Wollen Sie wirklich die Prüfung einreichen? Dies kann nicht rückgängig gemacht werden!")) {
+			xml = '<?xml version="1.0" encoding="iso-8859-1"?>';
+			xml += '<questions>';
+			var examNodes = document.getElementById("exam");
+			for( i = 1; i < examNodes.length; i = i + 2 ) {
+				xml += '<question>';
+				var questionNode = examNodes.childNodes[i];
+				var questionText = questionNode.children[0].innerText;
+				xml += '<legend>' + questionText + '</legend>';
+				var answerTag = questionNode.children[1];
+				if( answerTag.children[0].localName === "textarea") {
+					xml += '<input type="text">' + answerTag.children[0].value + '</input>';
 				}
-				xml += '</questions>';
-
-				var blob = new Blob([xml], {type: "text/plain;charset=utf-8"});
-				var res = saveAs(blob, "exam_" + userName + ".xml");
-				alert("Prüfung abgeschlossen!");
-
-				// set views
-				document.getElementById("scroll-area").style.display = "none";
+				else {
+					for( j = 0; j < answerTag.children.length; j = j + 2) {
+						xml += '<input type="checkbox" ' + (answerTag.children[j].checked == true ? "checked=\"true\" " : "") + '/>';
+					}
+				}
+				xml += '</question>';
 			}
+			xml += '</questions>';
+
+			var blob = new Blob([xml], {type: "text/plain;charset=utf-8"});
+			var res = saveAs(blob, "exam_" + userName + ".xml");
+
+			// set views
+			document.getElementById("questions").innerHTML = "<p class'questionText'>Prüfung abgeschlossen!</p>";
 		}
+	}
 	</script>
 </head>
-<body onload="decrypt('userKeyDB','secretStuff','questions')">
+<body>
 	<div class="header">
 		<div class="headerNotes">
 			<span class="zhaw">ZHAW School of Engineering</span>
@@ -167,15 +164,13 @@
 	</div>
 	<div class="examContainer">
 		<div id="questions">
+			<p class="questionText">Bitte geben Sie ihr Identifikationspasswort ein!</p>
+			<input type="text" id="userSecret" size="35"/>
+			<button onclick="decrypt('userKeyDB','secretStuff','questions')"></button>
 		</div>
-		<br>
-		<button onclick="finishExam()">Prüfung einreichen</button>
 	</div>
 	<div class="hidden">
-		<legend>Crypto-Inhalt des HTML Files</legend>
-		<h2>Verschlüsselter Text</h1>
-			<div id="secretStuff" class="longShizzle">$ENCRYPTEDDATA$</div>
-			<h2></h2>UserKeyDB</h2>
+		<div id="secretStuff" class="longShizzle">$ENCRYPTEDDATA$</div>
 		<div id="userKeyDB">$USERKEYDB$</div>
 	</div>
 </body>
