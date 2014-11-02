@@ -34,7 +34,7 @@ namespace SecureExam
                 html = html.Replace("$USERKEYDB$", this.exportUserKeyDB());
                 html = html.Replace("$SUBJECT$", BasicSettings.getInstance().Subject);
                 html = html.Replace("$EXAMTITLE$", BasicSettings.getInstance().ExamTitle);
-                html = html.Replace("$PROFESSOR$", BasicSettings.getInstance().Professor.name);
+                html = html.Replace("$PROFESSOR$", DataProvider.getInstance().getProfessor().name);
 
                 // write data to file
                 outFile.Write(html);
