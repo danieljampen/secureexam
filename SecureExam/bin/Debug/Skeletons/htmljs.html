@@ -3,20 +3,24 @@
 <head lang="en">
 	<meta charset="UTF-8">
 	<title></title>
-	<style>
-	.longShizzle { display: inline-block;width: 60em;word-wrap: break-word}
-	.hidden { display: none;}
-	.questionFieldset {margin-bottom: 10px;}
-	</style>
+	<!-- Polymer -->
+	<link rel="import" href="https://www.polymer-project.org/components/polymer/polymer.html">
+	<link rel="stylesheet" type="text/css" href="components/css/site.css">
+	<link rel="import" href="https://www.polymer-project.org/elements/common_elements.vulcanized.html?20141020">
+	<script src="components/platform/platform.js"></script>
+
+	<!-- Import JS Libs -->
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js"></script>
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/core-min.js"></script>
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-utf16-min.js"></script>
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
+	<script src="https://rawgit.com/eligrey/FileSaver.js/master/FileSaver.min.js"></script>
 
 
 	<script>
-	var PBKDF2ITERATIONS = $SHA256ITERATIONS$;
+	var userName;
+	var SHA256ITERATIONS = $SHA256ITERATIONS$;
 	/*
 	 *	FUNCTION decrypt()
 	 *	arguments: - (string) divUserKeyDB = div ID where the UserKey Information is written
@@ -41,7 +45,7 @@
 		var userSecret = prompt("UserCredentials: ");
 
 		// extract Username for comparison with userKeyDB
-		var userName = userSecret.substring(0,userSecret.length - $RANDOMCHARSINUSERSECRET$);
+		userName = userSecret.substring(0,userSecret.length - $RANDOMCHARSINUSERSECRET$);
 
 		// get encryptedMasterkey cypher for this user
 		var masterkeyCypher;
@@ -61,7 +65,7 @@
 		userSecret = userSecret + saltB64;
 		var key = CryptoJS.SHA256( userSecret );
 
-		for( i = 0; i < PBKDF2ITERATIONS -1; i ++)
+		for( i = 0; i < SHA256ITERATIONS -1; i ++)
 		{
 			key = CryptoJS.SHA256(key);
 		}
@@ -103,21 +107,76 @@
 		var decryptedString = decrypted.toString(CryptoJS.enc.Utf8);
 		// print questions
 		document.getElementById(divQuestions).innerHTML = decryptedString;
+
+		var examDetails = document.getElementById("studentDetails");
+		var name = userName.substring(0,userName.length - 9);
+		var immnumber = userName.substring(userName.length -9, userName.length);
+		examDetails.innerHTML = examDetails.innerHTML.replace("$NAME$", name);
+		examDetails.innerHTML = examDetails.innerHTML.replace("$IMMNUMBER$", immnumber);
+
+		document.getElementById("scroll-area").style.display = "block";
 	}
+
+		function finishExam() {
+			if( confirm("Wollen Sie wirklich die Prüfung einreichen? Dies kann nicht rückgängig gemacht werden!")) {
+				xml = '<?xml version="1.0" encoding="iso-8859-1"?>';
+				xml += '<questions>';
+				var examNodes = document.getElementById("exam").childNodes[1].childNodes;
+				for( i = 1; i < examNodes.length; i = i + 2 ) {
+					xml += '<question>';
+					var questionNode = examNodes[i];
+					var questionText = questionNode.childNodes[1].innerHTML;
+					xml += '<legend>' + questionText + '</legend>';
+					var answerTag = questionNode.childNodes[3];
+					if( answerTag.children[0].localName === "textarea") {
+						xml += '<input type="text">' + answerTag.children[0].value + '</input>';
+					}
+					else {
+						for( j = 0; j < answerTag.children.length; j = j + 2) {
+							xml += '<input type="checkbox" ' + (answerTag.children[j].checked == true ? "checked=\"true\" " : "") + '/>';
+						}
+					}
+					xml += '</question>';
+				}
+				xml += '</questions>';
+
+				var blob = new Blob([xml], {type: "text/plain;charset=utf-8"});
+				var res = saveAs(blob, "exam_" + userName + ".xml");
+				alert("Prüfung abgeschlossen!");
+
+				// set views
+				document.getElementById("scroll-area").style.display = "none";
+			}
+		}
 	</script>
 </head>
 <body onload="decrypt('userKeyDB','secretStuff','questions')">
-	<fieldset class="hidden">
+	<div class="header">
+		<div class="headerNotes">
+			<span class="zhaw">ZHAW School of Engineering</span>
+			Verbleibende Zeit:
+			<span id="timeLeft">45min 00s</span>
+		</div>
+		<div class="headerTitle">
+			$SUBJECT$: $EXAMTITLE$
+		</div>
+	</div>
+	<div class="examNotes">
+		<p id="studentDetails" class="studentDetails">Name: $NAME$ Immatrikulationsnummer: $IMMNUMBER$</p>
+		<p class="notes">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+	</div>
+	<div class="examContainer">
+		<div id="questions">
+		</div>
+		<br>
+		<button onclick="finishExam()">Prüfung einreichen</button>
+	</div>
+	<div class="hidden">
 		<legend>Crypto-Inhalt des HTML Files</legend>
 		<h2>Verschlüsselter Text</h1>
-		<div id="secretStuff" class="longShizzle">$ENCRYPTEDDATA$</div>
-		<h2></h2>UserKeyDB</h2>
+			<div id="secretStuff" class="longShizzle">$ENCRYPTEDDATA$</div>
+			<h2></h2>UserKeyDB</h2>
 		<div id="userKeyDB">$USERKEYDB$</div>
-	</fieldset>
-	<fieldset>
-		<legend id="decryptFieldsetLegend">Prüfung</legend>
-		<h1>$SUBJECT$: $EXAMTITLE$</h1>
-		<div id="questions" class="longShizzle"></div>
-	</fieldset>
+	</div>
 </body>
 </html>
