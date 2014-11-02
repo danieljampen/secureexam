@@ -17,7 +17,6 @@ namespace SecureExam
         public int NumberOfRandomCharsInStudentSecret { get; set; }
         public Dictionary<OutputType,String> exportSkeletons { get; set; }
         public Encryption Encryption = new Encryption();
-        public Professor Professor { get; set; }
         
 
         // singleton

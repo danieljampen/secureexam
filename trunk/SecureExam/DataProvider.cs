@@ -40,6 +40,18 @@ namespace SecureExam
             get { return this.questions; }
         }
 
+        public Professor getProfessor()
+        {
+            foreach(Participant p in this.participants ) 
+            {
+                if( p.GetType() == typeof(Professor))
+                {
+                    return (Professor)p;
+                }
+            }
+            return null;
+        }
+
         public bool readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath)
         {
             if (formularPath == null || formularPath.Length == 0)
