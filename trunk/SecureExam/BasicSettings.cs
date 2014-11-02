@@ -17,6 +17,7 @@ namespace SecureExam
         public int NumberOfRandomCharsInStudentSecret { get; set; }
         public Dictionary<OutputType,String> exportSkeletons { get; set; }
         public Encryption Encryption = new Encryption();
+        public Professor Professor { get; set; }
         
 
         // singleton
@@ -55,7 +56,7 @@ namespace SecureExam
 
     class SHA256Setttings
     {
-        public int ITERATIONS = 500000;
+        public int ITERATIONS = 100000;
         public int SALTLENGTH = 256/8;
         public int LENGTH = 256/8;
     }

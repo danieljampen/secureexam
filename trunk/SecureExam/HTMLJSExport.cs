@@ -34,6 +34,7 @@ namespace SecureExam
                 html = html.Replace("$USERKEYDB$", this.exportUserKeyDB());
                 html = html.Replace("$SUBJECT$", BasicSettings.getInstance().Subject);
                 html = html.Replace("$EXAMTITLE$", BasicSettings.getInstance().ExamTitle);
+                html = html.Replace("$PROFESSOR$", BasicSettings.getInstance().Professor.name);
 
                 // write data to file
                 outFile.Write(html);
@@ -101,31 +102,34 @@ namespace SecureExam
         private string generateQuestionsHTML()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("<form>\n");
+            sb.AppendLine("<form id=\"exam\">");
             foreach (Question question in DataProvider.getInstance().Questions)
             {
-                sb.Append("<fieldset class=\"questionFieldset\">\n");
-                sb.Append("\t<p class=\"questionText\">" + question.text + "</p>\n");
+                sb.AppendLine("<div class=\"question\">");
+                sb.AppendLine("<p class=\"questionText\">" + question.text + "</p>");
+                sb.AppendLine("<p class=\"answer\">");
                 switch (question.questionType)
                 {
                     case QuestionType.CHECK_BOX:
                         foreach (Answer answer in question.answers)
                         {
-                            sb.Append("<input type=\"checkbox\" class=\"checkbox\" />" + answer.text + "<br>\n");
+                            sb.AppendLine("<input type=\"checkbox\" class=\"checkbox\" />" + answer.text + "<br>");
                         }
                         break;
                     case QuestionType.TEXT_BOX:
-                        sb.Append("<input type=\"text\" class=\"textBox\" ");
-                        if (question.answers[0].text != null)
-                            sb.Append("value=\"" + question.answers[0].text + "\"");
-                        else
+                        sb.Append("<textarea rows=\"6\" class=\"textBox\" ");
+                        if( question.answers[0].placeHolder != null )
                             sb.Append("placeholder=\"" + question.answers[0].placeHolder + "\"");
-                        sb.Append(">\n");
+                        sb.Append(">");
+                        if (question.answers[0].text != null)
+                            sb.Append(question.answers[0].text);
+                        sb.Append("</textarea>\n");
                         break;
                 }
-                sb.Append("</fieldset>\n");
+                sb.AppendLine("</p>");
+                sb.AppendLine("</div>");
             }
-            sb.Append("</form>\n");
+            sb.AppendLine("</form>");
             return sb.ToString();
         }
     }

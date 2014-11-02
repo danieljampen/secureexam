@@ -22,4 +22,79 @@
 		<legend>Vervollständigen Sie bitte! Textbox mit value</legend>
 		<input type="text" value="if(true){}xxxx(dafaq?)" />
 	</question>
+	<question>
+		<legend>Dies ist die Frage 1: Checkbox mit isCorrect</legend>
+			<input type="checkbox" isCorrect="true" value="Antwort 1" />
+			<input type="checkbox" value="Antwort 2" />
+			<input type="checkbox" value="Antwort 3" />
+			<input type="checkbox" value="Antwort 4" />
+	</question>
+	<question>
+		<legend>Wieso sind sie so clever? Texbox mit placeholder</legend>
+		<input type="text" placeholder="Hier text eingeben" />
+	</question>
+	<question>
+		<legend>Vervollständigen Sie bitte! Textbox mit value</legend>
+		<input type="text" value="if(true){}xxxx(dafaq?)" />
+	</question>
+	<question>
+		<legend>Dies ist die Frage 1: Checkbox mit isCorrect</legend>
+			<input type="checkbox" isCorrect="true" value="Antwort 1" />
+			<input type="checkbox" value="Antwort 2" />
+			<input type="checkbox" value="Antwort 3" />
+			<input type="checkbox" value="Antwort 4" />
+	</question>
+	<question>
+		<legend>Wieso sind sie so clever? Texbox mit placeholder</legend>
+		<input type="text" placeholder="Hier text eingeben" />
+	</question>
+	<question>
+		<legend>Vervollständigen Sie bitte! Textbox mit value</legend>
+		<input type="text" value="if(true){}xxxx(dafaq?)" />
+	</question>
+	<question>
+		<legend>Dies ist die Frage 1: Checkbox mit isCorrect</legend>
+			<input type="checkbox" isCorrect="true" value="Antwort 1" />
+			<input type="checkbox" value="Antwort 2" />
+			<input type="checkbox" value="Antwort 3" />
+			<input type="checkbox" value="Antwort 4" />
+	</question>
+	<question>
+		<legend>Wieso sind sie so clever? Texbox mit placeholder</legend>
+		<input type="text" placeholder="Hier text eingeben" />
+	</question>
+	<question>
+		<legend>Vervollständigen Sie bitte! Textbox mit value</legend>
+		<input type="text" value="if(true){}xxxx(dafaq?)" />
+	</question>
+	<question>
+		<legend>Dies ist die Frage 1: Checkbox mit isCorrect</legend>
+			<input type="checkbox" isCorrect="true" value="Antwort 1" />
+			<input type="checkbox" value="Antwort 2" />
+			<input type="checkbox" value="Antwort 3" />
+			<input type="checkbox" value="Antwort 4" />
+	</question>
+	<question>
+		<legend>Wieso sind sie so clever? Texbox mit placeholder</legend>
+		<input type="text" placeholder="Hier text eingeben" />
+	</question>
+	<question>
+		<legend>Vervollständigen Sie bitte! Textbox mit value</legend>
+		<input type="text" value="if(true){}xxxx(dafaq?)" />
+	</question>
+	<question>
+		<legend>Dies ist die Frage 1: Checkbox mit isCorrect</legend>
+			<input type="checkbox" isCorrect="true" value="Antwort 1" />
+			<input type="checkbox" value="Antwort 2" />
+			<input type="checkbox" value="Antwort 3" />
+			<input type="checkbox" value="Antwort 4" />
+	</question>
+	<question>
+		<legend>Wieso sind sie so clever? Texbox mit placeholder</legend>
+		<input type="text" placeholder="Hier text eingeben" />
+	</question>
+	<question>
+		<legend>Vervollständigen Sie bitte! Textbox mit value</legend>
+		<input type="text" value="if(true){}xxxx(dafaq?)" />
+	</question>
 </questions>
