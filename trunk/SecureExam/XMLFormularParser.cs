@@ -11,7 +11,7 @@ namespace SecureExam
 {
     class XMLFormularParser : IFormularParser
     {
-        public LinkedList<Question> parse(String formularPath)
+        public LinkedList<Question> parseFile(String formularPath)
         {
             LinkedList<Question> questions = new LinkedList<Question>();
 
@@ -23,6 +23,31 @@ namespace SecureExam
 
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(textReader);
+
+                questions = parseXML(textReader.ToString());
+
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                throw new NotImplementedException(e.ToString());
+            }
+            catch (FileNotFoundException e)
+            {
+                throw new NotImplementedException(e.ToString());
+            }
+            return questions;
+        }
+
+
+        public LinkedList<Question> parseXML(String xmlString)
+        {
+            LinkedList<Question> questions = new LinkedList<Question>();
+
+            //Create an instance of the XmlTextReader
+            try
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(xmlString);
 
                 //exam title
                 if (xmlDoc.GetElementsByTagName("examTitle").Count > 0)
@@ -46,7 +71,7 @@ namespace SecureExam
                 //get all Answers
                 Hashtable answerToQuestionHashTable = new Hashtable();
                 Hashtable answerQuestionTypeHashTable = new Hashtable();
-                
+
                 XmlNodeList answerlist = xmlDoc.GetElementsByTagName("answer");
                 for (int i = 0; i < answerlist.Count; i++)
                 {
@@ -60,7 +85,8 @@ namespace SecureExam
                         if (answerChildData.Name == "input")
                         {
                             XmlAttributeCollection attributes = answerChildData.Attributes;
-                            foreach(XmlAttribute attribute in attributes){
+                            foreach (XmlAttribute attribute in attributes)
+                            {
                                 if (attribute.Name == "type")
                                 {
                                     QuestionType questionType = QuestionType.TEXT_BOX;
@@ -122,8 +148,10 @@ namespace SecureExam
                     question.questionType = (QuestionType)answerQuestionTypeHashTable[questionNr];
 
                     XmlNodeList questionDataList = questionlist[i].ChildNodes;
-                    foreach(XmlNode questionData in questionDataList){
-                        if(questionData.Name == "legend"){
+                    foreach (XmlNode questionData in questionDataList)
+                    {
+                        if (questionData.Name == "legend")
+                        {
                             question.text = questionData.InnerText;
                         }
                     }
