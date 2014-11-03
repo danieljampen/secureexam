@@ -14,9 +14,9 @@ namespace SecureExam
         public LinkedList<Question> parseFile(String formularPath)
         {
             // XSLT odt -> xml dann mit xml parser einlesen
-            
-            string xslFilePath = "C:/Users/Simon/Documents/ZHAW/Projekt/Files/Beispieldateien/Formulare/ODT/odt.xslt";
 
+            string xslFilePath = "../../../../Files/Beispieldateien/Formulare/ODT/odt.xslt";
+            
             XslCompiledTransform xt = new XslCompiledTransform();
             
             StringBuilder resultString = new StringBuilder();
