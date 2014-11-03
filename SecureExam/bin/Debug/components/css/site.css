@@ -20,6 +20,7 @@ body {
 	top: 0;
 	color: #fff;
 	padding-left: 3%;
+	z-index: 20;
 }
 
 .headerNotes {
@@ -37,20 +38,24 @@ body {
 
 .examNotes {
 	background-color: #334293;
-	top: 90px;
-	position: absolute;
+	top: 74px;
+	position: relative;
 	z-index: -2;
 	min-height: 230px;
 	padding-left: 3%;
 	padding-right: 3%;
+	padding-bottom: 25px;
+	padding-top: 10px;
 	width: 94%;
 	color: #fff;
 }
+
 .examContainer {
+	position: relative;
 	width: 94%;
 	margin: 0px auto;
 	z-index: 10;
-	margin-top: 260px;
+	top: -20px;
 	margin-bottom: 3%;
 	background-color: white;
 }
