@@ -36,7 +36,7 @@ body {
 }
 
 .examNotes {
-	background-color: #3e50b4;
+	background-color: #334293;
 	top: 90px;
 	position: absolute;
 	z-index: -2;
@@ -51,6 +51,7 @@ body {
 	margin: 0px auto;
 	z-index: 10;
 	margin-top: 260px;
+	margin-bottom: 3%;
 	background-color: white;
 }
 
