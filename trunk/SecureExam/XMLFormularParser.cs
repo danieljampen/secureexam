@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.IO;
 using System.Collections;
+using System.IO;
 
 namespace SecureExam
 {
@@ -18,14 +19,8 @@ namespace SecureExam
             //Create an instance of the XmlTextReader and call Read method to read the file
             try
             {
-                XmlTextReader textReader = new XmlTextReader(formularPath);
-                textReader.Read();
-
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(textReader);
-
-                questions = parseXML(textReader.ToString());
-
+                string fileContent = File.ReadAllText(formularPath);
+                questions = parseXML(fileContent);
             }
             catch (DirectoryNotFoundException e)
             {
