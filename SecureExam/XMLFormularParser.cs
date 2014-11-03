@@ -162,6 +162,10 @@ namespace SecureExam
             {
                 throw new NotImplementedException(e.ToString());
             }
+            catch (NullReferenceException e)
+            {
+                throw new InvalidDataException(e.ToString());
+            }
             return questions;
         }
     }
