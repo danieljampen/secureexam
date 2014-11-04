@@ -15,12 +15,18 @@ body {
 .header {
 	width: 100%;
 	background-color: #3e50b4;
-	height: 90px;
+	height: 105px;
 	position: fixed;
 	top: 0;
 	color: #fff;
 	padding-left: 3%;
 	z-index: 20;
+}
+
+.headerStudentInfo {
+	font-size: 15px;
+	margin-top: 1px;
+	font-weight: 300;
 }
 
 .headerNotes {
@@ -38,7 +44,7 @@ body {
 
 .examNotes {
 	background-color: #334293;
-	top: 74px;
+	top: 85px;
 	position: relative;
 	z-index: -2;
 	min-height: 230px;
@@ -72,6 +78,11 @@ body {
 }
 .hidden {
 	display: none;
+}
+#finishButton {
+	position: fixed;
+	right: 5%;
+	top: 68px;
 }
 .question {
 	width: 100%;

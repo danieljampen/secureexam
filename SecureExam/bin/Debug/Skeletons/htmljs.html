@@ -16,7 +16,39 @@
 	<script>
 	var userName;
 	var userSecret;
+	var seInfos;
 	var SHA256ITERATIONS = $SHA256ITERATIONS$;
+
+	/*
+	 *	Class secureExamInfos()
+	 *	Constructor-Arguments: none
+	 *
+	 *  description: class stored in localDB.
+	 */
+	function secureExamInfos() {
+		this.examStartTime = new Date(),
+		this.examEndTime = null,
+		this.examStartings = 1,
+		this.studentSecret = userSecret,
+		this.load = function ( oldSEInfo ) {
+			try {
+				var dec = CryptoJS.AES.decrypt(oldSEInfo, userSecret);
+				var decString = dec.toString(CryptoJS.enc.Utf8);
+				var oldData = decString.substring(16,decString.length-1).split(",");
+				if( decString.substring(0, 15) === "secureExamInfos" && oldData[3] === userSecret) {
+					this.examStartTime = new Date(oldData[0]);
+					this.examEndTime = (oldData[1] !== "null")? new Date(oldData[1]): null;
+					this.examStartings += Number(oldData[2]);
+					this.studentSecret = oldData[3];
+				}
+			}catch (err) {}
+		}
+		this.export = function () {
+			var exportString = 'secureExamInfos(' + this.examStartTime + ',' + this.examEndTime + ',' + this.examStartings + ',' + this.studentSecret + ')';
+			return CryptoJS.AES.encrypt( exportString, userSecret);
+		}
+	};
+
 	/*
 	 *	FUNCTION decrypt()
 	 *	arguments: - (string) divUserKeyDB = div ID where the UserKey Information is written
@@ -28,6 +60,21 @@
 	function decrypt(divUserKeyDB, divSecretStuff, divQuestions) {
 		// Get Secret
 		userSecret = document.getElementById("userSecret").value;
+
+		// extract Username for comparison with userKeyDB
+		userName = userSecret.substring(0,userSecret.length - $RANDOMCHARSINUSERSECRET$);
+
+		// local DB
+		seInfos = new secureExamInfos();
+		if( window.localStorage.getItem("secureExam") != null ) {
+			seInfos.load(window.localStorage.getItem("secureExam"));
+		}
+
+		// check if exam has been done before
+		if(seInfos.examEndTime != null ) {
+			document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfung bereits abgelegt!</p>';
+			return;
+		}
 
 		// show loading screen
 		document.getElementById(divQuestions).innerHTML = '<p class="questionText center">decrypting questions...</p>';
@@ -48,9 +95,6 @@
 			userKeyDB[i] = userKeyDB[i].split(",");
 		}
 
-		// extract Username for comparison with userKeyDB
-		userName = userSecret.substring(0,userSecret.length - $RANDOMCHARSINUSERSECRET$);
-
 		// get encryptedMasterkey cypher for this user
 		var masterkeyCypher;
 		var masterkeyIV;
@@ -66,15 +110,13 @@
 		}
 
 		// generate key
-		userSecret = userSecret + saltB64;
-		var key = CryptoJS.SHA256( userSecret );
+		var userSecretSalted = userSecret + saltB64;
+		var key = CryptoJS.SHA256( userSecretSalted );
 
 		for( i = 0; i < SHA256ITERATIONS -1; i ++)
 		{
 			key = CryptoJS.SHA256(key);
 		}
-
-		// WORKS UNTIL HERE
 
 		// decrypt masterkey
 	    var masterKeyCipherParams = CryptoJS.lib.CipherParams.create({
@@ -109,9 +151,12 @@
 
 		var decrypted = CryptoJS.AES.decrypt(questionsCipherParams, masterKey, { iv: questionsIV });
 		var decryptedString = decrypted.toString(CryptoJS.enc.Utf8);
+
+		window.localStorage.setItem("secureExam", seInfos.export());
+
 		// print questions
 		document.getElementById(divQuestions).innerHTML = decryptedString;
-		document.getElementById(divQuestions).innerHTML += '<p class="questionText center"><button onclick="finishExam()">Prüfung einreichen</button></p>';
+		document.getElementById("finishButton").innerHTML = '<button onclick="finishExam()">Prüfung einreichen</button>';
 
 		var examDetails = document.getElementById("studentDetails");
 		var name = userName.substring(0,userName.length - 9);
@@ -124,7 +169,19 @@
 
 	function finishExam() {
 		if( confirm("Wollen Sie wirklich die Prüfung einreichen? Dies kann nicht rückgängig gemacht werden!")) {
+			seInfos.examEndTime = new Date();
+
 			xml = '<?xml version="1.0" encoding="iso-8859-1"?>';
+			xml += '<exam>';
+			xml += '<student>';
+			xml += '<name>' + userName.substring(0,userName.length -9) + '</name>';
+			xml += '<nr>' + userName.substring(userName.length -9, userName.length) + '</nr>';
+			xml += '</student>';
+			xml += '<examInfos>';
+			xml += '<startTime>' + seInfos.examStartTime.toUTCString() + '</startTime>';
+			xml += '<endTime>' + seInfos.examStartTime.toUTCString() + '</endTime>';
+			xml += '<examStartings>' + seInfos.examStartings + '</examStartings>';
+			xml += '</examInfos>';
 			xml += '<questions>';
 			var examNodes = document.getElementById("exam");
 			for( i = 1; i < examNodes.length; i = i + 2 ) {
@@ -144,12 +201,15 @@
 				xml += '</question>';
 			}
 			xml += '</questions>';
+			xml += '</exam>';
 
-			var encXml =  CryptoJS.AES.encrypt( xml, userSecret);
-			xml = encXml.iv.toString() + "," + encXml.ciphertext.toString();
+			//var encXml =  CryptoJS.AES.encrypt( xml, userSecret);
+			//xml = encXml.iv.toString() + "," + encXml.ciphertext.toString();
 
 			var blob = new Blob([xml], {type: "text/plain;charset=utf-8"});
 			var res = saveAs(blob, "exam_" + userName + ".xml.enc");
+
+			window.localStorage.setItem("secureExam", seInfos.export());
 
 			// set views
 			document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfung abgeschlossen!</p>';
@@ -182,10 +242,11 @@
 		</div>
 		<div class="headerTitle">
 			$SUBJECT$: $EXAMTITLE$
+			<p id="studentDetails" class="headerStudentInfo hidden">Name: $NAME$ Immatrikulationsnummer: $IMMNUMBER$</p>
 		</div>
+		<div id="finishButton"></div>
 	</div>
 	<div class="examNotes paper" id="examNotes">
-		<p id="studentDetails" class="studentDetails hidden">Name: $NAME$ Immatrikulationsnummer: $IMMNUMBER$</p>
 		<p class="notes">Prüfungshinweise:
 			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 	</div>
