@@ -26,10 +26,10 @@
 	 *  description: class stored in localDB.
 	 */
 	function secureExamInfos() {
-		this.examStartTime = new Date(),
-		this.examEndTime = null,
-		this.examStartings = 1,
-		this.studentSecret = userSecret,
+		this.examStartTime = new Date();
+		this.examEndTime = null;
+		this.examStartings = 1;
+		this.studentSecret = userSecret;
 		this.load = function ( oldSEInfo ) {
 			try {
 				var dec = CryptoJS.AES.decrypt(oldSEInfo, userSecret);
@@ -48,6 +48,82 @@
 			return CryptoJS.AES.encrypt( exportString, userSecret);
 		}
 	};
+
+	/*
+	 *	Class secureDate()
+	 *	Constructor-Arguments: - (Date) startDate = inizialize Time of the clock;
+	 *
+	 *
+	 *  description: class to handle save, reliable and non-manipulatable Time.
+	 */
+	function secureDate( startDate ) {
+		var _this = this;
+		startDate = new Date(startDate);
+		this.timeHistory = new Array();
+		this.timeHistory.push(startDate);
+		this.internalClockStartTime = startDate;
+		this.internalClockSeconds = 0;
+		this.internalUpdateInterval = 1000;
+		this.internalClockMaxVariance = 25;
+		this.inteval = null;
+
+
+		this.updateInternal = function( ) {
+			_this.internalClockSeconds += (secureTime.internalUpdateInterval / 1000);
+			if( _this.timeHistory.length == 10) {
+				_this.timeHistory.pop();
+			}
+			_this.timeHistory.push( new Date() );
+
+			var internalTime = _this.getInternalTime();
+			if( _this.verifyCurrentTime(internalTime) ) {
+				var diff = new Date().getTime()-internalTime.getTime();
+				if( diff > 0 ) {
+					_this.internalClockStartTime.setTime(_this.internalClockStartTime.getTime()+diff);
+					console.log("[secureDate] compensing cpu lag: " + diff + "ms");
+				}
+			}
+		}
+
+		this.getInternalTime = function() {
+			var date = new Date( startDate );
+			date.setSeconds( date.getSeconds() + this.internalClockSeconds);
+			return date;
+		}
+
+		this.dateCompare = function( actualTime, timeToVerify ) {
+			timeToVerify = new Date( timeToVerify );
+			actualTime = new Date( actualTime );
+			if( (timeToVerify.getTime()-actualTime.getTime() >= _this.internalClockMaxVariance ) || (timeToVerify.getTime()-actualTime.getTime() <= _this.internalClockMaxVariance ) ) {
+				return true;
+			}
+			return false;
+		}
+
+		this.verifyCurrentTime = function ( time ) {
+			time = new Date( time );
+			var lastTimeInHistory = this.timeHistory[this.timeHistory.length-1];
+			var internalTime = this.getInternalTime();
+
+			if( !this.dateCompare( time, lastTimeInHistory ) ) {
+				console.log("[secureDate] timeError");
+				return false;
+			}
+			if( !this.dateCompare(time, internalTime )) {
+				console.log("[secureDate] timeError");
+				return false;
+			}
+
+			console.log("[secureDate] time is OUUUUKAYYYY");
+			return true;
+		}
+
+		this.stop = function () {
+			clearInterval(this.inteval);
+		}
+
+		this.inteval = window.setInterval(this.updateInternal,1000);
+	}
 
 	/*
 	 *	FUNCTION decrypt()
@@ -167,6 +243,12 @@
 		document.getElementById("studentDetails").classList.remove("hidden");
 	}
 
+	/*
+	 *	FUNCTION finishExam()
+	 *	arguments: none
+	 *
+	 *  description: finish the Exam, set and store examEndTime, export questions to encrypted xml download.
+	 */
 	function finishExam() {
 		if( confirm("Wollen Sie wirklich die Prüfung einreichen? Dies kann nicht rückgängig gemacht werden!")) {
 			seInfos.examEndTime = new Date();
@@ -216,21 +298,22 @@
 		}
 	}
 
-	/*window.onscroll = function(){
-		var distance = (this.pageYOffset || document.documentElement.scrollTop)  - (document.documentElement.clientTop || 0);
-		if( distance >= 230 ) {
-			document.getElementById("header").classList.add("paper");
+	function keyUpUserSecret(e) {
+		if(e.keyCode == 13) {
+			decrypt('userKeyDB','secretStuff','questions');
 		}
-		else {
-			document.getElementById("header").classList.remove("paper");
-		}
-	};*/
+	}
 
-		function keyUpUserSecret(e) {
-			if(e.keyCode == 13) {
-				decrypt('userKeyDB','secretStuff','questions');
-			}
+	var secureTime = new secureDate(new Date());
+	function verifyTime() {
+		if( !secureTime.verifyCurrentTime(new Date()) ) {
+			document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungsabbruch, Zeitmanipulation entdeckt!</p>';
+			clearInterval(secureTimeInverval);
+			secureTime.stop();
 		}
+	}
+
+	var secureTimeInverval = window.setInterval(verifyTime,1000);
 	</script>
 </head>
 <body>
