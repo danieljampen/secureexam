@@ -32,8 +32,8 @@ namespace SecureExam
                 html = html.Replace("$RANDOMCHARSINUSERSECRET$", BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret.ToString());
                 html = html.Replace("$ENCRYPTEDDATA$", this.exportQuestions());
                 html = html.Replace("$USERKEYDB$", this.exportUserKeyDB());
-                html = html.Replace("$SUBJECT$", BasicSettings.getInstance().Subject);
-                html = html.Replace("$EXAMTITLE$", BasicSettings.getInstance().ExamTitle);
+                html = html.Replace("$SUBJECT$", DataProvider.getInstance().examDetails.subject);
+                html = html.Replace("$EXAMTITLE$", DataProvider.getInstance().examDetails.examTitle);
                 html = html.Replace("$PROFESSOR$", DataProvider.getInstance().getProfessor().name);
 
                 // write data to file
