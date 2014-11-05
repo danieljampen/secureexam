@@ -12,37 +12,14 @@ namespace SecureExam
 {
     class XMLFormularParser : IFormularParser
     {
-        public LinkedList<Question> parseFile(String formularPath)
-        {
+        public LinkedList<Question> parse(StreamReader streamReader){
             LinkedList<Question> questions = new LinkedList<Question>();
 
             //Create an instance of the XmlTextReader and call Read method to read the file
             try
             {
-                string fileContent = File.ReadAllText(formularPath);
-                questions = parseXML(fileContent);
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                throw new NotImplementedException(e.ToString());
-            }
-            catch (FileNotFoundException e)
-            {
-                throw new NotImplementedException(e.ToString());
-            }
-            return questions;
-        }
-
-
-        public LinkedList<Question> parseXML(String xmlString)
-        {
-            LinkedList<Question> questions = new LinkedList<Question>();
-
-            //Create an instance of the XmlTextReader
-            try
-            {
                 XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.LoadXml(xmlString);
+                xmlDoc.Load(streamReader);
 
                 //exam title
                 if (xmlDoc.GetElementsByTagName("examTitle").Count > 0)
