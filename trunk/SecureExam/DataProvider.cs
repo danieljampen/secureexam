@@ -70,7 +70,9 @@ namespace SecureExam
                 default:
                     throw new InvalidFormularTypeException(formularType.ToString());
             }
-            this.questions = this.formularParser.parseFile(formularPath);
+            //this.questions = this.formularParser.parseFile(formularPath);
+            StreamReader streamReader = new StreamReader(formularPath);
+            this.questions = this.formularParser.parse(streamReader);
 
             switch (studentType)
             {
