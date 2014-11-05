@@ -12,8 +12,6 @@ namespace SecureExam
     {
         //members
         private static BasicSettings instance;
-        public string Subject { get; set; }
-        public string ExamTitle  { get; set; }
         public int NumberOfRandomCharsInStudentSecret { get; set; }
         public Dictionary<OutputType,String> exportSkeletons { get; set; }
         public Encryption Encryption = new Encryption();
