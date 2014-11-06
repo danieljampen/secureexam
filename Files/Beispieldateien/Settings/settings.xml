@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--- 
+	XML Exam settings import File Syntax
+	Version: 	0.1
+	Authors:	jampedan@zhaw,lukessim@zhaw
+ -->
+<subject>ADS</subject>
+<title>Algorithmen und Datenstrukturen</title>
+<startTime>15:00</startTime>
+<endTime>16:00</endTime>
+<duration>45</duration>
