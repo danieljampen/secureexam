@@ -10,6 +10,8 @@ namespace SecureExam
 {
     class XMLFormularParser : IFormularParser
     {
+        private XmlDocument xmlDoc;
+
         public LinkedList<Question> parse(StreamReader streamReader)
         {
             LinkedList<Question> questions = new LinkedList<Question>();
@@ -17,30 +19,16 @@ namespace SecureExam
             //Create an instance of the XmlTextReader and call Read method to read the file
             try
             {
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(streamReader);
+                this.xmlDoc = new XmlDocument();
+                this.xmlDoc.Load(streamReader);
 
                 //exam title, subject and examNotes
-                if (xmlDoc.GetElementsByTagName("examTitle").Count > 0)
-                {
-                    string examTitle = xmlDoc.GetElementsByTagName("examTitle")[0].InnerText;
-                    DataProvider.getInstance().examDetails.examTitle = examTitle;
-                }
-
-                if (xmlDoc.GetElementsByTagName("subject").Count > 0)
-                {
-                    string subject = xmlDoc.GetElementsByTagName("subject")[0].InnerText;
-                    DataProvider.getInstance().examDetails.subject = subject;
-                }
-
-                if (xmlDoc.GetElementsByTagName("examNotes").Count > 0)
-                {
-                    string hints = xmlDoc.GetElementsByTagName("examNotes")[0].InnerText;
-                    DataProvider.getInstance().examDetails.examNotes = hints;
-                }
+                DataProvider.getInstance().examDetails.examTitle = getElementByTagName("examTitle");
+                DataProvider.getInstance().examDetails.subject = getElementByTagName("subject");
+                DataProvider.getInstance().examDetails.examNotes = getElementByTagName("examNotes");
 
                 //question
-                XmlNodeList questionlist = xmlDoc.GetElementsByTagName("question");
+                XmlNodeList questionlist = this.xmlDoc.GetElementsByTagName("question");
                 for (int i = 0; i < questionlist.Count; i++)
                 {
                     XmlNodeList questionData = questionlist[i].ChildNodes;
@@ -108,6 +96,16 @@ namespace SecureExam
                 throw new NotImplementedException(e.ToString());
             }
             return questions;
+        }
+
+        private string getElementByTagName(string tag)
+        {
+            string result = "";
+            if (this.xmlDoc.GetElementsByTagName(tag).Count > 0)
+            {
+                result = this.xmlDoc.GetElementsByTagName(tag)[0].InnerText;
+            }
+            return result;
         }
     }
 }
