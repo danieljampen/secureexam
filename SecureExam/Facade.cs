@@ -11,6 +11,6 @@ namespace SecureExam
     {
         // methods
         public bool export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat) { return DataProvider.getInstance().export(type, path, studentSecretsFileFormat); }
-        public bool readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath) { return DataProvider.getInstance().readData(formularType, formularPath, studentType, studentPath); }
+        public bool readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath, String settingsPath) { return DataProvider.getInstance().readData(formularType, formularPath, studentType, studentPath, settingsPath); }
     }
 }

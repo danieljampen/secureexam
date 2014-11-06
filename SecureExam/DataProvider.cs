@@ -20,6 +20,7 @@ namespace SecureExam
         private IStudentsSecretExport studentsSecretExporter;
         private IFormularParser formularParser;
         private IStudentParser studentParser;
+        private ISettingsParser settingsParser;
         public ExamDetails examDetails { get; set; }
 
         // methods
@@ -58,12 +59,14 @@ namespace SecureExam
             return null;
         }
 
-        public bool readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath)
+        public bool readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath, String settingsPath)
         {
             if (formularPath == null || formularPath.Length == 0)
                 throw new ArgumentNullException("formularPath");
             if (studentPath == null || studentPath.Length == 0)
                 throw new ArgumentNullException("studentPath");
+            if (settingsPath == null || settingsPath.Length == 0)
+                throw new ArgumentNullException("settingsPath");
 
             switch (formularType)
             {
@@ -91,6 +94,11 @@ namespace SecureExam
                     throw new InvalidStudentFileTypeException(studentType.ToString());
             }
             this.participants = this.studentParser.parse(studentPath);
+
+
+            this.settingsParser = new XMLSettingsParser();
+            examDetails = this.settingsParser.parse(settingsPath);
+
 
             return (this.questions.Count != 0 && this.participants.Count != 0);
         }

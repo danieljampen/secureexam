@@ -16,12 +16,12 @@ namespace SecureExam
         {
             try
             {
-                if (args.Length < 6 || args.Length > 12)
+                if (args.Length < 8 || args.Length > 14)
                     throw new ArgumentException();
 
                 Facade facade = new Facade();
                 Dictionary<string, string> arguments = new Dictionary<string, string>();
-                String questionFile = "", studentFile = "", outputFile = "";
+                String questionFile = "", studentFile = "", outputFile = "", settingsFile = "";
                 QuestionFormularType questionFormularType = new QuestionFormularType();
                 StudentFileType studentFileType = new StudentFileType();
                 OutputType outputType = new OutputType();
@@ -46,6 +46,9 @@ namespace SecureExam
                             break;
                         case "-o":
                             outputFile = pair.Value;
+                            break;
+                        case "-p":
+                            settingsFile = pair.Value;
                             break;
                         case "-qtype":
                             switch (pair.Value)
@@ -97,7 +100,7 @@ namespace SecureExam
                 }
 
                 // SecureExam calls
-                if (facade.readData(questionFormularType, questionFile, studentFileType, studentFile))
+                if (facade.readData(questionFormularType, questionFile, studentFileType, studentFile, settingsFile))
                 {
                     if (facade.export(outputType, outputFile, studentsSecretFileFormat))
                     {
@@ -135,7 +138,7 @@ namespace SecureExam
             Console.WriteLine("Error: invalid arguments");
             Console.WriteLine("");
             Console.WriteLine("usage: secureExam -q questionFile -s studentsFile -o Outputfile");
-            Console.WriteLine("       secureExam -q questionFile [-qType QuestionFileType] -s studentsFile [-sType StudentsFileType] -o Outputfile [-oType OutputFileType] [-oStudentSecretsFileFormat studentSecretsFileFormat]");
+            Console.WriteLine("       secureExam -q questionFile [-qType QuestionFileType] -s studentsFile [-sType StudentsFileType] -o Outputfile [-oType OutputFileType] [-oStudentSecretsFileFormat studentSecretsFileFormat] -p SettingsFile");
             Console.WriteLine("");
             Console.WriteLine("QuestionFileTypes: XML, ODT");
             Console.WriteLine("StudentFileTypes: XML");
