@@ -3,7 +3,7 @@
   <xsl:output indent="yes" encoding="ISO-8859-1" method="xml" />
 
   <xsl:variable name="QUESTION" select = "'Frage'" />
-  <xsl:variable name="EXAMHINT" select = "'Prüfungshinweis'" />
+  <xsl:variable name="EXAMNOTES" select = "'Prüfungshinweis'" />
   
   <xsl:template match="text:p[not(.//draw:control)]">
     <xsl:choose>
@@ -15,10 +15,10 @@
 		  </legend>
         </question>
       </xsl:when>
-	  <xsl:when test="starts-with(text(),$EXAMHINT)">
-        <hint>
+	  <xsl:when test="starts-with(text(),$EXAMNOTES)">
+        <examNotes>
           <xsl:value-of select="." />
-        </hint>
+        </examNotes>
       </xsl:when>
       <xsl:otherwise>
         <p>
