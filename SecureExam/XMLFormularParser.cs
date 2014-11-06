@@ -17,18 +17,27 @@ namespace SecureExam
             //Create an instance of the XmlTextReader and call Read method to read the file
             try
             {
-                //StreamReader streamReader = new StreamReader(formularPath);
-
-                //string fileContent = File.ReadAllText(formularPath);
-
-
-
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(streamReader);
 
                 //exam title
-                string examTitle = xmlDoc.GetElementsByTagName("examTitle")[0].InnerText;
-                DataProvider.getInstance().examDetails.examTitle = examTitle;
+                if (xmlDoc.GetElementsByTagName("examTitle").Count > 0)
+                {
+                    string examTitle = xmlDoc.GetElementsByTagName("examTitle")[0].InnerText;
+                    DataProvider.getInstance().examDetails.examTitle = examTitle;
+                }
+
+                if (xmlDoc.GetElementsByTagName("subject").Count > 0)
+                {
+                    string subject = xmlDoc.GetElementsByTagName("subject")[0].InnerText;
+                    DataProvider.getInstance().examDetails.subject = subject;
+                }
+
+                if (xmlDoc.GetElementsByTagName("examNotes").Count > 0)
+                {
+                    string hints = xmlDoc.GetElementsByTagName("examNotes")[0].InnerText;
+                    DataProvider.getInstance().examDetails.examNotes = hints;
+                }
 
                 //question
                 XmlNodeList questionlist = xmlDoc.GetElementsByTagName("question");
