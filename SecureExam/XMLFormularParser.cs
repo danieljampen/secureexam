@@ -20,7 +20,7 @@ namespace SecureExam
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(streamReader);
 
-                //exam title
+                //exam title, subject and examNotes
                 if (xmlDoc.GetElementsByTagName("examTitle").Count > 0)
                 {
                     string examTitle = xmlDoc.GetElementsByTagName("examTitle")[0].InnerText;

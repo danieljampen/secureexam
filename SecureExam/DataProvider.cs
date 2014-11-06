@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace SecureExam
 {
@@ -68,6 +69,9 @@ namespace SecureExam
             {
                 case QuestionFormularType.ODT:
                     this.formularParser = new OdtFormularParser();
+                    string unzipDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/unzip";
+                    Helper.unzip(formularPath, unzipDirectory);
+                    formularPath = unzipDirectory + "/content.xml";
                     break;
                 case QuestionFormularType.XML:
                     this.formularParser = new XMLFormularParser();
@@ -75,7 +79,6 @@ namespace SecureExam
                 default:
                     throw new InvalidFormularTypeException(formularType.ToString());
             }
-            //this.questions = this.formularParser.parseFile(formularPath);
             StreamReader streamReader = new StreamReader(formularPath);
             this.questions = this.formularParser.parse(streamReader);
 
