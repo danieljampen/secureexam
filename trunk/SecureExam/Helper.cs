@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Diagnostics;
 using System.IO;
+using Ionic.Zip;
 
 namespace SecureExam
 {
@@ -85,6 +86,24 @@ namespace SecureExam
                         }
                         return msEncrypt.ToArray();
                     }
+                }
+            }
+        }
+
+        public static void unzip(string inputPath, string outputPath){
+            using (ZipFile zip = ZipFile.Read(inputPath))
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(outputPath);
+                if (directoryInfo.Exists)
+                {
+                    directoryInfo.Delete(true);
+                }
+                try
+                {
+                    zip.ExtractAll(outputPath);
+                }
+                catch(Exception e){
+                    throw e;
                 }
             }
         }
