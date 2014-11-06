@@ -4,8 +4,11 @@
 	Version: 	0.1
 	Authors:	jampedan@zhaw,lukessim@zhaw
  -->
-<subject>ADS</subject>
-<title>Algorithmen und Datenstrukturen</title>
-<startTime>15:00</startTime>
-<endTime>16:00</endTime>
-<duration>45</duration>
+<settings>
+	<subject>ADS</subject>
+	<examTitle>Algorithmen und Datenstrukturen</examTitle>
+	<examDate>12.02.2014</examDate>
+	<startTime>15:00</startTime>
+	<endTime>16:00</endTime>
+	<duration>45</duration>
+</settings>
