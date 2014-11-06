@@ -24,17 +24,12 @@ namespace SecureExam
 
             string fileContent = streamReader.ReadToEnd();
             XmlReader xmlReader = XmlReader.Create(new StringReader(fileContent));
-            //XmlReader xmlReader = XmlReader.Create(streamReader);
             
 
             xt.Load(xslFilePath);
-            //xt.Transform(fileContent, writer);
             xt.Transform(xmlReader, writer);
-            //xt.Transform(formularPath, "test24.xml");
 
             string xslFilePath2 = "../../../../Files/Beispieldateien/Formulare/ODT/odt2.xslt";
-            //string formularPath2 = "../../../../Files/Beispieldateien/Formulare/ODT/test23.xml";
-
 
 
             
@@ -52,8 +47,6 @@ namespace SecureExam
             xt.Transform(xmlReader2, writer2);
 
             XMLFormularParser xmlFormularParser = new XMLFormularParser();
-            //StreamReader streamReader = new StreamReader(xmlReader);
-            //return xmlFormularParser.parseXML(resultString2.ToString());
 
             MemoryStream stream = new MemoryStream();
             StreamWriter writer22 = new StreamWriter(stream);

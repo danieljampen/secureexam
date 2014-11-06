@@ -4,6 +4,7 @@
 
   <xsl:variable name="QUESTION" select = "'Frage'" />
   <xsl:variable name="EXAMNOTES" select = "'Prüfungshinweis'" />
+  <xsl:variable name="SUBJECT" select = "'Fach:'" />
   
   <xsl:template match="text:p[not(.//draw:control)]">
     <xsl:choose>

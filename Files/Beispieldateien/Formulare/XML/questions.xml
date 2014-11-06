@@ -6,6 +6,7 @@
  -->
 <questions>
 	<subject>ADS</subject>
+	<examNotes>Prüfungshinweise sind super!!</examNotes>
 	<examTitle>Testprüfung:</examTitle>
 	<question>
 		<legend>Dies ist die Frage 1: Checkbox mit isCorrect</legend>
