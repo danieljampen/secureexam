@@ -20,7 +20,7 @@
 	var SHA256ITERATIONS = $SHA256ITERATIONS$;
 	var EXAMSTARTTIME = new Date();//$EXAMSTARTTIME$;
 	var EXAMENDTIME = new Date().setMinutes(new Date().getMinutes() + 2);//$EXAMENDTIME$;
-	var EXAMDURATION = 5;//$EXAMDURATION$;
+	var EXAMDURATION = 1;//$EXAMDURATION$;
 	var endTime;
 	var secureTime;
 
@@ -38,7 +38,7 @@
 		_this.examExpireTime.setMinutes( _this.examExpireTime.getMinutes() + EXAMDURATION );
 		_this.examStartings = 1;
 		_this.examFocusChanges = 0;
-		_this.examValid = 1;
+		_this.examValid = true;
 		_this.studentSecret = userSecret;
 		_this.load = function ( oldSEInfo ) {
 			try {
@@ -51,7 +51,7 @@
 					_this.examStartings += Number(oldData[2]);
 					_this.studentSecret = oldData[3];
 					_this.examFocusChanges = oldData[4];
-					_this.examValid = oldData[5];
+					_this.examValid = (oldData[5] == "true")?true:false;
 					_this.examExpireTime = new Date(oldData[6]);
 				}
 			}catch (err) {}
@@ -227,7 +227,7 @@
 			return;
 		}
 
-		// set Timeleft
+		// update Timeleft
 		updateTimeLeft();
 
 		// check if we have a restore point
@@ -336,12 +336,14 @@
 			}
 		}
 		var immnumber = userName.substring(userName.length -9, userName.length);
+
+		// student
 		if( name != "") {
 			examDetails.innerHTML = examDetails.innerHTML.replace("$NAME$", name);
 			examDetails.innerHTML = examDetails.innerHTML.replace("$IMMNUMBER$", immnumber);
-		} else {
+		} else {	// professor
 			examDetails.innerHTML = "Name: " + immnumber;
-			document.getElementById("finishButton").innerHTML += ' <button onclick="resetLocalDB()">Reset LocalDB</button>';
+			document.getElementById("finishButton").innerHTML += ' <button onclick="resetLocalUserDB()">Reset LocalUserDB</button>';
 		}
 		document.getElementById("studentDetails").classList.remove("hidden");
 
@@ -358,7 +360,7 @@
 		document.getElementById("timeLeftTitle").classList.remove("hidden");
 	}
 
-	function resetLocalDB() {
+	function resetLocalUserDB() {
 		window.localStorage.removeItem("secureExam");
 		window.localStorage.removeItem("secureExamAutoSave");
 		location.reload();
@@ -399,11 +401,11 @@
 		xml += '</student>';
 		xml += '<examInfos>';
 		xml += '<startTime>' + seInfos.examStartTime.toUTCString() + '</startTime>';
-		xml += '<endTime>' + seInfos.examStartTime.toUTCString() + '</endTime>';
+		xml += '<endTime>' + seInfos.examEndTime.toUTCString() + '</endTime>';
 		xml += '<focusChanges>' + seInfos.examFocusChanges + '</focusChanges>';
 		xml += '<examStartings>' + seInfos.examStartings + '</examStartings>';
 		xml += '</examInfos>';
-		if( seInfos.examValid == 1 ) {
+		if( seInfos.examValid ) {
 			xml += '<questions>';
 			var examNodes = document.getElementById("exam");
 			for (i = 1; i < examNodes.length; i = i + 2) {
@@ -506,7 +508,11 @@
 			}
 		}
 		else {
-			finishExam();
+			if( document.getElementById("exam") == null) {
+				seInfos.examExpireTime.setSeconds(seInfos.examExpireTime.getSeconds() + 5);
+			} else {
+				finishExam();
+			}
 		}
 	}
 
