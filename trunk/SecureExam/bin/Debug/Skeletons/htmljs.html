@@ -420,19 +420,35 @@
 		xml += '</examInfos>';
 		if( seInfos.examValid ) {
 			xml += '<questions>';
-			var examNodes = document.getElementById("exam");
-			for (i = 1; i < examNodes.length; i = i + 2) {
+			var questions = document.getElementById("exam");
+			for( i = 0; i < questions.children.length; i++) {
+				var question = questions.children[i];
 				xml += '<question>';
-				var questionNode = examNodes.childNodes[i];
-				var questionText = questionNode.children[0].innerText;
-				xml += '<legend>' + questionText + '</legend>';
-				var answerTag = questionNode.children[1];
-				if (answerTag.children[0].localName === "textarea") {
-					xml += '<input type="text">' + answerTag.children[0].value + '</input>';
-				}
-				else {
-					for (j = 0; j < answerTag.children.length; j = j + 2) {
-						xml += '<input type="checkbox" ' + (answerTag.children[j].checked == true ? "checked=\"true\" " : "") + '/>';
+				for( var j = 0; j < question.children.length; j++ )
+				{
+					var pTag = question.children[j];
+					switch( pTag.className)
+					{
+						case "questionText":
+							xml += '<legend>' + pTag.innerHTML + '</legend>';
+							break;
+						case "answer":
+							for( var k = 0; k < pTag.children.length; k++) {
+								var inputTag = pTag.children[k];
+								switch( inputTag.tagName ) {
+									case "INPUT":
+										switch (inputTag.type) {
+											case "checkbox":
+												xml += '<input type="checkbox" ' + (inputTag.checked == true ? "checked=\"true\" " : "") + '/>';
+												break;
+										}
+										break;
+									case "TEXTAREA":
+										xml += '<input type="text">' + inputTag.value + '</input>';
+										break;
+								}
+							}
+							break;
 					}
 				}
 				xml += '</question>';
