@@ -241,7 +241,7 @@
 		}
 
 		// update Timeleft
-		updateTimeLeft();
+		updateTimeLeft(true);
 
 		// check if we have a restore point
 		var restored;
@@ -499,7 +499,7 @@
 		}
 	}
 
-	function updateTimeLeft() {
+	function updateTimeLeft(forcePrint) {
 		var now = new Date();
 		if( now <= seInfos.examExpireTime && now >= EXAMSTARTTIME && now <= EXAMENDTIME ) {
 			var diff = seInfos.examExpireTime - now;
@@ -516,8 +516,12 @@
 					document.getElementById("timeLeftTitle").classList.add("headerHighlight");
 				}
 			}
-			else if(document.getElementById("timeLeft").innerHTML == "" && EXAMDURATION == (m + 1)) {
-				document.getElementById("timeLeft").innerHTML = EXAMDURATION + ":00";
+			else if(forcePrint ) {
+				if( EXAMDURATION == (m + 1)) {
+					document.getElementById("timeLeft").innerHTML = EXAMDURATION + ":00";
+				} else {
+					document.getElementById("timeLeft").innerHTML = (m + 1) + ":00";
+				}
 			}
 		}
 		else {
