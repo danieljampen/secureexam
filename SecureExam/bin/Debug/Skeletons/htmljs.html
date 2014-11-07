@@ -7,9 +7,9 @@
 	<!-- Import JS Libs -->
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js"></script>
-	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/core-min.js"></script>
+	<!--<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/core-min.js"></script>
 	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-utf16-min.js"></script>
-	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>-->
 	<script src="https://rawgit.com/eligrey/FileSaver.js/master/FileSaver.min.js"></script>
 
 
@@ -18,13 +18,12 @@
 	var userSecret;
 	var seInfos;
 	var SHA256ITERATIONS = $SHA256ITERATIONS$;
-	var EXAMSTARTTIME = /*new Date().setMinutes(new Date().getMinutes() - 5);*/ new Date($EXAMSTARTTIME$);
-	console.log("examStartTime: " + EXAMSTARTTIME);
-	var EXAMENDTIME = /*new Date().setMinutes(new Date().getMinutes() + 2);*/ new Date($EXAMENDTIME$);
-	console.log("examEndTime: " + EXAMENDTIME);
+	var EXAMSTARTTIME = new Date($EXAMSTARTTIME$);
+	var EXAMENDTIME = new Date($EXAMENDTIME$);
 	var EXAMDURATION = $EXAMDURATION$;
 	var endTime;
 	var secureTime;
+	var checkInternetConnection;
 	var updateTimeInterval;
 	var autoSaveInterval;
 
@@ -67,6 +66,59 @@
 	};
 
 	/*
+	 *	Class InternetAccessCheck()
+	 *	Constructor-Arguments: none
+	 *
+	 *  description: class to check internet Access and if so, fire events to observers
+	 */
+	function InternetAccessCheck() {
+		var _this = this;
+		_this.state = false;
+		_this.ms = 5000;
+		_this.irregulationsObservers = new Array();
+
+		_this.onLoad = function () {
+			_this.state = true;
+			_this.notifyObservers();
+		}
+
+		_this.onError = function (e) {
+			state = false;
+		}
+
+		_this.inteval = window.setInterval(function () {
+			var img = new Image();
+			img.onload = _this.onLoad;
+			img.onerror = _this.onError;
+			img.src = 'http://waikiki.zhaw.ch/~rege/t-menu/header_left.jpg?t=' + new Date().getTime();
+		}, _this.ms);
+
+		_this.notifyObservers = function () {
+			console.log("notify internet");
+			for (i = 0; i < _this.irregulationsObservers.length; i++) {
+				_this.irregulationsObservers[i].notify();
+			}
+		}
+
+		_this.addIrregulationsObserver = function (observer) {
+			_this.irregulationsObservers.push(observer);
+		}
+
+		_this.removeIrregulationsObserver = function (observer) {
+			for (i = 0; i < _this.irregulationsObservers.length; i++) {
+				if (_this.irregulationsObservers[i] === observer) {
+					_this.irregulationsObservers.splice(i, 1);
+					return true;
+				}
+			}
+			return false;
+		}
+
+		_this.stop = function () {
+			clearInterval(_this.inteval);
+		}
+	}
+	/*
 	 *	Class secureDate()
 	 *	Constructor-Arguments: - none
 	 *
@@ -89,108 +141,104 @@
 
 	function secureDate(  ) {
 		var _this = this;
-		(_this.DEBUG)?console.log("[secureDate] started..."):"";
-
+		_this.DEBUG = true;
 		_this.INTERNALUPDATEINTERVAL = 1000;
 		_this.INTERNALCLOCKMAXVARIANCE = 50;
 		_this.TIMEHISTORYMAXVARIANCE = 50;
-		_this.DEBUG = true;
 
 		_this.timeHistory = new Array();
-		_this.internalClockStartTime = null;
 		_this.internalClockMilliseconds = 0;
-		_this.inteval = null;
 		_this.irregulationsObservers = new Array();
+		_this.internalClockStartTime = new Date();
 
+		(_this.DEBUG) ? console.log("[secureDate] started...") : "";
 
-		_this.updateClock = function( ) {
+		_this.interval = window.setInterval(function () {
 			var systemTime = new Date();
 			_this.internalClockMilliseconds += secureTime.INTERNALUPDATEINTERVAL;
 			var internalTime = _this.getInternalTime();
 
 			// verify InternalTime
-			if( _this.dateCompare(internalTime, systemTime) ) {
+			if (_this.dateCompare(internalTime, systemTime)) {
 				// compensate cpu lag in internal Time (systemTime is more accurate)
-				var diff = systemTime.getTime()-internalTime.getTime();
-				if( diff > 0 ) {
-					_this.internalClockStartTime.setTime(_this.internalClockStartTime.getTime()+diff);
-					(_this.DEBUG)?console.log("[secureDate] compensing cpu lag: " + diff + "ms"):"";
+				var diff = systemTime.getTime() - internalTime.getTime();
+				if (diff > 0) {
+					_this.internalClockStartTime.setTime(_this.internalClockStartTime.getTime() + diff);
+					(_this.DEBUG) ? console.log("[secureDate] compensing cpu lag: " + diff + "ms") : "";
 				}
 
 				// check with History
-				if( _this.timeHistory.length == 10) _this.timeHistory.shift();
-				_this.timeHistory.push( new Date(systemTime) );
+				if (_this.timeHistory.length == 10) _this.timeHistory.shift();
+				_this.timeHistory.push(new Date(systemTime));
 
-				for( i = 0; i < _this.timeHistory.length; i++ ){
+				for (i = 0; i < _this.timeHistory.length; i++) {
 					var historyOffset = i * _this.INTERNALUPDATEINTERVAL;
 					var historyVariance = i * _this.TIMEHISTORYMAXVARIANCE;
 					var recalculatedTime = new Date(_this.timeHistory[_this.timeHistory.length - 1 - i]);
-					recalculatedTime.setTime( recalculatedTime.getTime() + historyOffset );
-					if( !_this.dateCompare( systemTime, recalculatedTime, historyVariance ) ) {
+					recalculatedTime.setTime(recalculatedTime.getTime() + historyOffset);
+					if (!_this.dateCompare(systemTime, recalculatedTime, historyVariance)) {
 						_this.notifyObservers("[secureDate] updateClock HistoryTime([" + i + "]," + recalculatedTime.toDebugOutputString() + ") and SystemTime(" + systemTime.toDebugOutputString() + ") not in sync!");
 						_this.stop();
 						return false;
 					}
 				}
-				(_this.DEBUG)?console.log("[secureDate] UPDATED: status OK | internalclock @ " + internalTime.toDebugOutputString() + " historynewest @ " + _this.timeHistory[_this.timeHistory.length - 1].toDebugOutputString()):"";
+				(_this.DEBUG) ? console.log("[secureDate] UPDATED: status OK | internalclock @ " + internalTime.toDebugOutputString() + " historynewest @ " + _this.timeHistory[_this.timeHistory.length - 1].toDebugOutputString()) : "";
 				return true;
 			} else {
-				_this.notifyObservers("[secureDate] updateClock InternalTime(" + internalTime.toDebugOutputString() + ") and SystemTime("+systemTime.toDebugOutputString()+") not in sync!");
-				_this.stop();
+				_this.notifyObservers("[secureDate] updateClock InternalTime(" + internalTime.toDebugOutputString() + ") and SystemTime(" + systemTime.toDebugOutputString() + ") not in sync!");
 				return false;
 			}
-		}
+		}, 1000);
 
-		_this.getInternalTime = function() {
-			var date = new Date( _this.internalClockStartTime );
-			date.setMilliseconds( date.getMilliseconds() + _this.internalClockMilliseconds );
+		_this.getInternalTime = function () {
+			var date = new Date(_this.internalClockStartTime);
+			date.setMilliseconds(date.getMilliseconds() + _this.internalClockMilliseconds);
 			return date;
 		}
 
-		_this.dateCompare = function( actualTime, timeToVerify, maxVariance ) {
-			var maxVariance = (typeof maxVariance !== "undefined")? maxVariance: _this.INTERNALCLOCKMAXVARIANCE;
-			timeToVerify = new Date( timeToVerify );
-			actualTime = new Date( actualTime );
+		_this.dateCompare = function (actualTime, timeToVerify, maxVariance) {
+			var maxVariance = (typeof maxVariance !== "undefined") ? maxVariance : _this.INTERNALCLOCKMAXVARIANCE;
+			timeToVerify = new Date(timeToVerify);
+			actualTime = new Date(actualTime);
 
 			var variance = timeToVerify.getTime() - actualTime.getTime();
-			if( variance <= maxVariance && variance >= - maxVariance ) {
+			if (variance <= maxVariance && variance >= -maxVariance) {
 				return true;
 			}
 			return false;
 		}
 
-		_this.stop = function () {
-			clearInterval(_this.inteval);
+		_this.notifyObservers = function (msg) {
+			for (i = 0; i < _this.irregulationsObservers.length; i++) {
+				_this.irregulationsObservers[i].notify(msg);
+			}
 		}
 
-		_this.addIrregulationsObserver = function ( observer ) {
-			(_this.DEBUG)?console.log("[secureDate] added observer " + observer):"";
-			_this.irregulationsObservers.push( observer );
+		_this.stop = function(){
+			clearInterval(_this.interval);
 		}
-
-		_this.removeIrregulationsObserver = function ( observer ) {
-			for( i = 0; i < _this.irregulationsObservers.length; i++ ) {
-				if( _this.irregulationsObservers[i] === observer ) {
+		_this.addIrregulationsObserver = function (observer) {
+			(_this.DEBUG) ? console.log("[secureDate] added observer " + observer) : "";
+			_this.irregulationsObservers.push(observer);
+		}
+		_this.removeIrregulationsObserver = function (observer) {
+			for (i = 0; i < _this.irregulationsObservers.length; i++) {
+				if (_this.irregulationsObservers[i] === observer) {
 					_this.irregulationsObservers.splice(i, 1);
 					return true;
 				}
 			}
 			return false;
 		}
-
-		_this.notifyObservers = function ( msg ) {
-			for( i = 0; i < _this.irregulationsObservers.length; i++ ) {
-				_this.irregulationsObservers[i].notify( msg );
-			}
-		}
-
-		// Constructor
-		_this.secureDate = function () {
-			_this.internalClockStartTime = new Date();
-			_this.inteval = window.setInterval(_this.updateClock,1000);
-		}();
 	}
 
+	/*
+	 *	Class IrregulationsObserver()
+	 *	Constructor-Arguments: - action = function to call when observer gets notified
+	 *
+	 *
+	 *  description: Observer Class for Observable Classes ;)
+	 */
 	function IrregulationsObserver( action ) {
 		var _this = this;
 		_this.action = action;
@@ -365,6 +413,11 @@
 		var secureTimeObserver = new IrregulationsObserver( timeErrorEvent );
 		secureTime.addIrregulationsObserver( secureTimeObserver );
 
+		// start checkInternetConnection
+		checkInternetConnection = new InternetAccessCheck();
+		var internetAccessObserver = new IrregulationsObserver( internetAccessErrorEvent );
+		checkInternetConnection.addIrregulationsObserver( internetAccessObserver );
+
 		// start Timers
 		autoSaveInterval = window.setInterval(autoSave,15000);
 		updateTimeInterval = window.setInterval(updateTimeLeft,1000);
@@ -393,6 +446,9 @@
 	function finishExam() {
 		// stop timer
 		secureTime.stop();
+		checkInternetConnection.stop();
+		clearInterval(updateTimeInterval);
+		clearInterval(autoSaveInterval);
 
 		// set SEINFOS
 		seInfos.examEndTime = new Date();
@@ -469,6 +525,7 @@
 		var blob = new Blob([xml], {type: "text/plain;charset=utf-8"});
 		saveAs(blob, "exam_" + userName + ".xml.enc");
 	}
+
 	function keyUpUserSecret(e) {
 		if(e.keyCode == 13) {
 			decrypt('userKeyDB','secretStuff','questions');
@@ -476,10 +533,19 @@
 	}
 
 	var timeErrorEvent = function( msg ) {
+		secureTime.stop();
 		console.log("[secureDate] timeErrorEvent !!! TIME WRONG !!! " + msg);
 		seInfos.examValid = 0;
 		finishExam();
 		document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungsabbruch, Zeitmanipulation entdeckt!</p>';
+	}
+
+	var internetAccessErrorEvent = function() {
+		checkInternetConnection.stop();
+		console.log("[secureDate] internetAccessErrorEvent !!! WE ARE ONLINE !!! " );
+		seInfos.examValid = 0;
+		finishExam();
+		document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungsabbruch, Internetzugriff aktiviert!</p>';
 	}
 
 	function autoSave() {
@@ -547,8 +613,6 @@
 				EXAMENDTIME = seInfos.examExpireTime;
 			} else {
 				finishExam();
-				clearInterval(updateTimeInterval);
-				clearInterval(autoSaveInterval);
 				if( now >= EXAMENDTIME ) {
 					document.getElementById("questions").innerHTML += '<p class="questionText center">Prüfungszeitraum abgelaufen</p>';
 				}
