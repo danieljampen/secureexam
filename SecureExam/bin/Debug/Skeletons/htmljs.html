@@ -18,6 +18,11 @@
 	var userSecret;
 	var seInfos;
 	var SHA256ITERATIONS = $SHA256ITERATIONS$;
+	var EXAMSTARTTIME = new Date();//$EXAMSTARTTIME$;
+	var EXAMENDTIME = new Date().setMinutes(new Date().getMinutes() + 2);//$EXAMENDTIME$;
+	var EXAMDURATION = 5;//$EXAMDURATION$;
+	var endTime;
+	var secureTime;
 
 	/*
 	 *	Class secureExamInfos()
@@ -26,103 +31,169 @@
 	 *  description: class stored in localDB.
 	 */
 	function secureExamInfos() {
-		this.examStartTime = new Date();
-		this.examEndTime = null;
-		this.examStartings = 1;
-		this.studentSecret = userSecret;
-		this.load = function ( oldSEInfo ) {
+		var _this = this;
+		_this.examStartTime = new Date();
+		_this.examEndTime = null;
+		_this.examExpireTime = new Date(_this.examStartTime);
+		_this.examExpireTime.setMinutes( _this.examExpireTime.getMinutes() + EXAMDURATION );
+		_this.examStartings = 1;
+		_this.examFocusChanges = 0;
+		_this.examValid = 1;
+		_this.studentSecret = userSecret;
+		_this.load = function ( oldSEInfo ) {
 			try {
 				var dec = CryptoJS.AES.decrypt(oldSEInfo, userSecret);
 				var decString = dec.toString(CryptoJS.enc.Utf8);
 				var oldData = decString.substring(16,decString.length-1).split(",");
 				if( decString.substring(0, 15) === "secureExamInfos" && oldData[3] === userSecret) {
-					this.examStartTime = new Date(oldData[0]);
-					this.examEndTime = (oldData[1] !== "null")? new Date(oldData[1]): null;
-					this.examStartings += Number(oldData[2]);
-					this.studentSecret = oldData[3];
+					_this.examStartTime = new Date(oldData[0]);
+					_this.examEndTime = (oldData[1] !== "null")? new Date(oldData[1]): null;
+					_this.examStartings += Number(oldData[2]);
+					_this.studentSecret = oldData[3];
+					_this.examFocusChanges = oldData[4];
+					_this.examValid = oldData[5];
+					_this.examExpireTime = new Date(oldData[6]);
 				}
 			}catch (err) {}
 		}
-		this.export = function () {
-			var exportString = 'secureExamInfos(' + this.examStartTime + ',' + this.examEndTime + ',' + this.examStartings + ',' + this.studentSecret + ')';
+		_this.export = function () {
+			var exportString = 'secureExamInfos(' + _this.examStartTime + ',' + _this.examEndTime + ',' + _this.examStartings + ',' + _this.studentSecret + ',' + _this.examFocusChanges + ',' + _this.examValid + ',' + _this.examExpireTime + ')';
 			return CryptoJS.AES.encrypt( exportString, userSecret);
 		}
 	};
 
 	/*
 	 *	Class secureDate()
-	 *	Constructor-Arguments: - (Date) startDate = inizialize Time of the clock;
+	 *	Constructor-Arguments: - none
 	 *
 	 *
 	 *  description: class to handle save, reliable and non-manipulatable Time.
 	 */
-	function secureDate( startDate ) {
+
+	Date.prototype.toDebugOutputString = function() {
+		return this.getHours()+ ":" + this.getMinutes() + ":" + this.getSeconds() + ":" + this.getMilliseconds();
+	}
+	Date.prototype.toHHMMSSString = function() {
+		var h = this.getHours();
+		if(h < 10) h = "0"+h;
+		var m = this.getMinutes();
+		if(m < 10) m = "0"+m;
+		var s = this.getSeconds();
+		if(s < 10) s = "0"+s;
+		return h + ":" + m + ":" + s;
+	}
+
+	function secureDate(  ) {
 		var _this = this;
-		startDate = new Date(startDate);
-		this.timeHistory = new Array();
-		this.timeHistory.push(startDate);
-		this.internalClockStartTime = startDate;
-		this.internalClockSeconds = 0;
-		this.internalUpdateInterval = 1000;
-		this.internalClockMaxVariance = 25;
-		this.inteval = null;
+		(_this.DEBUG)?console.log("[secureDate] started..."):"";
+
+		_this.INTERNALUPDATEINTERVAL = 1000;
+		_this.INTERNALCLOCKMAXVARIANCE = 50;
+		_this.TIMEHISTORYMAXVARIANCE = 50;
+		_this.DEBUG = true;
+
+		_this.timeHistory = new Array();
+		_this.internalClockStartTime = null;
+		_this.internalClockMilliseconds = 0;
+		_this.inteval = null;
+		_this.irregulationsObservers = new Array();
 
 
-		this.updateInternal = function( ) {
-			_this.internalClockSeconds += (secureTime.internalUpdateInterval / 1000);
-			if( _this.timeHistory.length == 10) {
-				_this.timeHistory.pop();
-			}
-			_this.timeHistory.push( new Date() );
-
+		_this.updateClock = function( ) {
+			var systemTime = new Date();
+			_this.internalClockMilliseconds += secureTime.INTERNALUPDATEINTERVAL;
 			var internalTime = _this.getInternalTime();
-			if( _this.verifyCurrentTime(internalTime) ) {
-				var diff = new Date().getTime()-internalTime.getTime();
+
+			// verify InternalTime
+			if( _this.dateCompare(internalTime, systemTime) ) {
+				// compensate cpu lag in internal Time (systemTime is more accurate)
+				var diff = systemTime.getTime()-internalTime.getTime();
 				if( diff > 0 ) {
 					_this.internalClockStartTime.setTime(_this.internalClockStartTime.getTime()+diff);
-					console.log("[secureDate] compensing cpu lag: " + diff + "ms");
+					(_this.DEBUG)?console.log("[secureDate] compensing cpu lag: " + diff + "ms"):"";
 				}
+
+				// check with History
+				if( _this.timeHistory.length == 10) _this.timeHistory.shift();
+				_this.timeHistory.push( new Date(systemTime) );
+
+				for( i = 0; i < _this.timeHistory.length; i++ ){
+					var historyOffset = i * _this.INTERNALUPDATEINTERVAL;
+					var historyVariance = i * _this.TIMEHISTORYMAXVARIANCE;
+					var recalculatedTime = new Date(_this.timeHistory[_this.timeHistory.length - 1 - i]);
+					recalculatedTime.setTime( recalculatedTime.getTime() + historyOffset );
+					if( !_this.dateCompare( systemTime, recalculatedTime, historyVariance ) ) {
+						_this.notifyObservers("[secureDate] updateClock HistoryTime([" + i + "]," + recalculatedTime.toDebugOutputString() + ") and SystemTime(" + systemTime.toDebugOutputString() + ") not in sync!");
+						_this.stop();
+						return false;
+					}
+				}
+				(_this.DEBUG)?console.log("[secureDate] UPDATED: status OK | internalclock @ " + internalTime.toDebugOutputString() + " historynewest @ " + _this.timeHistory[_this.timeHistory.length - 1].toDebugOutputString()):"";
+				return true;
+			} else {
+				_this.notifyObservers("[secureDate] updateClock InternalTime(" + internalTime.toDebugOutputString() + ") and SystemTime("+systemTime.toDebugOutputString()+") not in sync!");
+				_this.stop();
+				return false;
 			}
 		}
 
-		this.getInternalTime = function() {
-			var date = new Date( startDate );
-			date.setSeconds( date.getSeconds() + this.internalClockSeconds);
+		_this.getInternalTime = function() {
+			var date = new Date( _this.internalClockStartTime );
+			date.setMilliseconds( date.getMilliseconds() + _this.internalClockMilliseconds );
 			return date;
 		}
 
-		this.dateCompare = function( actualTime, timeToVerify ) {
+		_this.dateCompare = function( actualTime, timeToVerify, maxVariance ) {
+			var maxVariance = (typeof maxVariance !== "undefined")? maxVariance: _this.INTERNALCLOCKMAXVARIANCE;
 			timeToVerify = new Date( timeToVerify );
 			actualTime = new Date( actualTime );
-			if( (timeToVerify.getTime()-actualTime.getTime() >= _this.internalClockMaxVariance ) || (timeToVerify.getTime()-actualTime.getTime() <= _this.internalClockMaxVariance ) ) {
+
+			var variance = timeToVerify.getTime() - actualTime.getTime();
+			if( variance <= maxVariance && variance >= - maxVariance ) {
 				return true;
 			}
 			return false;
 		}
 
-		this.verifyCurrentTime = function ( time ) {
-			time = new Date( time );
-			var lastTimeInHistory = this.timeHistory[this.timeHistory.length-1];
-			var internalTime = this.getInternalTime();
-
-			if( !this.dateCompare( time, lastTimeInHistory ) ) {
-				console.log("[secureDate] timeError");
-				return false;
-			}
-			if( !this.dateCompare(time, internalTime )) {
-				console.log("[secureDate] timeError");
-				return false;
-			}
-
-			console.log("[secureDate] time is OUUUUKAYYYY");
-			return true;
+		_this.stop = function () {
+			clearInterval(_this.inteval);
 		}
 
-		this.stop = function () {
-			clearInterval(this.inteval);
+		_this.addIrregulationsObserver = function ( observer ) {
+			(_this.DEBUG)?console.log("[secureDate] added observer " + observer):"";
+			_this.irregulationsObservers.push( observer );
 		}
 
-		this.inteval = window.setInterval(this.updateInternal,1000);
+		_this.removeIrregulationsObserver = function ( observer ) {
+			for( i = 0; i < _this.irregulationsObservers.length; i++ ) {
+				if( _this.irregulationsObservers[i] === observer ) {
+					_this.irregulationsObservers.splice(i, 1);
+					return true;
+				}
+			}
+			return false;
+		}
+
+		_this.notifyObservers = function ( msg ) {
+			for( i = 0; i < _this.irregulationsObservers.length; i++ ) {
+				_this.irregulationsObservers[i].notify( msg );
+			}
+		}
+
+		// Constructor
+		_this.secureDate = function () {
+			_this.internalClockStartTime = new Date();
+			_this.inteval = window.setInterval(_this.updateClock,1000);
+		}();
+	}
+
+	function IrregulationsObserver( action ) {
+		var _this = this;
+		_this.action = action;
+
+		_this.notify = function( msg ) {
+			_this.action( msg );
+		}
 	}
 
 	/*
@@ -136,6 +207,10 @@
 	function decrypt(divUserKeyDB, divSecretStuff, divQuestions) {
 		// Get Secret
 		userSecret = document.getElementById("userSecret").value;
+		if( userSecret == "" ) {
+			document.getElementById("userSecret").style.border = "1px solid red";
+			return;
+		}
 
 		// extract Username for comparison with userKeyDB
 		userName = userSecret.substring(0,userSecret.length - $RANDOMCHARSINUSERSECRET$);
@@ -152,97 +227,148 @@
 			return;
 		}
 
-		// show loading screen
-		document.getElementById(divQuestions).innerHTML = '<p class="questionText center">decrypting questions...</p>';
+		// set Timeleft
+		updateTimeLeft();
 
-		if( userSecret == "" ) {
-			document.getElementById("userSecret").style.border = "1px solid red";
-			return;
-		}
-
-		// load userKeyDB & questionDiv
-		var userKeyDB = document.getElementById(divUserKeyDB).innerHTML.split("<br>");
-		var questionDiv = document.getElementById(divSecretStuff).innerHTML.split(",");
-
-		// remove empty last entry from userKeyDB
-		userKeyDB.pop();
-		// split username from secret
-		for( i = 0; i < userKeyDB.length; i++) {
-			userKeyDB[i] = userKeyDB[i].split(",");
-		}
-
-		// get encryptedMasterkey cypher for this user
-		var masterkeyCypher;
-		var masterkeyIV;
-		var saltB64;
-		for( i = 0; i < userKeyDB.length; i++ ) {
-			if( userName == userKeyDB[i][0]){
-				masterkeyCypher = CryptoJS.enc.Hex.parse( userKeyDB[i][1] );
-				masterkeyIV = CryptoJS.enc.Hex.parse( userKeyDB[i][2] );
-				saltB64 = userKeyDB[i][3];
-				break;
+		// check if we have a restore point
+		var restored;
+		if( window.localStorage.getItem("secureExamAutoSave") != null ) {
+			try {
+				var dec = CryptoJS.AES.decrypt(window.localStorage.getItem("secureExamAutoSave"), userSecret);
+				document.getElementById(divQuestions).innerHTML = dec.toString(CryptoJS.enc.Utf8);
+				document.getElementById("autoSaveInfo").innerHTML = '<p class="headerHighlight">letzte automatische Sicherung wiederhergestellt!</p>'
+				restored = true;
+			} catch(e) {
+				restored = false;
 			}
-
 		}
 
-		// generate key
-		var userSecretSalted = userSecret + saltB64;
-		var key = CryptoJS.SHA256( userSecretSalted );
+		// new Exam? decrypt...
+		if( !restored ) {
+			try {
+				// load userKeyDB & questionDiv
+				var userKeyDB = document.getElementById(divUserKeyDB).innerHTML.split("<br>");
+				var questionDiv = document.getElementById(divSecretStuff).innerHTML.split(",");
 
-		for( i = 0; i < SHA256ITERATIONS -1; i ++)
-		{
-			key = CryptoJS.SHA256(key);
+				// remove empty last entry from userKeyDB
+				userKeyDB.pop();
+				// split username from secret
+				for (i = 0; i < userKeyDB.length; i++) {
+					userKeyDB[i] = userKeyDB[i].split(",");
+				}
+
+				// get encryptedMasterkey cypher for this user
+				var masterkeyCypher;
+				var masterkeyIV;
+				var saltB64;
+				for (i = 0; i < userKeyDB.length; i++) {
+					if (userName == userKeyDB[i][0]) {
+						masterkeyCypher = CryptoJS.enc.Hex.parse(userKeyDB[i][1]);
+						masterkeyIV = CryptoJS.enc.Hex.parse(userKeyDB[i][2]);
+						saltB64 = userKeyDB[i][3];
+						break;
+					}
+
+				}
+
+				// generate key
+				var userSecretSalted = userSecret + saltB64;
+				var key = CryptoJS.SHA256(userSecretSalted);
+
+				for (i = 0; i < SHA256ITERATIONS - 1; i++) {
+					key = CryptoJS.SHA256(key);
+				}
+
+				// decrypt masterkey
+				var masterKeyCipherParams = CryptoJS.lib.CipherParams.create({
+					ciphertext: masterkeyCypher,
+					key: key,
+					iv: masterkeyIV,
+					algorithm: CryptoJS.algo.AES,
+					mode: CryptoJS.mode.CBC,
+					padding: CryptoJS.pad.PKCS7,
+					blockSize: 4,
+					formatter: CryptoJS.format.OpenSSL
+				});
+
+				var decMasterKey = CryptoJS.AES.decrypt(masterKeyCipherParams, key, {iv: masterkeyIV});
+				var masterKeyString = decMasterKey.toString(CryptoJS.enc.Utf8);
+				var masterKey = CryptoJS.enc.Hex.parse(masterKeyString);
+
+				// decrypt questions
+				var questionsIV = CryptoJS.enc.Hex.parse(questionDiv[0]);
+				var questionsCipher = CryptoJS.enc.Hex.parse(questionDiv[1]);
+
+				var questionsCipherParams = CryptoJS.lib.CipherParams.create({
+					ciphertext: questionsCipher,
+					key: masterKey,
+					iv: questionsIV,
+					algorithm: CryptoJS.algo.AES,
+					mode: CryptoJS.mode.CBC,
+					padding: CryptoJS.pad.PKCS7,
+					blockSize: 4,
+					formatter: CryptoJS.format.OpenSSL
+				});
+
+				var decrypted = CryptoJS.AES.decrypt(questionsCipherParams, masterKey, { iv: questionsIV });
+				var decryptedString = decrypted.toString(CryptoJS.enc.Utf8);
+
+				// print questions
+				document.getElementById(divQuestions).innerHTML = decryptedString;
+			} catch (e) {
+				document.getElementById("userSecret").style.border = "1px solid red";
+				return;
+			}
 		}
+		// show finish button
+		document.getElementById("finishButton").innerHTML = '<button onclick="confirmFinishExam()">Prüfung einreichen</button>';
 
-		// decrypt masterkey
-	    var masterKeyCipherParams = CryptoJS.lib.CipherParams.create({
-	         ciphertext: masterkeyCypher,
-	         key: key,
-	         iv: masterkeyIV,
-	         algorithm: CryptoJS.algo.AES,
-	         mode: CryptoJS.mode.CBC,
-	         padding: CryptoJS.pad.PKCS7,
-	         blockSize: 4,
-	         formatter: CryptoJS.format.OpenSSL
-		});
-
-		var decMasterKey = CryptoJS.AES.decrypt(masterKeyCipherParams, key, {iv: masterkeyIV});
-		var masterKeyString = decMasterKey.toString(CryptoJS.enc.Utf8);
-		var masterKey = CryptoJS.enc.Hex.parse(masterKeyString);
-
-		// decrypt questions
-		var questionsIV = CryptoJS.enc.Hex.parse( questionDiv[0] );
-		var questionsCipher = CryptoJS.enc.Hex.parse( questionDiv[1] );
-
-		var questionsCipherParams = CryptoJS.lib.CipherParams.create({
-			ciphertext: questionsCipher,
-			key: masterKey,
-			iv: questionsIV,
-			algorithm: CryptoJS.algo.AES,
-			mode: CryptoJS.mode.CBC,
-			padding: CryptoJS.pad.PKCS7,
-			blockSize: 4,
-			formatter: CryptoJS.format.OpenSSL
-		});
-
-		var decrypted = CryptoJS.AES.decrypt(questionsCipherParams, masterKey, { iv: questionsIV });
-		var decryptedString = decrypted.toString(CryptoJS.enc.Utf8);
-
+		// save secureExam object
 		window.localStorage.setItem("secureExam", seInfos.export());
 
-		// print questions
-		document.getElementById(divQuestions).innerHTML = decryptedString;
-		document.getElementById("finishButton").innerHTML = '<button onclick="finishExam()">Prüfung einreichen</button>';
-
+		// print examDetails
 		var examDetails = document.getElementById("studentDetails");
 		var name = userName.substring(0,userName.length - 9);
+		for( i = 1; i < name.length; i++ ) {
+			if( name[i] == name[i].toUpperCase() ) {
+				name = name.replace(name[i], " " + name[i]);
+				break;
+			}
+		}
 		var immnumber = userName.substring(userName.length -9, userName.length);
-		examDetails.innerHTML = examDetails.innerHTML.replace("$NAME$", name);
-		examDetails.innerHTML = examDetails.innerHTML.replace("$IMMNUMBER$", immnumber);
-
+		if( name != "") {
+			examDetails.innerHTML = examDetails.innerHTML.replace("$NAME$", name);
+			examDetails.innerHTML = examDetails.innerHTML.replace("$IMMNUMBER$", immnumber);
+		} else {
+			examDetails.innerHTML = "Name: " + immnumber;
+			document.getElementById("finishButton").innerHTML += ' <button onclick="resetLocalDB()">Reset LocalDB</button>';
+		}
 		document.getElementById("studentDetails").classList.remove("hidden");
+
+		// start SecureDate
+		secureTime = new secureDate();
+		var secureTimeObserver = new IrregulationsObserver( timeErrorEvent );
+		secureTime.addIrregulationsObserver( secureTimeObserver );
+
+		// start Timers
+		window.setInterval(autoSave,15000);
+		window.setInterval(updateTimeLeft,1000);
+
+		// show timeleftTitle
+		document.getElementById("timeLeftTitle").classList.remove("hidden");
 	}
 
+	function resetLocalDB() {
+		window.localStorage.removeItem("secureExam");
+		window.localStorage.removeItem("secureExamAutoSave");
+		location.reload();
+	}
+
+	function confirmFinishExam() {
+		if( confirm("Wollen Sie wirklich die Prüfung einreichen? Dies kann nicht rückgängig gemacht werden!")) {
+			finishExam();
+		}
+	}
 	/*
 	 *	FUNCTION finishExam()
 	 *	arguments: none
@@ -250,79 +376,151 @@
 	 *  description: finish the Exam, set and store examEndTime, export questions to encrypted xml download.
 	 */
 	function finishExam() {
-		if( confirm("Wollen Sie wirklich die Prüfung einreichen? Dies kann nicht rückgängig gemacht werden!")) {
-			seInfos.examEndTime = new Date();
+		// stop timer
+		secureTime.stop();
 
-			xml = '<?xml version="1.0" encoding="iso-8859-1"?>';
-			xml += '<exam>';
-			xml += '<student>';
-			xml += '<name>' + userName.substring(0,userName.length -9) + '</name>';
-			xml += '<nr>' + userName.substring(userName.length -9, userName.length) + '</nr>';
-			xml += '</student>';
-			xml += '<examInfos>';
-			xml += '<startTime>' + seInfos.examStartTime.toUTCString() + '</startTime>';
-			xml += '<endTime>' + seInfos.examStartTime.toUTCString() + '</endTime>';
-			xml += '<examStartings>' + seInfos.examStartings + '</examStartings>';
-			xml += '</examInfos>';
+		// set SEINFOS
+		seInfos.examEndTime = new Date();
+		window.localStorage.setItem("secureExam", seInfos.export());
+
+		// export
+		exportExam();
+
+		// set views
+		document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfung abgeschlossen!</p>';
+	}
+
+	function exportExam() {
+		var xml = '<?xml version="1.0" encoding="iso-8859-1"?>';
+		xml += '<exam>';
+		xml += '<student>';
+		xml += '<name>' + userName.substring(0,userName.length -9) + '</name>';
+		xml += '<nr>' + userName.substring(userName.length -9, userName.length) + '</nr>';
+		xml += '</student>';
+		xml += '<examInfos>';
+		xml += '<startTime>' + seInfos.examStartTime.toUTCString() + '</startTime>';
+		xml += '<endTime>' + seInfos.examStartTime.toUTCString() + '</endTime>';
+		xml += '<focusChanges>' + seInfos.examFocusChanges + '</focusChanges>';
+		xml += '<examStartings>' + seInfos.examStartings + '</examStartings>';
+		xml += '</examInfos>';
+		if( seInfos.examValid == 1 ) {
 			xml += '<questions>';
 			var examNodes = document.getElementById("exam");
-			for( i = 1; i < examNodes.length; i = i + 2 ) {
+			for (i = 1; i < examNodes.length; i = i + 2) {
 				xml += '<question>';
 				var questionNode = examNodes.childNodes[i];
 				var questionText = questionNode.children[0].innerText;
 				xml += '<legend>' + questionText + '</legend>';
 				var answerTag = questionNode.children[1];
-				if( answerTag.children[0].localName === "textarea") {
+				if (answerTag.children[0].localName === "textarea") {
 					xml += '<input type="text">' + answerTag.children[0].value + '</input>';
 				}
 				else {
-					for( j = 0; j < answerTag.children.length; j = j + 2) {
+					for (j = 0; j < answerTag.children.length; j = j + 2) {
 						xml += '<input type="checkbox" ' + (answerTag.children[j].checked == true ? "checked=\"true\" " : "") + '/>';
 					}
 				}
 				xml += '</question>';
 			}
 			xml += '</questions>';
-			xml += '</exam>';
-
-			//var encXml =  CryptoJS.AES.encrypt( xml, userSecret);
-			//xml = encXml.iv.toString() + "," + encXml.ciphertext.toString();
-
-			var blob = new Blob([xml], {type: "text/plain;charset=utf-8"});
-			var res = saveAs(blob, "exam_" + userName + ".xml.enc");
-
-			window.localStorage.setItem("secureExam", seInfos.export());
-
-			// set views
-			document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfung abgeschlossen!</p>';
 		}
-	}
+		else {
+			xml += '<examInvalid />';
+		}
+		xml += '</exam>';
 
+		// encrypt output
+		//var encXml =  CryptoJS.AES.encrypt( xml, userSecret);
+		//xml = encXml.iv.toString() + "," + encXml.ciphertext.toString();
+
+		// generate download
+		var blob = new Blob([xml], {type: "text/plain;charset=utf-8"});
+		saveAs(blob, "exam_" + userName + ".xml.enc");
+	}
 	function keyUpUserSecret(e) {
 		if(e.keyCode == 13) {
 			decrypt('userKeyDB','secretStuff','questions');
 		}
 	}
 
-	var secureTime = new secureDate(new Date());
-	function verifyTime() {
-		if( !secureTime.verifyCurrentTime(new Date()) ) {
-			document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungsabbruch, Zeitmanipulation entdeckt!</p>';
-			clearInterval(secureTimeInverval);
+	var timeErrorEvent = function( msg ) {
+		console.log("[secureDate] timeErrorEvent !!! TIME WRONG !!! " + msg);
+		seInfos.examValid = 0;
+		finishExam();
+		document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungsabbruch, Zeitmanipulation entdeckt!</p>';
+	}
+
+	function autoSave() {
+		var questions = document.getElementById("exam").children;
+		for( i = 0; i < questions.length; i++) {
+			var answerForms = questions[i].children[1].children;
+			for( j = 0; j < answerForms.length; j++) {
+				switch( answerForms[j].tagName ) {
+					case "INPUT":
+							switch (answerForms[j].type) {
+								case "checkbox":
+									if(answerForms[j].checked)answerForms[j].setAttribute("checked",true);
+									break;
+							}
+							break;
+					case "TEXTAREA":
+							answerForms[j].innerText = answerForms[j].value;
+							break;
+				}
+			}
+		}
+		window.localStorage.setItem("secureExamAutoSave",CryptoJS.AES.encrypt(document.getElementById("questions").innerHTML,userSecret));
+		document.getElementById("autoSaveInfo").innerHTML = "AutoSave: " + new Date().toHHMMSSString();
+	}
+
+	function visibilityChanged() {
+		if( document.hidden ) {
 			secureTime.stop();
+			autoSave();
+			console.log(seInfos);
+			seInfos.examFocusChanges++;
+			window.localStorage.setItem("secureExam", seInfos.export());
+			location.reload();
 		}
 	}
 
-	var secureTimeInverval = window.setInterval(verifyTime,1000);
+	function updateTimeLeft() {
+		var now = new Date();
+		if( now <= seInfos.examExpireTime ) {
+			var diff = seInfos.examExpireTime - now;
+			diff = diff / 1000;
+			var s = Math.floor(diff % 60);
+			if( s < 10 ) s = "0"+s;
+			var m = Math.floor(diff/60);
+			if( m < 10 ) m = "0"+m;
+
+			if( (m >= 10 && s == "00") || ( m < 10)) {
+				document.getElementById("timeLeft").innerHTML = m + ":" + s;
+				if( m < 10 ) {
+					document.getElementById("timeLeft").classList.add("headerHighlight");
+					document.getElementById("timeLeftTitle").classList.add("headerHighlight");
+				}
+			}
+			else if(document.getElementById("timeLeft").innerHTML == "" && EXAMDURATION == (m + 1)) {
+				document.getElementById("timeLeft").innerHTML = EXAMDURATION + ":00";
+			}
+		}
+		else {
+			finishExam();
+		}
+	}
+
+	document.addEventListener("visibilitychange",visibilityChanged);
 	</script>
 </head>
 <body>
 	<div class="header paper" id="header">
 		<div class="headerNotes">
 			<span class="zhaw">ZHAW School of Engineering</span>
-			Verbleibende Zeit:
-			<span id="timeLeft">45min 00s</span>
+			<span id="timeLeftTitle" class="hidden">Verbleibende Zeit:</span>
+			<span id="timeLeft"></span>
 		</div>
+		<div id="autoSaveInfo"></div>
 		<div class="headerTitle">
 			$SUBJECT$: $EXAMTITLE$
 			<p id="studentDetails" class="headerStudentInfo hidden">Name: $NAME$ Immatrikulationsnummer: $IMMNUMBER$</p>

@@ -79,6 +79,11 @@ body {
 .hidden {
 	display: none;
 }
+.headerHighlight {
+	color: #ff0;
+	font-weight: 600;
+}
+
 #finishButton {
 	position: fixed;
 	right: 5%;
@@ -105,4 +110,11 @@ body {
 	font-weight: 600;
 	font-size: 18px;
 	padding-right: 135px;
+}
+
+#autoSaveInfo {
+	position: absolute;
+	top: 35px;
+	font-size: 13px;
+	right: 8%;
 }
