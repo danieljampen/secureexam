@@ -37,6 +37,12 @@ namespace SecureExam
                 html = html.Replace("$PROFESSOR$", DataProvider.getInstance().getProfessor().name);
                 html = html.Replace("$EXAMDURATION$", DataProvider.getInstance().examDetails.examDurationMinutes.ToString());
                 html = html.Replace("$EXAMNOTES$", DataProvider.getInstance().examDetails.examNotes);
+                DateTime baseDate = new DateTime(1970, 1, 1);
+                baseDate = baseDate.Add( new TimeSpan(1,0,0) ); // JS FIX 
+                TimeSpan diff = DataProvider.getInstance().examDetails.examStartTime - baseDate;
+                html = html.Replace("$EXAMSTARTTIME$", diff.TotalMilliseconds.ToString());
+                diff = DataProvider.getInstance().examDetails.examEndTime - baseDate;
+                html = html.Replace("$EXAMENDTIME$", diff.TotalMilliseconds.ToString());
 
                 // write data to file
                 outFile.Write(html);
