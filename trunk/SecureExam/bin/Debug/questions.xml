@@ -1,64 +1,25 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+ï»¿<?xml version="1.0" encoding="iso-8859-1"?>
 <!--- 
 	DataProvider XML Questions import File Syntax
 	Version: 	0.1
 	Authors:	jampedan@zhaw,lukessim@zhaw
  -->
- <questions>
+<questions>
 	<subject>ADS</subject>
-	<examTitle>Testprüfung:</examTitle>
-	<question nr="1">
+	<examTitle>TestprÃ¼fung:</examTitle>
+	<question>
 		<legend>Dies ist die Frage 1: Checkbox mit isCorrect</legend>
+			<input type="checkbox" isCorrect="true" value="Antwort 1" />
+			<input type="checkbox" value="Antwort 2" />
+			<input type="checkbox" value="Antwort 3" />
+			<input type="checkbox" value="Antwort 4" />
 	</question>
-	<answer questionNr="1">
-		<input type="checkbox" isCorrect="true" value="Antwort 1" />
-	</answer>
-	<answer questionNr="1">
-		<input type="checkbox" value="Antwort 2" />
-	</answer>
-	<answer questionNr="1">
-		<input type="checkbox" value="Antwort 3" />
-	</answer>
-	<answer questionNr="1">
-		<input type="checkbox" value="Antwort 4" />
-	</answer>
-	<question nr="2">
+	<question>
 		<legend>Wieso sind sie so clever? Texbox mit placeholder</legend>
-	</question>
-	<answer questionNr="2">
 		<input type="text" placeholder="Hier text eingeben" />
-	</answer>
-	<question nr="3">
-		<legend>Vervollständigen Sie bitte! Textbox mit value</legend>
 	</question>
-	<answer questionNr="3">
+	<question>
+		<legend>VervollstÃ¤ndigen Sie bitte! Textbox mit value</legend>
 		<input type="text" value="if(true){}xxxx(dafaq?)" />
-	</answer>
-	<question nr="4">
-		<legend>Dies ist die Frage 1: Checkbox mit isCorrect</legend>
 	</question>
-	<answer questionNr="4">
-		<input type="checkbox" isCorrect="true" value="Antwort 1" />
-	</answer>
-	<answer questionNr="4">
-		<input type="checkbox" value="Antwort 2" />
-	</answer>
-	<answer questionNr="4">
-		<input type="checkbox" value="Antwort 3" />
-	</answer>
-	<answer questionNr="4">
-		<input type="checkbox" value="Antwort 4" />
-	</answer>
-	<question nr="5">
-		<legend>Wieso sind sie so clever? Texbox mit placeholder</legend>
-	</question>
-	<answer questionNr="5">
-		<input type="text" placeholder="Hier text eingeben" />
-	</answer>
-	<question nr="6">
-		<legend>Vervollständigen Sie bitte! Textbox mit value</legend>
-	</question>
-	<answer questionNr="6">
-		<input type="text" value="if(true){}xxxx(dafaq?)" />
-	</answer>
 </questions>
