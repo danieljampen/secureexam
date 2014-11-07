@@ -18,11 +18,15 @@
 	var userSecret;
 	var seInfos;
 	var SHA256ITERATIONS = $SHA256ITERATIONS$;
-	var EXAMSTARTTIME = new Date();//$EXAMSTARTTIME$;
-	var EXAMENDTIME = new Date().setMinutes(new Date().getMinutes() + 2);//$EXAMENDTIME$;
+	var EXAMSTARTTIME = /*new Date().setMinutes(new Date().getMinutes() - 5);*/ new Date($EXAMSTARTTIME$);
+	console.log("examStartTime: " + EXAMSTARTTIME);
+	var EXAMENDTIME = /*new Date().setMinutes(new Date().getMinutes() + 2);*/ new Date($EXAMENDTIME$);
+	console.log("examEndTime: " + EXAMENDTIME);
 	var EXAMDURATION = $EXAMDURATION$;
 	var endTime;
 	var secureTime;
+	var updateTimeInterval;
+	var autoSaveInterval;
 
 	/*
 	 *	Class secureExamInfos()
@@ -219,6 +223,15 @@
 		seInfos = new secureExamInfos();
 		if( window.localStorage.getItem("secureExam") != null ) {
 			seInfos.load(window.localStorage.getItem("secureExam"));
+		} else {
+			// we have a new run, check if we're allowed to start the exam..
+			if( new Date() > EXAMENDTIME ) {
+				document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungszeitraum abgelaufen!</p>';
+				return;
+			} else if( new Date() < EXAMSTARTTIME ) {
+				document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfung noch nicht freigegeben!</p>';
+				return;
+			}
 		}
 
 		// check if exam has been done before
@@ -353,8 +366,8 @@
 		secureTime.addIrregulationsObserver( secureTimeObserver );
 
 		// start Timers
-		window.setInterval(autoSave,15000);
-		window.setInterval(updateTimeLeft,1000);
+		autoSaveInterval = window.setInterval(autoSave,15000);
+		updateTimeInterval = window.setInterval(updateTimeLeft,1000);
 
 		// show timeleftTitle
 		document.getElementById("timeLeftTitle").classList.remove("hidden");
@@ -488,7 +501,7 @@
 
 	function updateTimeLeft() {
 		var now = new Date();
-		if( now <= seInfos.examExpireTime ) {
+		if( now <= seInfos.examExpireTime && now >= EXAMSTARTTIME && now <= EXAMENDTIME ) {
 			var diff = seInfos.examExpireTime - now;
 			diff = diff / 1000;
 			var s = Math.floor(diff % 60);
@@ -508,10 +521,16 @@
 			}
 		}
 		else {
-			if( document.getElementById("exam") == null) {
-				seInfos.examExpireTime.setSeconds(seInfos.examExpireTime.getSeconds() + 5);
+			if( document.getElementById("exam") == null) { // handle exam Expire when tab hidden
+				seInfos.examExpireTime.setSeconds(now.getSeconds() + 5);
+				EXAMENDTIME = seInfos.examExpireTime;
 			} else {
 				finishExam();
+				clearInterval(updateTimeInterval);
+				clearInterval(autoSaveInterval);
+				if( now >= EXAMENDTIME ) {
+					document.getElementById("questions").innerHTML += '<p class="questionText center">Prüfungszeitraum abgelaufen</p>';
+				}
 			}
 		}
 	}
