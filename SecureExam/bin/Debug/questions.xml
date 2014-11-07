@@ -7,6 +7,7 @@
 <questions>
 	<subject>ADS</subject>
 	<examTitle>Testprüfung:</examTitle>
+	<examNotes><h2>Prüfungshinweise:</h2><ul><li>kein Rechner!</li><li>ein A4 Blatt Handgeschrieben!</li></ul></examNotes>
 	<question>
 		<legend>Dies ist die Frage 1: Checkbox mit isCorrect</legend>
 			<input type="checkbox" isCorrect="true" value="Antwort 1" />

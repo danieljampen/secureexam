@@ -20,7 +20,7 @@
 	var SHA256ITERATIONS = $SHA256ITERATIONS$;
 	var EXAMSTARTTIME = new Date();//$EXAMSTARTTIME$;
 	var EXAMENDTIME = new Date().setMinutes(new Date().getMinutes() + 2);//$EXAMENDTIME$;
-	var EXAMDURATION = 1;//$EXAMDURATION$;
+	var EXAMDURATION = $EXAMDURATION$;
 	var endTime;
 	var secureTime;
 
@@ -534,9 +534,7 @@
 		<div id="finishButton"></div>
 	</div>
 	<div class="examNotes paper" id="examNotes">
-		<p class="notes">Prüfungshinweise:
-			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-	</div>
+		<p class="notes">$EXAMNOTES$</div>
 	<div class="examContainer paper">
 		<div id="questions">
 				<p class="questionText center">Bitte geben Sie ihr Identifikationspasswort ein!</p>

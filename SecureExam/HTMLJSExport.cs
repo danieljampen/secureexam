@@ -35,6 +35,8 @@ namespace SecureExam
                 html = html.Replace("$SUBJECT$", DataProvider.getInstance().examDetails.subject);
                 html = html.Replace("$EXAMTITLE$", DataProvider.getInstance().examDetails.examTitle);
                 html = html.Replace("$PROFESSOR$", DataProvider.getInstance().getProfessor().name);
+                html = html.Replace("$EXAMDURATION$", DataProvider.getInstance().examDetails.examDurationMinutes.ToString());
+                html = html.Replace("$EXAMNOTES$", DataProvider.getInstance().examDetails.examNotes);
 
                 // write data to file
                 outFile.Write(html);
