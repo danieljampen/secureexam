@@ -1,0 +1,345 @@
+<html>
+
+<head>
+    <script>
+        /*
+         *  Date Prototypes
+         */
+
+        Date.prototype.toDebugOutputString = function() {
+            return this.getHours()+ ":" + this.getMinutes() + ":" + this.getSeconds() + ":" + this.getMilliseconds();
+        }
+        Date.prototype.toHHMMSSString = function() {
+            var h = this.getHours();
+            if(h < 10) h = "0"+h;
+            var m = this.getMinutes();
+            if(m < 10) m = "0"+m;
+            var s = this.getSeconds();
+            if(s < 10) s = "0"+s;
+            return h + ":" + m + ":" + s;
+        }
+        
+        // namespaces
+        var SecureExam = SecureExam || {};
+        SecureExam.Lib = {};
+        SecureExam.Lib.Security = {};
+
+        SecureExam.Logger = function () {
+            var _this = this;
+            this.DEBUG = true;
+            this.loggers = new Array();
+
+            this.logToAll = function (msg, sender) {
+                if (_this.DEBUG) {
+                    var message = "[secureExam::" + new Date().toLocaleDateString() + "-" + new Date().toLocaleTimeString() + "] ";
+                    if( sender != undefined ) 
+                        message += "[" + sender + "] ";
+                    message += msg;
+                    
+                    for (i = 0; i < _this.loggers.length; i++) {
+                        _this.loggers[i].log(message);
+                    }
+                }
+            }
+
+            return {
+                log: function (msg, sender) {
+                    _this.logToAll(msg, sender);
+                },
+                addLogger: function (logger) {
+                    _this.loggers.push(logger);
+                },
+                removeLogger: function (logger) {
+                    for (i = 0; i < _this.loggers.length; i++) {
+                        if (_this.loggers[i] === logger) {
+                            _this.loggers.splice(i, 1);
+                        }
+                    }
+                }
+            }
+        }();
+
+        SecureExam.Lib.HTMLInfo = function (divIDUserDB, divIDEncryptedData, divIDQuestions) {
+            var _this = this;
+            this.DivUserDB = divIDUserDB;
+            this.DivEncryptedData = divIDEncryptedData;
+            this.DivQuestions = divIDQuestions;
+        }
+
+        SecureExam.Lib.SecureExamInfos = function () {
+            var _this = this;
+            _this.examStartTime = new Date();
+            _this.examEndTime = null;
+            _this.examExpireTime = new Date(_this.examStartTime);
+            _this.examExpireTime.setMinutes(_this.examExpireTime.getMinutes() + EXAMDURATION);
+            _this.examStartings = 1;
+            _this.examFocusChanges = 0;
+            _this.examValid = true;
+            _this.invalidReason = "";
+            _this.studentSecret = userSecret;
+            _this.load = function (oldSEInfo) {
+                try {
+                    var dec = CryptoJS.AES.decrypt(oldSEInfo, userSecret);
+                    var decString = dec.toString(CryptoJS.enc.Utf8);
+                    var oldData = decString.substring(16, decString.length - 1).split(",");
+                    if (decString.substring(0, 15) === "secureExamInfos" && oldData[3] === userSecret) {
+                        _this.examStartTime = new Date(oldData[0]);
+                        _this.examEndTime = (oldData[1] !== "null") ? new Date(oldData[1]) : null;
+                        _this.examStartings += Number(oldData[2]);
+                        _this.studentSecret = oldData[3];
+                        _this.examFocusChanges = oldData[4];
+                        _this.examValid = (oldData[5] == "true") ? true : false;
+                        _this.examExpireTime = new Date(oldData[6]);
+                        _this.invalidReason = oldData[7];
+                    }
+                } catch (err) {}
+            }
+            _this.export = function () {
+                var exportString = 'secureExamInfos(' + _this.examStartTime + ',' + _this.examEndTime + ',' + _this.examStartings + ',' + _this.studentSecret + ',' + _this.examFocusChanges + ',' + _this.examValid + ',' + _this.examExpireTime + ',' + _this.invalidReason + ')';
+                return CryptoJS.AES.encrypt(exportString, userSecret);
+            }
+        };
+        
+        SecureExam.Lib.Event = function(msg,sender) {
+            return {
+                msg: msg,
+                sender: sender
+            }
+        }
+        
+        /*
+         *	Class SecureExam.lib.security.InternetAccessCheck()
+         *	Constructor-Arguments: none
+         *
+         *  description: class to check internet Access and if so, fire events to observers
+         */
+        SecureExam.Lib.Security.InternetAccessCheck = function () {
+            var _this = this;
+            this.intervalTimeout = 1000;
+            this.imgURL = "http://waikiki.zhaw.ch/~rege/t-menu/header_left.jpg";
+            this.interval = null;
+            this.eventListeners = new Array();
+
+            this.onLoad = function () {
+                SecureExam.Logger.log("inet access detected", "InternetAccessCheck");
+                _this.riseEvent( "inet access detected" );
+            }
+
+            this.check = function () {
+                SecureExam.Logger.log("checking inet", "InternetAccessCheck");
+                var img = new Image();
+                img.onload = _this.onLoad;
+                img.src = _this.imgURL + '?t=' + new Date().getTime();
+            }
+
+            this.riseEvent = function (e) {
+                for (i = 0; i < _this.eventListeners.length; i++) {
+                    _this.eventListeners[i](e);
+                }
+            }
+
+            this.start = function () {
+                SecureExam.Logger.log("started...", "InternetAccessCheck");
+                _this.interval = window.setInterval(_this.check, _this.intervalTimeout);
+            }
+
+            this.stop = function () {
+                SecureExam.Logger.log("started...", "InternetAccessCheck");
+                clearInterval(_this.inteval);
+            }
+
+            return {
+                getState: function () {
+                    return _this.state;
+                },
+                setIntervalTimeout: function (timeout) {
+                    _this.stop();
+                    _this.intervalTimeout = timeout;
+                    _this.start();
+                },
+                addEventListener: function (observer) {
+                    _this.eventListeners.push(observer);
+                    if (_this.eventListeners.length == 1) {
+                        _this.start();
+                    }
+                },
+                removeEventListener: function (observer) {
+                    for (i = 0; i < _this.eventListeners.length; i++) {
+                        if (_this.eventListeners[i] === observer) {
+                            _this.eventListeners.splice(i, 1);
+                        }
+                    }
+                    if (_this.eventListeners.length == 0) {
+                        _this.stop();
+                    }
+                }
+            }
+        }
+        
+        /*
+         *	Class SecureTime
+         *	Constructor-Arguments: - none
+         *
+         *
+         *  description: class to handle save, reliable and non-manipulatable Time.
+         */
+        SecureExam.Lib.Security.SecureTime = function() {
+            var _this = this;
+            this.INTERNALUPDATEINTERVAL = 1000;
+            this.INTERNALCLOCKMAXVARIANCE = 50;
+            this.TIMEHISTORYMAXVARIANCE = 50;
+
+            this.timeHistory = new Array();
+            this.internalClockMilliseconds = 0;
+            this.eventListeners = new Array();
+            this.eventListeners["timeMissmatch"] = new Array();
+            this.eventListeners["tabChange"] = new Array();
+            this.internalClockStartTime = new Date();
+            this.interval = null;
+
+            this.update = function () {
+                var systemTime = new Date();
+                _this.internalClockMilliseconds += _this.INTERNALUPDATEINTERVAL;
+                var internalTime = _this.getInternalTime();
+
+                // verify InternalTime
+                if (_this.dateCompare(internalTime, systemTime)) {
+                    // compensate cpu lag in internal Time (systemTime is more accurate)
+                    var diff = systemTime.getTime() - internalTime.getTime();
+                    if (diff > 0) {
+                        _this.internalClockStartTime.setTime(_this.internalClockStartTime.getTime() + diff);
+                        SecureExam.Logger.log("compensing cpu lag: " + diff + "ms", "secureDate");
+                    }
+
+                    // check with History
+                    if (_this.timeHistory.length == 10) _this.timeHistory.shift();
+                    _this.timeHistory.push(new Date(systemTime));
+
+                    for (i = 0; i < _this.timeHistory.length; i++) {
+                        var historyOffset = i * _this.INTERNALUPDATEINTERVAL;
+                        var historyVariance = i * _this.TIMEHISTORYMAXVARIANCE;
+                        var recalculatedTime = new Date(_this.timeHistory[_this.timeHistory.length - 1 - i]);
+                        recalculatedTime.setTime(recalculatedTime.getTime() + historyOffset);
+                        if (!_this.dateCompare(systemTime, recalculatedTime, historyVariance)) {
+                            _this.riseEvent("HistoryTime([" + i + "]," + recalculatedTime.toDebugOutputString() + ") and SystemTime(" + systemTime.toDebugOutputString() + ") not in sync!");
+                            return false;
+                        }
+                    }
+                    SecureExam.Logger.log("UPDATED: status OK | internalclock @ " + internalTime.toDebugOutputString() + " historynewest @ " + _this.timeHistory[_this.timeHistory.length - 1].toDebugOutputString(), "secureDate");
+                    return true;
+                } else {
+                    _this.riseEvent("InternalTime(" + internalTime.toDebugOutputString() + ") and SystemTime(" + systemTime.toDebugOutputString() + ") not in sync!");
+                    return false;
+                }
+            }
+
+            this.dateCompare = function (actualTime, timeToVerify, maxVariance) {
+                var maxVariance = (typeof maxVariance !== "undefined") ? maxVariance : _this.INTERNALCLOCKMAXVARIANCE;
+                timeToVerify = new Date(timeToVerify);
+                actualTime = new Date(actualTime);
+
+                var variance = timeToVerify.getTime() - actualTime.getTime();
+                if (variance <= maxVariance && variance >= -maxVariance) {
+                    return true;
+                }
+                return false;
+            }
+
+            this.riseEvent = function (e) {
+                for (i = 0; i < _this.eventListeners.length; i++) {
+                    _this.eventListeners[i](e);
+                }
+            }
+
+            this.start = function() {
+                SecureExam.Logger.log("started...", "secureDate");
+                _this.interval = window.setInterval(_this.update, _this.INTERNALUPDATEINTERVAL);
+            }
+            
+            this.stop = function(){
+                SecureExam.Logger.log("stopped...", "secureDate");
+                clearInterval(_this.interval);
+            }
+            
+            this.getInternalTime = function () {
+                var date = new Date(_this.internalClockStartTime);
+                date.setMilliseconds(date.getMilliseconds() + _this.internalClockMilliseconds);
+                return date;
+            }
+            
+            return {
+                getInternalTime: function () {
+                    return _this.getInternalTime();
+                },
+                addEventListener: function (observer) {
+                    _this.eventListeners.push(observer);
+                    if( _this.eventListeners.length == 1 ) {
+                        _this.start();
+                    }
+                },
+                removeEventListener: function (observer) {
+                    for (i = 0; i < _this.eventListeners.length; i++) {
+                        if (_this.eventListeners[i] === observer) {
+                            _this.eventListeners.splice(i, 1);
+                        }
+                    }
+                    if( _this.eventListeners.length == 0 ) {
+                        _this.stop();
+                    }
+                }
+            }
+        }
+
+        SecureExam.Exam = function (htmlInfo) {
+            var _this = this;
+            this.HTMLInfo = htmlInfo;
+            this.InternetAccess = new SecureExam.Lib.Security.InternetAccessCheck();
+            this.SecureTime = new SecureExam.Lib.Security.SecureTime();
+
+            this.init = function () {
+                alert("start");
+            }
+
+            this.stop = function () {
+                alert("stop");
+            }
+
+            return (_this.HTMLInfo instanceof SecureExam.Lib.HTMLInfo) ? {
+                start: function () {
+                    _this.init();
+                },
+                stop: function () {
+                    if (confirm("stop sure?"))
+                        _this.init();
+                },
+                Security: {
+                    InternetAccess: _this.InternetAccess,
+                    SecureTime: _this.SecureTime  
+                }
+            } : null;
+        }
+
+        
+        
+        function isOnline(e) {
+        }
+        
+        function timeWrong(e)  {
+        }
+
+        
+        SecureExam.Logger.addLogger(console);
+
+        var htmlInfo = new SecureExam.Lib.HTMLInfo("a", "b", "c");
+        var exam = new SecureExam.Exam(htmlInfo);
+        exam.Security.InternetAccess.addEventListener(isOnline);
+        //exam.Security.SecureTime.addEventListener(timeWrong);
+        
+        exam.start();
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
