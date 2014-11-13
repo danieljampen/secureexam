@@ -198,9 +198,11 @@
 	var userSecret;
 	var seInfos;
 	var SHA256ITERATIONS = $SHA256ITERATIONS$;
+        
 	var EXAMSTARTTIME = new Date($EXAMSTARTTIME$);
 	var EXAMENDTIME = new Date($EXAMENDTIME$);
 	var EXAMDURATION = $EXAMDURATION$;
+       
 	var secureTime;
 	var checkInternetConnection;
 	var updateTimeInterval;
@@ -601,7 +603,7 @@
 		// start checkInternetConnection
 		checkInternetConnection = new InternetAccessCheck();
 		var internetAccessObserver = new IrregulationsObserver( internetAccessErrorEvent );
-		checkInternetConnection.addIrregulationsObserver( internetAccessObserver );
+		//checkInternetConnection.addIrregulationsObserver( internetAccessObserver );
 
 		// start Timers
 		autoSaveInterval = window.setInterval(autoSave,15000);
@@ -708,7 +710,7 @@
 
 		// generate download
 		var blob = new Blob([xml], {type: "text/plain;charset=utf-8"});
-		saveAs(blob, "exam_" + userName + ".xml.enc");
+		var ret = saveAs(blob, "exam_" + userName + ".xml.enc");
 	}
 
 	function keyUpUserSecret(e) {
