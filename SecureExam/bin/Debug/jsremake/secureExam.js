@@ -170,6 +170,7 @@ SecureExam.Lib.Security.InternetAccessCheck = function () {
     this.intervalTimeout = 1000;
     this.imgURL = "http://waikiki.zhaw.ch/~rege/t-menu/header_left.jpg";
     this.interval = null;
+    this.started = false;
     this.eventListeners = [];
     this.eventListeners[SecureExam.Event.InternetAccess.ONLINE] = [];
     this.eventListeners[SecureExam.Event.InternetAccess.OFFLINE] = [];
@@ -199,13 +200,17 @@ SecureExam.Lib.Security.InternetAccessCheck = function () {
     }
 
     this.start = function () {
-        SecureExam.Logger.log("started...", "InternetAccessCheck");
-        that.interval = window.setInterval(that.check, that.intervalTimeout);
+        if( that.eventListeners[SecureExam.Event.InternetAccess.ONLINE].length > 0 || that.eventListeners[SecureExam.Event.InternetAccess.OFFLINE].length > 0) {
+            SecureExam.Logger.log("started...", "InternetAccessCheck");
+            that.interval = window.setInterval(that.check, that.intervalTimeout);
+            that.started = true;
+        }
     }
 
     this.stop = function () {
         SecureExam.Logger.log("started...", "InternetAccessCheck");
         clearInterval(that.inteval);
+        that.started = false;
     }
 
     return {
@@ -216,6 +221,12 @@ SecureExam.Lib.Security.InternetAccessCheck = function () {
             that.stop();
             that.intervalTimeout = timeout;
             that.start();
+        },
+        start:function() {
+            that.start();
+        },
+        stop: function() {
+            that.stop();
         },
         addEventListener: function (event, observer) {
             switch (event.toLowerCase()) {
@@ -228,7 +239,8 @@ SecureExam.Lib.Security.InternetAccessCheck = function () {
                 SecureExam.Logger.log("added listener to OFFLINE", "InternetAccessCheck");
                 break;
             }
-            if (that.interval == null && that.eventListeners[SecureExam.Event.InternetAccess.ONLINE].length == 1) {
+            
+            if( that.interval === null && that.started ) {
                 that.start();
             }
         },
@@ -251,10 +263,6 @@ SecureExam.Lib.Security.InternetAccessCheck = function () {
                 }
                 break;
             }
-
-            if (that.interval != null && that.eventListeners[SecureExam.Event.InternetAccess.ONLINE].length == 0) {
-                that.stop();
-            }
         }
     }
 }
@@ -269,6 +277,7 @@ SecureExam.Lib.Security.InternetAccessCheck = function () {
 
 SecureExam.Lib.Security.SecureTime = function () {
     var that = this;
+    this.started = false;
     this.INTERNALUPDATEINTERVAL = 1000;
     this.INTERNALCLOCKMAXVARIANCE = 50;
     this.TIMEHISTORYMAXVARIANCE = 50;
@@ -342,11 +351,13 @@ SecureExam.Lib.Security.SecureTime = function () {
         that.internalClockStartTime = new Date();
         that.interval = window.setInterval(that.update, that.INTERNALUPDATEINTERVAL);
         SecureExam.Logger.log("started...", "secureDate");
+        this.started = true;
     }
 
     this.stop = function () {
         clearInterval(that.interval);
         SecureExam.Logger.log("stopped...", "secureDate");
+        this.started = false;
     }
 
     this.visibilityChanged = function (e) {
@@ -377,13 +388,18 @@ SecureExam.Lib.Security.SecureTime = function () {
         getInternalTime: function () {
             return that.getInternalTime();
         },
+        start: function() {
+           that.start(); 
+        },
+        stop: function() {
+          that.stop();  
+        },
         addEventListener: function (event, listener) {
             switch (event.toLowerCase()) {
             case SecureExam.Event.SecureTime.TIMEERROR:
                 that.eventListeners[SecureExam.Event.SecureTime.TIMEERROR].push(listener);
                 SecureExam.Logger.log("added listener to TIMEERROR", "secureDate");
-
-                if (that.eventListeners[SecureExam.Event.SecureTime.TIMEERROR].length == 1) {
+                if( that.started && that.interval === null) {
                     that.start();
                 }
                 break;
@@ -406,10 +422,6 @@ SecureExam.Lib.Security.SecureTime = function () {
                     }
                 }
                 SecureExam.Logger.log("removed listener from TIMEERROR", "secureDate");
-
-                if (that.eventListeners[SecureExam.Event.SecureTime.TIMEERROR].length == 0) {
-                    that.stop();
-                }
                 break;
             case SecureExam.Event.SecureTime.TABCHANGE:
                 for (var i = 0; i < that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE].length; i++) {
@@ -446,6 +458,7 @@ SecureExam.Exam = function (htmlInfo) {
     this.InternetAccess = new SecureExam.Lib.Security.InternetAccessCheck();
     this.SecureTime = new SecureExam.Lib.Security.SecureTime();
     this.Settings = null;
+    this.running = (this.Settings === null)?false:true;
     this.timeLeft = null;
     this.timeLeftInterval = null;
     this.autoSaveTimeout = 5000;
@@ -482,7 +495,6 @@ SecureExam.Exam = function (htmlInfo) {
         that.Settings = new SecureExam.Lib.SecureExamSettings(that.User.toString());
 
         if (that.Settings.examExportedTime === null) {
-
             if (!that.tryRestoreSavePoint(that.User.toString())) {
                 that.decryptQuestions(that.User.toString());
             }
@@ -491,6 +503,10 @@ SecureExam.Exam = function (htmlInfo) {
                     that.calculateTimeLeft();
                     that.Settings.save();
                     that.addEventListener(SecureExam.Event.TIMELEFT, that.examTimeExpiredCheck);
+                    that.InternetAccess.start();
+                    that.SecureTime.start();
+                    that.startItervals();
+                    SecureExam.Logger.log("exam started!", "exam");
                 } else {
                     throw SecureExam.ErrorCode.TOOEARLY;
                 }
@@ -499,6 +515,20 @@ SecureExam.Exam = function (htmlInfo) {
             }
         } else {
             throw SecureExam.ErrorCode.ALREADYEXPORTED;
+        }
+    }
+    
+    this.startItervals = function() {
+        // AutoSave
+        if( that.autoSaveInterval === null && that.eventListeners[SecureExam.Event.AUTOSAVE].length !== 0 ) {
+            that.autoSaveInterval = window.setInterval(that.autoSave, that.autoSaveTimeout);
+            SecureExam.Logger.log("started autoSaveInterval", "exam");
+        }
+        
+        // TimeLeft
+        if( that.timeLeftInterval === null ) 
+            that.timeLeftInterval = window.setInterval(that.calculateTimeLeft, 1000);
+            SecureExam.Logger.log("started timeLeftInterval", "exam");{
         }
     }
 
@@ -521,7 +551,7 @@ SecureExam.Exam = function (htmlInfo) {
         try {
             SecureExam.Logger.log("decrypting questions...", "exam");
             // load userKeyDB & questionDiv
-            var userKeyDB = that.HTMLInfo.DivUserDB.innerHTML.split("<br>");
+            var userKeyDB = that.HTMLInfo.DivUserDB.innerHTML.split(";");
             var questionDiv = that.HTMLInfo.DivEncryptedData.innerHTML.split(",");
 
             // remove empty last entry from userKeyDB
@@ -601,6 +631,7 @@ SecureExam.Exam = function (htmlInfo) {
             that.Settings.overallStartTime = new Date(Number(decryptedData[0]));
             that.Settings.overallEndTime = new Date(Number(decryptedData[1]));
             that.Settings.examExpireTime = new Date(that.Settings.examStartTime.getTime() + (Number(decryptedData[2]) * 60 * 1000));
+            that.riseEvent(SecureExam.Event.TIMELEFT,decryptedData[2]+":00");
             SecureExam.Logger.log("important times decrypted and set", "exam");
 
             // print questions, iterate as there are maybe some "," in the text.. 
@@ -751,15 +782,15 @@ SecureExam.Exam = function (htmlInfo) {
         switch (event.toLowerCase()) {
         case SecureExam.Event.TIMELEFT:
             that.eventListeners[SecureExam.Event.TIMELEFT].push(listener);
-            if (that.eventListeners[SecureExam.Event.TIMELEFT].length === 1) {
-                that.timeLeftInterval = window.setInterval(that.calculateTimeLeft, 1000);
-            }
             break;
         case SecureExam.Event.AUTOSAVE:
             that.eventListeners[SecureExam.Event.AUTOSAVE].push(listener);
-            if (that.eventListeners[SecureExam.Event.AUTOSAVE].length === 1) {
-                that.autoSaveInterval = window.setInterval(that.autoSave, that.autoSaveTimeout);
+            if( that.running && that.eventListeners[SecureExam.Event.AUTOSAVE].length === 1) {
+                that.startItervals();
             }
+            break;
+        case SecureExam.Event.EXAMTIMEEXPIRED:
+            that.eventListeners[SecureExam.Event.AUTOSAVE].push(listener);
             break;
         }
     }
@@ -784,6 +815,13 @@ SecureExam.Exam = function (htmlInfo) {
             }
             if (that.eventListeners[SecureExam.Event.AUTOSAVE].length === 0) {
                 clearInterval(that.autoSaveInterval);
+            }
+            break;
+        case SecureExam.Event.EXAMTIMEEXPIRED:
+            for (var i = 0; i < that.eventListeners[SecureExam.Event.EXAMTIMEEXPIRED].length; i++) {
+                if (that.eventListeners[SecureExam.Event.EXAMTIMEEXPIRED][i] === listener) {
+                    that.eventListeners[SecureExam.Event.EXAMTIMEEXPIRED].splice(i, 1);
+                }
             }
             break;
         }
@@ -890,7 +928,7 @@ function tabChange(e) {
 
 function timeLeftChanged(newTime) {
     var time = new Date(newTime);
-    console.log("timeleft: " + time.toLocaleTimeString());
+    console.log("timeleft: " + newTime);
 }
 
 function examExpired(e) {
@@ -899,6 +937,19 @@ function examExpired(e) {
     } else {
         // bla
     }
+}
+
+function autoSave(e) {
+    
+}
+
+function examExpired(e) {
+    
+}
+
+function resetDB() {
+    window.localStorage.removeItem("secureExam");
+    window.localStorage.removeItem("secureExamAutoSave");
 }
 
 // GUI: 4 eingabefelder
@@ -913,7 +964,6 @@ function run() {
     var htmlInfo = new SecureExam.Lib.HTMLInfo("userDB", "data", "questions");
     var exam = new SecureExam.Exam(htmlInfo);
     //try {
-    exam.start("Daniel", "Jampen", "S12198320", "AD8DC0FEB4");
 
     exam.setInternalTimeMaxVariance(25);
     exam.setHistoryTimeMaxVariance(25);
@@ -922,8 +972,11 @@ function run() {
     exam.addEventListener(SecureExam.Event.SecureTime.TIMEERROR, timeWrong);
     exam.addEventListener(SecureExam.Event.SecureTime.TABCHANGE, tabChange);
     exam.addEventListener(SecureExam.Event.TIMELEFT, timeLeftChanged);
-    exam.addEventListener(SecureExam.Event.EXAMTIMEEXPIRED, null);
-    exam.addEventListener(SecureExam.Event.AUTOSAVE, null);
+    exam.addEventListener(SecureExam.Event.EXAMTIMEEXPIRED, examExpired);
+    exam.addEventListener(SecureExam.Event.AUTOSAVE, autoSave);   
+    
+    exam.start("Daniel", "Jampen", "S12198320", "AD8DC0FEB4");
+
     /*} catch (e) {
         switch (e) {
         case exam.ERRORCODES.ALREADYEXPORTED:
