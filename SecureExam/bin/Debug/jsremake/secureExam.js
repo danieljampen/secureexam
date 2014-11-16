@@ -60,9 +60,9 @@ SecureExam.ErrorCode.INVALIDEVENT = 5;
 SecureExam.Logger = new (function () {
     var that = this;
     this.ErrorLevel = {
-        info: 0,            // all logs
+        info: 2,            // all logs
         warning: 1,         // warning & error
-        error: 2            // error only
+        error: 0            // error only
     };
     this.loggers = [];
     this.loggers[this.ErrorLevel.info] = [];
@@ -947,87 +947,89 @@ SecureExam.Exam = function (htmlInfo) {
 
 function isOnline(e) {
     console.log("isonline");
+    document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungsabbruch, Internetzugriff festgestellt!</p>';
+    exam.stop();
 }
 
 function timeWrong(e) {
     console.log("timewrong");
+    document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungsabbruch, Zeitmanipulation entdeckt!</p>';
+    exam.stop();
 }
 
 function tabChange(e) {
-    console.log("tabchange");
-}
-
-function timeLeftChanged(newTime) {
-    var time = new Date(newTime);
-    console.log("timeleft: " + newTime);
-}
-
-function examExpired(e) {
-    if (exam.isExported) {
-        // blabla
+    //document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungsunterbruch, Tab gewechselt! Bitte loggen Sie sich neu ein!</p>';
+    //exam.stop();
+    if( e === "hidden" ) {
+        exam.removeEventListener(SecureExam.Event.SecureTime.TIMEERROR,timeWrong);
+        console.log("tabchange removed listener");
     } else {
-        // bla
+        exam.addEventListener(SecureExam.Event.SecureTime.TIMEERROR, timeWrong);
+        console.log("tabchange added listener");
     }
 }
 
-function autoSave(e) {
-    
+function timeLeftChanged(newTime) {
+    document.getElementById("timeLeft").innerHTML = newTime;
 }
 
-function examExpired(e) {
-    
+function autoSave(e) {
+    var date = new Date(e);
+    document.getElementById("autoSaveInfo").innerHTML = "AutoSave: " + date.toHHMMSSString();
 }
+
 
 function resetDB() {
     window.localStorage.removeItem("secureExam");
+}
+
+function resetAutoSave() {
     window.localStorage.removeItem("secureExamAutoSave");
 }
 
-// GUI: 4 eingabefelder
 //        relogin (neue prüfung?)
 
 
-
-function run() {
+var exam;
+function startExam() {
     SecureExam.Logger.addLogger(console, SecureExam.Logger.ErrorLevel.info);
     //SecureExam.Const.Cryptography.SHA256ITERATIONS = $SHA256ITERATIONS$;
 
     var htmlInfo = new SecureExam.Lib.HTMLInfo("userDB", "data", "questions");
-    var exam = new SecureExam.Exam(htmlInfo);
-    //try {
+    exam = new SecureExam.Exam(htmlInfo);
+    var vorname = document.getElementById("vorname").value;
+    var nachname = document.getElementById("nachname").value;
+    var immNummer = document.getElementById("immNummer").value;
+    var passwort = document.getElementById("passwort").value;
+    if( vorname !== "" && nachname !== "" && immNummer !== "" && passwort !== "" ) {
+        try {
+            exam.setInternalTimeMaxVariance(25);
+            exam.setHistoryTimeMaxVariance(25);
 
-    exam.setInternalTimeMaxVariance(25);
-    exam.setHistoryTimeMaxVariance(25);
-    
-    exam.addEventListener(SecureExam.Event.InternetAccess.ONLINE, isOnline);
-    exam.addEventListener(SecureExam.Event.SecureTime.TIMEERROR, timeWrong);
-    exam.addEventListener(SecureExam.Event.SecureTime.TABCHANGE, tabChange);
-    exam.addEventListener(SecureExam.Event.TIMELEFT, timeLeftChanged);
-    exam.addEventListener(SecureExam.Event.EXAMTIMEEXPIRED, examExpired);
-    exam.addEventListener(SecureExam.Event.AUTOSAVE, autoSave);   
-    
-    exam.start("Daniel", "Jampen", "S12198320", "AD8DC0FEB4");
+            exam.addEventListener(SecureExam.Event.InternetAccess.ONLINE, isOnline);
+            exam.addEventListener(SecureExam.Event.SecureTime.TIMEERROR, timeWrong);
+            exam.addEventListener(SecureExam.Event.SecureTime.TABCHANGE, tabChange);
+            exam.addEventListener(SecureExam.Event.TIMELEFT, timeLeftChanged);
+            exam.addEventListener(SecureExam.Event.AUTOSAVE, autoSave);   
 
-    /*} catch (e) {
-        switch (e) {
-        case exam.ERRORCODES.ALREADYEXPORTED:
-            console.log(e);
-            break;
-        case exam.ERRORCODES.INVALIDARGUMENT:
-            console.log(e);
-            break;
-        case exam.ERRORCODES.INVALIDEVENT:
-            console.log(e);
-            break;
-        case exam.ERRORCODES.INVALIDUSERSECRET:
-            console.log(e);
-            break;
-        case exam.ERRORCODES.TOOEARLY:
-            console.log(e);
-            break;
-        case exam.ERRORCODES.TOOLATE:
-            console.log(e);
-            break;
-        }
-    }*/
+            exam.start("Daniel", "Jampen", "S12198320", "2945738F14");
+        } catch (e) {
+            switch (e) {
+            case SecureExam.ErrorCode.ALREADYEXPORTED:
+                document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfung bereits abgeschlossen!</p>';
+                break;
+            case SecureExam.ErrorCode.INVALIDUSERSECRET:
+                document.getElementById("passwort").style.border = "1px solid red";
+                break;
+            case SecureExam.ErrorCode.TOOEARLY:
+                document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfung noch nicht freigegeben!</p>';
+                break;
+            case SecureExam.ErrorCode.TOOLATE:
+                document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungszeitraum abeglaufen!</p>';
+                break;
+            }
+        } 
+    } else {
+        alert("Bitte alle Felder richtig ausfüllen!");
+    }
 }
