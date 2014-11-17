@@ -22,11 +22,6 @@ namespace SecureExam
                 this.xmlDoc = new XmlDocument();
                 this.xmlDoc.Load(streamReader);
 
-                //exam title, subject and examNotes
-                DataProvider.getInstance().examDetails.examTitle = getElementByTagName("examTitle");
-                DataProvider.getInstance().examDetails.subject = getElementByTagName("subject");
-                DataProvider.getInstance().examDetails.examNotes = getElementByTagName("examNotes");
-
                 //question
                 XmlNodeList questionlist = this.xmlDoc.GetElementsByTagName("question");
                 for (int i = 0; i < questionlist.Count; i++)
@@ -98,7 +93,7 @@ namespace SecureExam
             return questions;
         }
 
-        private string getElementByTagName(string tag)
+        private string getTextByTagName(string tag)
         {
             string result = "";
             if (this.xmlDoc.GetElementsByTagName(tag).Count > 0)
