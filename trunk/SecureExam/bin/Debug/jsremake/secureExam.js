@@ -773,7 +773,7 @@ SecureExam.Exam = function (htmlInfo) {
         that.removeAllEventListeners();
         that.InternetAccess.stop();
         that.SecureTime.stop();
-        that.HTMLInfo.DivQuestions.innerHTML = '<p class="questionText center">Prüfung beendet!</p>'
+        that.HTMLInfo.DivQuestions.innerHTML = '<p class="questionText center">Prüfung beendet!</p>';
     }
 
     this.removeAllEventListeners = function () {
