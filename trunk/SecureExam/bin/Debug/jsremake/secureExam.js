@@ -12,7 +12,7 @@
  */
 
 
-Date.prototype.toHHMMSSString = function() {
+Date.prototype.toHHMMSSString = function () {
     this.h = (this.getHours() < 10) ? "0" + this.getHours() : this.getHours();
     this.m = (this.getMinutes() < 10) ? "0" + this.getMinutes() : this.getMinutes();
     this.s = (this.getSeconds() < 10) ? "0" + this.getSeconds() : this.getSeconds();
@@ -519,22 +519,22 @@ SecureExam.Lib.Security.SecureTime = function () {
  *
  *  description: class to store logs and export them as xml string
  */
-SecureExam.Lib.XMLLogger = function(limit) {
+SecureExam.Lib.XMLLogger = function (limit) {
     var that = this;
     this.limit = limit;
-    this.entrys = [limit];
-    
-    
-    this.log = function( msg ) {
-        if( that.entrys.length > that.limit ) {
+    this.entrys = [];
+
+
+    this.log = function (msg) {
+        if (that.entrys.length > that.limit) {
             that.entrys.shift();
-        } 
-        that.entrys.push( msg );
+        }
+        that.entrys.push(msg);
     }
-    
-    this.exportLog = function() {
+
+    this.exportLog = function () {
         var xml = '<log>';
-        for(var i = 0; i < that.entrys.length; i++) {
+        for (var i = 0; i < that.entrys.length; i++) {
             xml += '<entry>' + that.entrys[i] + '</entry>';
         }
         xml += '</log>';
@@ -582,9 +582,9 @@ SecureExam.Exam = function (htmlInfo) {
     } else {
         throw SecureExam.ErrorCode.INVALIDARGUMENT;
     }
-    
+
     this.xmlLogger = new SecureExam.Lib.XMLLogger(100);
-    SecureExam.Logger.addLogger(this.xmlLogger,SecureExam.Logger.ErrorLevel.info);
+    SecureExam.Logger.addLogger(this.xmlLogger, SecureExam.Logger.ErrorLevel.info);
 
     this.init = function (firstname, lastname, immNumber, secret, continueRestore) {
         that.User.firstname = firstname;
@@ -763,7 +763,7 @@ SecureExam.Exam = function (htmlInfo) {
     }
 
     this.stop = function () {
-        if( that.Settings.examExportedTime === null ) {
+        if (that.Settings.examExportedTime === null) {
             SecureExam.Logger.log("stopping exam", "exam", SecureExam.Logger.ErrorLevel.info);
             that.Settings.examExportedTime = new Date();
 
@@ -869,7 +869,7 @@ SecureExam.Exam = function (htmlInfo) {
     this.calculateTimeLeft = function (forcePrint) {
         var now = new Date();
         var diff = (that.Settings.examExpireTime - now) / 1000;
-        if( diff > 0 || forcePrint) {
+        if (diff > 0 || forcePrint) {
             var seconds = (Math.floor(diff % 60) < 10) ? "0" + Math.floor(diff % 60) : Math.floor(diff % 60);
             var minutes = (Math.floor(diff / 60) < 10) ? "0" + Math.floor(diff / 60) : Math.floor(diff / 60);
 
