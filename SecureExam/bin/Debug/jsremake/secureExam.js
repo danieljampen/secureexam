@@ -769,6 +769,10 @@ SecureExam.Exam = function (htmlInfo) {
 
             that.export();
             that.Settings.save();
+
+            if( that.timeLeft <= 0 ) {
+                that.riseEvent(SecureExam.Event.EXAMTIMEEXPIRED, null);
+            }
         }
         that.removeAllEventListeners();
         that.InternetAccess.stop();
@@ -862,7 +866,6 @@ SecureExam.Exam = function (htmlInfo) {
         if (that.timeLeft <= 0 || that.Settings.overallEndTime <= new Date()) {
             SecureExam.Logger.log("exam expired", "exam", SecureExam.Logger.ErrorLevel.info);
             that.stop();
-            that.riseEvent(SecureExam.Event.EXAMTIMEEXPIRED, null);
         }
     }
 
