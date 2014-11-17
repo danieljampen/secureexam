@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>-q questions.xml -qType XML -s students.xml -o outputExam.html -p settings.xml</StartArguments>
+    <StartArguments>-q C:\Users\Simon\Documents\ZHAW\Projekt\Files\Beispieldateien\Formulare\XML\questions.xml -qType XML -s C:\Users\Simon\Documents\ZHAW\Projekt\Files\Beispieldateien\StudentFiles\XML\students.xml -o outputExam.html -p C:\Users\Simon\Documents\ZHAW\Projekt\Files\Beispieldateien\Settings\settings.xml</StartArguments>
   </PropertyGroup>
 </Project>

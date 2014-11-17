@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+	<NumberOfRandomCharsInStudentSecret>10</NumberOfRandomCharsInStudentSecret>
+	<AESSettings>
+		<keyLength>256</keyLength>
+		<ivLength>128</ivLength>
+	</AESSettings>
+	<SHA256Setttings>
+		<iterations>100000</iterations>
+		<saltLength>256</saltLength>
+		<length>256</length>
+	</SHA256Setttings>
+</data>
