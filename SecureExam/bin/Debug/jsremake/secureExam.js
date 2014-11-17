@@ -11,13 +11,18 @@
  *  Date Prototypes
  */
 
-Date.prototype.toHHMMSSMSString = function () {
+
+Date.prototype.toHHMMSSString = function() {
     this.h = (this.getHours() < 10) ? "0" + this.getHours() : this.getHours();
     this.m = (this.getMinutes() < 10) ? "0" + this.getMinutes() : this.getMinutes();
     this.s = (this.getSeconds() < 10) ? "0" + this.getSeconds() : this.getSeconds();
-    this.ms = this.getMilliseconds();
-    return this.h + ":" + this.m + ":" + this.s + ":" + this.ms;
+    return this.h + ":" + this.m + ":" + this.s;
 };
+
+Date.prototype.toHHMMSSMSString = function () {
+    return this.toHHMMSSString() + ":" + this.getMilliseconds();
+};
+
 
 // namespaces
 var SecureExam = SecureExam || {};
@@ -49,6 +54,7 @@ SecureExam.ErrorCode.ALREADYEXPORTED = 2;
 SecureExam.ErrorCode.INVALIDUSERSECRET = 3;
 SecureExam.ErrorCode.INVALIDARGUMENT = 4;
 SecureExam.ErrorCode.INVALIDEVENT = 5;
+SecureExam.ErrorCode.CONFIRMAUTOSAVERESTORE = 6;
 
 /*
  *	Class Logger
@@ -57,12 +63,12 @@ SecureExam.ErrorCode.INVALIDEVENT = 5;
  *
  *  description: Logger for SecureExam Output
  */
-SecureExam.Logger = new (function () {
+SecureExam.Logger = new(function () {
     var that = this;
     this.ErrorLevel = {
-        info: 2,            // all logs
-        warning: 1,         // warning & error
-        error: 0            // error only
+        info: 2, // all logs
+        warning: 1, // warning & error
+        error: 0 // error only
     };
     this.loggers = [];
     this.loggers[this.ErrorLevel.info] = [];
@@ -70,33 +76,33 @@ SecureExam.Logger = new (function () {
     this.loggers[this.ErrorLevel.error] = [];
 
     this.logToAll = function (msg, sender, errorLevel) {
-        if(that.checkIfLoggerAvailable(errorLevel)) {
+        if (that.checkIfLoggerAvailable(errorLevel)) {
             var message = "[secureExam::" + new Date().toLocaleDateString() + "-" + new Date().toLocaleTimeString() + "] ";
-            switch( errorLevel ) {
-                case this.ErrorLevel.info:
-                    message += "[INFO] ";
-                    break;
-                case this.ErrorLevel.warning:
-                    message += "[WARNING] ";
-                    break;
-                case this.ErrorLevel.error:
-                    message += "[ERROR] ";
-                    break;
+            switch (errorLevel) {
+            case this.ErrorLevel.info:
+                message += "[INFO] ";
+                break;
+            case this.ErrorLevel.warning:
+                message += "[WARNING] ";
+                break;
+            case this.ErrorLevel.error:
+                message += "[ERROR] ";
+                break;
             }
             message += "[" + sender + "] ";
             message += msg;
 
-            for (var j = errorLevel; j < that.loggers.length; j++ ) {
+            for (var j = errorLevel; j < that.loggers.length; j++) {
                 for (var i = 0; i < that.loggers[j].length; i++) {
                     that.loggers[j][i].log(message);
                 }
             }
         }
     }
-    
-    this.checkIfLoggerAvailable = function(errorLevel) {
-        for(var i = errorLevel; i < that.loggers.length; i++ ) {
-            if( that.loggers[i].length >= 1 ) {
+
+    this.checkIfLoggerAvailable = function (errorLevel) {
+        for (var i = errorLevel; i < that.loggers.length; i++) {
+            if (that.loggers[i].length >= 1) {
                 return true;
             }
         }
@@ -191,7 +197,7 @@ SecureExam.Lib.SecureExamSettings = function (userSecret) {
  *	Class SecureExam.lib.security.InternetAccessCheck()
  *	Constructor-Arguments: none
  *
- *  description: class to check internet Access and if so, fire events to observers
+ *  description: class to check internet Access and if so, fire events to listeners
  */
 SecureExam.Lib.Security.InternetAccessCheck = function () {
     var that = this;
@@ -228,7 +234,7 @@ SecureExam.Lib.Security.InternetAccessCheck = function () {
     }
 
     this.start = function () {
-        if( that.eventListeners[SecureExam.Event.InternetAccess.ONLINE].length > 0 || that.eventListeners[SecureExam.Event.InternetAccess.OFFLINE].length > 0) {
+        if (that.eventListeners[SecureExam.Event.InternetAccess.ONLINE].length > 0 || that.eventListeners[SecureExam.Event.InternetAccess.OFFLINE].length > 0) {
             SecureExam.Logger.log("started...", "InternetAccessCheck", SecureExam.Logger.ErrorLevel.info);
             that.interval = window.setInterval(that.check, that.intervalTimeout);
             that.started = true;
@@ -237,8 +243,46 @@ SecureExam.Lib.Security.InternetAccessCheck = function () {
 
     this.stop = function () {
         SecureExam.Logger.log("stopped...", "InternetAccessCheck", SecureExam.Logger.ErrorLevel.info);
-        clearInterval(that.inteval);
+        clearInterval(that.interval);
         that.started = false;
+    }
+
+    this.addEventListener = function (event, listener) {
+        switch (event.toLowerCase()) {
+        case SecureExam.Event.InternetAccess.ONLINE:
+            that.eventListeners[SecureExam.Event.InternetAccess.ONLINE].push(listener);
+            SecureExam.Logger.log("added listener to ONLINE", "InternetAccessCheck", SecureExam.Logger.ErrorLevel.info);
+            break;
+        case SecureExam.Event.InternetAccess.OFFLINE:
+            that.eventListeners[SecureExam.Event.InternetAccess.OFFLINE].push(listener);
+            SecureExam.Logger.log("added listener to OFFLINE", "InternetAccessCheck", SecureExam.Logger.ErrorLevel.info);
+            break;
+        }
+
+        if (that.interval === null && that.started) {
+            that.start();
+        }
+    }
+
+    this.removeEventListener = function (event, listener) {
+        switch (event.toLowerCase()) {
+        case SecureExam.Event.InternetAccess.ONLINE:
+            for (var i = 0; i < that.eventListeners[SecureExam.Event.InternetAccess.ONLINE].length; i++) {
+                if (that.eventListeners[SecureExam.Event.InternetAccess.ONLINE][i] === listener) {
+                    that.eventListeners[SecureExam.Event.InternetAccess.ONLINE].splice(i, 1);
+                }
+                SecureExam.Logger.log("removed listener from ONLINE", "InternetAccessCheck", SecureExam.Logger.ErrorLevel.info);
+            }
+            break;
+        case tSecureExam.Event.InternetAccess.OFFLINE:
+            for (var i = 0; i < that.eventListeners[SecureExam.Event.InternetAccess.OFFLINE].length; i++) {
+                if (that.eventListeners[SecureExam.Event.InternetAccess.OFFLINE][i] === listener) {
+                    that.eventListeners[SecureExam.Event.InternetAccess.OFFLINE].splice(i, 1);
+                }
+                SecureExam.Logger.log("removed listener from OFFLINE", "InternetAccessCheck", SecureExam.Logger.ErrorLevel.info);
+            }
+            break;
+        }
     }
 
     return {
@@ -250,53 +294,31 @@ SecureExam.Lib.Security.InternetAccessCheck = function () {
             that.intervalTimeout = timeout;
             that.start();
         },
-        start:function() {
+        start: function () {
             that.start();
         },
-        stop: function() {
+        stop: function () {
             that.stop();
         },
-        addEventListener: function (event, observer) {
-            switch (event.toLowerCase()) {
-            case SecureExam.Event.InternetAccess.ONLINE:
-                that.eventListeners[SecureExam.Event.InternetAccess.ONLINE].push(observer);
-                    SecureExam.Logger.log("added listener to ONLINE", "InternetAccessCheck", SecureExam.Logger.ErrorLevel.info);
-                break;
-            case SecureExam.Event.InternetAccess.OFFLINE:
-                that.eventListeners[SecureExam.Event.InternetAccess.OFFLINE].push(observer);
-                    SecureExam.Logger.log("added listener to OFFLINE", "InternetAccessCheck", SecureExam.Logger.ErrorLevel.info);
-                break;
-            }
-            
-            if( that.interval === null && that.started ) {
-                that.start();
-            }
+        addEventListener: function (event, listener) {
+            that.addEventListener(event, listener);
         },
         removeEventListener: function (event, listener) {
-            switch (event.toLowerCase()) {
-            case SecureExam.Event.InternetAccess.ONLINE:
-                for (var i = 0; i < that.eventListeners[SecureExam.Event.InternetAccess.TIMEERROR].length; i++) {
-                    if (that.eventListeners[SecureExam.Event.InternetAccess.TIMEERROR][i] === listener) {
-                        that.eventListeners[SecureExam.Event.InternetAccess.TIMEERROR].splice(i, 1);
-                    }
-                    SecureExam.Logger.log("removed listener from ONLINE", "InternetAccessCheck", SecureExam.Logger.ErrorLevel.info);
-                }
-                break;
-            case tSecureExam.Event.InternetAccess.OFFLINE:
-                for (var i = 0; i < that.eventListeners[SecureExam.Event.InternetAccess.OFFLINE].length; i++) {
-                    if (that.eventListeners[SecureExam.Event.InternetAccess.OFFLINE][i] === listener) {
-                        that.eventListeners[SecureExam.Event.InternetAccess.OFFLINE].splice(i, 1);
-                    }
-                    SecureExam.Logger.log("removed listener from OFFLINE", "InternetAccessCheck", SecureExam.Logger.ErrorLevel.info);
-                }
-                break;
+            that.removeEventListener(event, listener);
+        },
+        removeAllEventListeners: function () {
+            for (var i = 0; i < that.eventListeners[SecureExam.Event.InternetAccess.ONLINE].length; i++) {
+                that.removeEventListener(SecureExam.Event.InternetAccess.ONLINE, that.eventListeners[SecureExam.Event.InternetAccess.ONLINE][i]);
+            }
+            for (var i = 0; i < that.eventListeners[SecureExam.Event.InternetAccess.OFFLINE].length; i++) {
+                that.removeEventListener(SecureExam.Event.InternetAccess.OFFLINE, that.eventListeners[SecureExam.Event.InternetAccess.OFFLINE][i]);
             }
         }
     }
 }
 
 /*
- *	Class SecureTime
+ *	Class SecureExam.lib.SecureTime
  *	Constructor-Arguments: - none
  *
  *
@@ -412,57 +434,73 @@ SecureExam.Lib.Security.SecureTime = function () {
         return date;
     }
 
+    this.addEventListener = function (event, listener) {
+        switch (event.toLowerCase()) {
+        case SecureExam.Event.SecureTime.TIMEERROR:
+            that.eventListeners[SecureExam.Event.SecureTime.TIMEERROR].push(listener);
+            SecureExam.Logger.log("added listener to TIMEERROR", "secureDate", SecureExam.Logger.ErrorLevel.info);
+            if (that.started && that.interval === null) {
+                that.start();
+            }
+            break;
+        case SecureExam.Event.SecureTime.TABCHANGE:
+            that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE].push(listener);
+            SecureExam.Logger.log("added listener to TABCHANGE", "secureDate", SecureExam.Logger.ErrorLevel.info);
+
+            if (that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE].length == 1) {
+                that.addVisibilityChangeListener();
+            }
+            break;
+        }
+    }
+
+    this.removeEventListener = function (event, listener) {
+        switch (event.toLowerCase()) {
+        case SecureExam.Event.SecureTime.TIMEERROR:
+            for (var i = 0; i < that.eventListeners[SecureExam.Event.SecureTime.TIMEERROR].length; i++) {
+                if (that.eventListeners[SecureExam.Event.SecureTime.TIMEERROR][i] === listener) {
+                    that.eventListeners[SecureExam.Event.SecureTime.TIMEERROR].splice(i, 1);
+                }
+            }
+            SecureExam.Logger.log("removed listener from TIMEERROR", "secureDate", SecureExam.Logger.ErrorLevel.info);
+            break;
+        case SecureExam.Event.SecureTime.TABCHANGE:
+            for (var i = 0; i < that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE].length; i++) {
+                if (that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE][i] === listener) {
+                    that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE].splice(i, 1);
+                }
+            }
+            SecureExam.Logger.log("removed listener from TABCHANGE", "secureDate", SecureExam.Logger.ErrorLevel.info);
+
+            if (that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE].length == 0) {
+                that.removeVisibilityChangeListener();
+            }
+            break;
+        }
+    }
+
     return {
         getInternalTime: function () {
             return that.getInternalTime();
         },
-        start: function() {
-           that.start(); 
+        start: function () {
+            that.start();
         },
-        stop: function() {
-          that.stop();  
+        stop: function () {
+            that.stop();
         },
         addEventListener: function (event, listener) {
-            switch (event.toLowerCase()) {
-            case SecureExam.Event.SecureTime.TIMEERROR:
-                that.eventListeners[SecureExam.Event.SecureTime.TIMEERROR].push(listener);
-                    SecureExam.Logger.log("added listener to TIMEERROR", "secureDate", SecureExam.Logger.ErrorLevel.info);
-                if( that.started && that.interval === null) {
-                    that.start();
-                }
-                break;
-            case SecureExam.Event.SecureTime.TABCHANGE:
-                that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE].push(listener);
-                    SecureExam.Logger.log("added listener to TABCHANGE", "secureDate", SecureExam.Logger.ErrorLevel.info);
-
-                if (that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE].length == 1) {
-                    that.addVisibilityChangeListener();
-                }
-                break;
-            }
+            that.addEventListener(event, listener);
         },
         removeEventListener: function (event, listener) {
-            switch (event.toLowerCase()) {
-            case SecureExam.Event.SecureTime.TIMEERROR:
-                for (var i = 0; i < that.eventListeners[SecureExam.Event.SecureTime.TIMEERROR].length; i++) {
-                    if (that.eventListeners[SecureExam.Event.SecureTime.TIMEERROR][i] === listener) {
-                        that.eventListeners[SecureExam.Event.SecureTime.TIMEERROR].splice(i, 1);
-                    }
-                }
-                    SecureExam.Logger.log("removed listener from TIMEERROR", "secureDate", SecureExam.Logger.ErrorLevel.info);
-                break;
-            case SecureExam.Event.SecureTime.TABCHANGE:
-                for (var i = 0; i < that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE].length; i++) {
-                    if (that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE][i] === listener) {
-                        that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE].splice(i, 1);
-                    }
-                }
-                    SecureExam.Logger.log("removed listener from TABCHANGE", "secureDate", SecureExam.Logger.ErrorLevel.info);
-
-                if (that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE].length == 0) {
-                    that.removeVisibilityChangeListener();
-                }
-                break;
+            that.removeEventListener(event, listener);
+        },
+        removeAllEventListeners: function () {
+            for (var i = 0; i < that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE].length; i++) {
+                that.removeEventListener(SecureExam.Event.SecureTime.TABCHANGE, that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE][i]);
+            }
+            for (var i = 0; i < that.eventListeners[SecureExam.Event.SecureTime.TIMEERROR].length; i++) {
+                that.removeEventListener(SecureExam.Event.SecureTime.TIMEERROR, that.eventListeners[SecureExam.Event.SecureTime.TIMEERROR][i]);
             }
         },
         setHistoryTimeMaxVariance: function (ms) {
@@ -471,6 +509,36 @@ SecureExam.Lib.Security.SecureTime = function () {
         setInternalTimeMaxVariance: function (ms) {
             that.INTERNALCLOCKMAXVARIANCE = ms;
         }
+    }
+}
+
+/*
+ *	Class SecureExam.Lib.XNLLogger
+ *	Constructor-Arguments: - limit : (int) max log length
+ *
+ *
+ *  description: class to store logs and export them as xml string
+ */
+SecureExam.Lib.XMLLogger = function(limit) {
+    var that = this;
+    this.limit = limit;
+    this.entrys = [limit];
+    
+    
+    this.log = function( msg ) {
+        if( that.entrys.length > that.limit ) {
+            that.entrys.shift();
+        } 
+        that.entrys.push( msg );
+    }
+    
+    this.exportLog = function() {
+        var xml = '<log>';
+        for(var i = 0; i < that.entrys.length; i++) {
+            xml += '<entry>' + that.entrys[i] + '</entry>';
+        }
+        xml += '</log>';
+        return xml;
     }
 }
 
@@ -486,11 +554,12 @@ SecureExam.Exam = function (htmlInfo) {
     this.InternetAccess = new SecureExam.Lib.Security.InternetAccessCheck();
     this.SecureTime = new SecureExam.Lib.Security.SecureTime();
     this.Settings = null;
-    this.running = (this.Settings === null)?false:true;
+    this.running = (this.Settings === null) ? false : true;
     this.timeLeft = null;
     this.timeLeftInterval = null;
     this.autoSaveTimeout = 5000;
     this.autoSaveInterval = null;
+    this.confirmAutoSaveRestore = false;
     this.eventListeners = [];
     this.eventListeners[SecureExam.Event.TIMELEFT] = [];
     this.eventListeners[SecureExam.Event.AUTOSAVE] = [];
@@ -513,8 +582,11 @@ SecureExam.Exam = function (htmlInfo) {
     } else {
         throw SecureExam.ErrorCode.INVALIDARGUMENT;
     }
+    
+    this.xmlLogger = new SecureExam.Lib.XMLLogger(100);
+    SecureExam.Logger.addLogger(this.xmlLogger,SecureExam.Logger.ErrorLevel.info);
 
-    this.init = function (firstname, lastname, immNumber, secret) {
+    this.init = function (firstname, lastname, immNumber, secret, continueRestore) {
         that.User.firstname = firstname;
         that.User.lastname = lastname;
         that.User.immNumber = immNumber;
@@ -523,8 +595,12 @@ SecureExam.Exam = function (htmlInfo) {
         that.Settings = new SecureExam.Lib.SecureExamSettings(that.User.toString());
 
         if (that.Settings.examExportedTime === null) {
-            if (!that.tryRestoreSavePoint(that.User.toString())) {
-                that.decryptQuestions(that.User.toString());
+            if (!continueRestore) {
+                if (!that.tryRestoreSavePoint(that.User.toString())) {
+                    that.decryptQuestions(that.User.toString());
+                }
+            } else {
+                that.tryRestoreSavePoint(that.User.toString(), continueRestore);
             }
             if (that.Settings.overallEndTime >= new Date()) {
                 if (that.Settings.overallStartTime <= new Date()) {
@@ -548,30 +624,38 @@ SecureExam.Exam = function (htmlInfo) {
             throw SecureExam.ErrorCode.ALREADYEXPORTED;
         }
     }
-    
-    this.startItervals = function() {
+
+    this.startItervals = function () {
         // AutoSave
-        if( that.autoSaveInterval === null && that.eventListeners[SecureExam.Event.AUTOSAVE].length !== 0 ) {
+        if (that.autoSaveInterval === null && that.eventListeners[SecureExam.Event.AUTOSAVE].length !== 0) {
             that.autoSaveInterval = window.setInterval(that.autoSave, that.autoSaveTimeout);
             SecureExam.Logger.log("started autoSaveInterval", "exam", SecureExam.Logger.ErrorLevel.info);
         }
-        
+
         // TimeLeft
-        if( that.timeLeftInterval === null ) 
+        if (that.timeLeftInterval === null)
             that.timeLeftInterval = window.setInterval(that.calculateTimeLeft, 1000);
-        SecureExam.Logger.log("started timeLeftInterval", "exam", SecureExam.Logger.ErrorLevel.info);{
-        }
+        SecureExam.Logger.log("started timeLeftInterval", "exam", SecureExam.Logger.ErrorLevel.info); {}
     }
 
-    this.tryRestoreSavePoint = function (userSecret) {
+    this.tryRestoreSavePoint = function (userSecret, continueRestore) {
         if (window.localStorage.getItem("secureExamAutoSave") !== null) {
             try {
                 var dec = CryptoJS.AES.decrypt(window.localStorage.getItem("secureExamAutoSave"), userSecret);
+                var decString = dec.toString(CryptoJS.enc.Utf8);
+                if (that.confirmAutoSaveRestore && !continueRestore) {
+                    throw SecureExam.ErrorCode.CONFIRMAUTOSAVERESTORE;
+                }
                 that.HTMLInfo.DivQuestions.innerHTML = dec.toString(CryptoJS.enc.Utf8);
+                that.calculateTimeLeft(true);
                 SecureExam.Logger.log("restored savepoint", "exam", SecureExam.Logger.ErrorLevel.info);
                 return true;
             } catch (e) {
-                SecureExam.Logger.log("savepoint found but from different user", "exam", SecureExam.Logger.ErrorLevel.info);
+                if (e === SecureExam.ErrorCode.CONFIRMAUTOSAVERESTORE) {
+                    throw SecureExam.ErrorCode.CONFIRMAUTOSAVERESTORE;
+                } else {
+                    SecureExam.Logger.log("savepoint found but from different user", "exam", SecureExam.Logger.ErrorLevel.info);
+                }
             }
         }
         SecureExam.Logger.log("there is no old savepoint", "exam", SecureExam.Logger.ErrorLevel.info);
@@ -661,8 +745,9 @@ SecureExam.Exam = function (htmlInfo) {
             var decryptedData = decryptedString.split(",");
             that.Settings.overallStartTime = new Date(Number(decryptedData[0]));
             that.Settings.overallEndTime = new Date(Number(decryptedData[1]));
-            that.Settings.examExpireTime = new Date(that.Settings.examStartTime.getTime() + (Number(decryptedData[2]) * 60 * 1000));
-            that.riseEvent(SecureExam.Event.TIMELEFT,decryptedData[2]+":00");
+            //that.Settings.examExpireTime = new Date(that.Settings.examStartTime.getTime() + (Number(decryptedData[2]) * 60 * 1000));
+            that.Settings.examExpireTime = new Date(that.Settings.examStartTime.getTime() + (1 * 60 * 1000));
+            that.riseEvent(SecureExam.Event.TIMELEFT, decryptedData[2] + ":00");
             SecureExam.Logger.log("important times decrypted and set", "exam", SecureExam.Logger.ErrorLevel.info);
 
             // print questions, iterate as there are maybe some "," in the text.. 
@@ -678,20 +763,30 @@ SecureExam.Exam = function (htmlInfo) {
     }
 
     this.stop = function () {
-        that.Settings.examExportedTime = new Date();
+        if( that.Settings.examExportedTime === null ) {
+            SecureExam.Logger.log("stopping exam", "exam", SecureExam.Logger.ErrorLevel.info);
+            that.Settings.examExportedTime = new Date();
 
-        that.autoSave();
-        that.export();
-        that.Settings.save();
+            that.export();
+            that.Settings.save();
+        }
         that.removeAllEventListeners();
+        that.InternetAccess.stop();
+        that.SecureTime.stop();
     }
 
     this.removeAllEventListeners = function () {
-        for (var i = 0; i < that.eventListeners.length; i++) {
-            for (var j = 0; k < that.eventListeners[i].length; j++) {
-                that.removeEventListener(that.eventListeners[i], that.eventListeners[i][j]);
-            }
+        for (var i = 0; i < that.eventListeners[SecureExam.Event.AUTOSAVE].length; i++) {
+            that.removeEventListener(SecureExam.Event.AUTOSAVE, that.eventListeners[SecureExam.Event.AUTOSAVE][i]);
         }
+        for (var i = 0; i < that.eventListeners[SecureExam.Event.EXAMTIMEEXPIRED].length; i++) {
+            that.removeEventListener(SecureExam.Event.EXAMTIMEEXPIRED, that.eventListeners[SecureExam.Event.EXAMTIMEEXPIRED][i]);
+        }
+        for (var i = 0; i < that.eventListeners[SecureExam.Event.TIMELEFT].length; i++) {
+            that.removeEventListener(SecureExam.Event.TIMELEFT, that.eventListeners[SecureExam.Event.TIMELEFT][i]);
+        }
+        that.SecureTime.removeAllEventListeners();
+        that.InternetAccess.removeAllEventListeners();
     }
 
     this.export = function () {
@@ -703,7 +798,7 @@ SecureExam.Exam = function (htmlInfo) {
         var blob = new Blob([xml], {
             type: "text/plain;charset=utf-8"
         });
-        var ret = saveAs(blob, "exam_" + that.User.firstname + that.User.lastname + that.User.immNumber + ".xml.enc");
+        saveAs(blob, "exam_" + that.User.firstname + that.User.lastname + that.User.immNumber + ".xml.enc");
     }
 
     // todo: include logs
@@ -758,30 +853,37 @@ SecureExam.Exam = function (htmlInfo) {
         } else {
             xml += '<examInvalid>' + that.Settings.invalidLog + '</examInvalid>';
         }
+        xml += that.xmlLogger.exportLog();
         xml += '</exam>';
         return xml;
     }
 
     this.examTimeExpiredCheck = function () {
-        if (that.timeLeft <= 0 || that.Settings.examExportedTime <= new Date() || that.Settings.examExpireTime <= new Date()) {
+        if (that.timeLeft <= 0 || that.Settings.overallEndTime <= new Date()) {
             that.riseEvent(SecureExam.Event.EXAMTIMEEXPIRED, null);
+            SecureExam.Logger.log("exam expired", "exam", SecureExam.Logger.ErrorLevel.info);
             that.stop();
         }
     }
 
-    this.calculateTimeLeft = function () {
+    this.calculateTimeLeft = function (forcePrint) {
         var now = new Date();
         var diff = (that.Settings.examExpireTime - now) / 1000;
-        var seconds = (Math.floor(diff % 60) < 10) ? "0" + Math.floor(diff % 60) : Math.floor(diff % 60);
-        var minutes = (Math.floor(diff / 60) < 10) ? "0" + Math.floor(diff / 60) : Math.floor(diff / 60);
+        if( diff > 0 || forcePrint) {
+            var seconds = (Math.floor(diff % 60) < 10) ? "0" + Math.floor(diff % 60) : Math.floor(diff % 60);
+            var minutes = (Math.floor(diff / 60) < 10) ? "0" + Math.floor(diff / 60) : Math.floor(diff / 60);
 
-        if (minutes >= 10 && seconds !== "00") {
-            return;
-        }
-        var newTime = minutes + ":" + seconds;
-        if (newTime !== that.timeLeft) {
-            that.timeLeft = newTime;
-            that.riseEvent(SecureExam.Event.TIMELEFT, that.timeLeft);
+            if (minutes >= 10 && seconds !== "00") {
+                return;
+            }
+            var newTime = minutes + ":" + seconds;
+            if (newTime !== that.timeLeft) {
+                that.timeLeft = Number((minutes * 60) + seconds);
+                that.riseEvent(SecureExam.Event.TIMELEFT, newTime);
+            }
+        } else {
+            that.timeLeft = diff;
+            that.examTimeExpiredCheck();
         }
     }
 
@@ -813,15 +915,18 @@ SecureExam.Exam = function (htmlInfo) {
         switch (event.toLowerCase()) {
         case SecureExam.Event.TIMELEFT:
             that.eventListeners[SecureExam.Event.TIMELEFT].push(listener);
+            SecureExam.Logger.log("added listener to TIMELEFT", "exam", SecureExam.Logger.ErrorLevel.info);
             break;
         case SecureExam.Event.AUTOSAVE:
             that.eventListeners[SecureExam.Event.AUTOSAVE].push(listener);
-            if( that.running && that.eventListeners[SecureExam.Event.AUTOSAVE].length === 1) {
+            if (that.running && that.eventListeners[SecureExam.Event.AUTOSAVE].length === 1) {
                 that.startItervals();
             }
+            SecureExam.Logger.log("added listener to TIMELEFT", "exam", SecureExam.Logger.ErrorLevel.info);
             break;
         case SecureExam.Event.EXAMTIMEEXPIRED:
-            that.eventListeners[SecureExam.Event.AUTOSAVE].push(listener);
+            that.eventListeners[SecureExam.Event.EXAMTIMEEXPIRED].push(listener);
+            SecureExam.Logger.log("added listener to EXAMTIMEEXPIRED", "exam", SecureExam.Logger.ErrorLevel.info);
             break;
         }
     }
@@ -837,6 +942,7 @@ SecureExam.Exam = function (htmlInfo) {
             if (that.eventListeners[SecureExam.Event.TIMELEFT].length === 0) {
                 clearInterval(that.timeLeftInterval);
             }
+            SecureExam.Logger.log("removed listener from TIMELEFT", "exam", SecureExam.Logger.ErrorLevel.info);
             break;
         case SecureExam.Event.AUTOSAVE:
             for (var i = 0; i < that.eventListeners[SecureExam.Event.AUTOSAVE].length; i++) {
@@ -847,6 +953,7 @@ SecureExam.Exam = function (htmlInfo) {
             if (that.eventListeners[SecureExam.Event.AUTOSAVE].length === 0) {
                 clearInterval(that.autoSaveInterval);
             }
+            SecureExam.Logger.log("removed listener from AUTOSAVE", "exam", SecureExam.Logger.ErrorLevel.info);
             break;
         case SecureExam.Event.EXAMTIMEEXPIRED:
             for (var i = 0; i < that.eventListeners[SecureExam.Event.EXAMTIMEEXPIRED].length; i++) {
@@ -854,6 +961,7 @@ SecureExam.Exam = function (htmlInfo) {
                     that.eventListeners[SecureExam.Event.EXAMTIMEEXPIRED].splice(i, 1);
                 }
             }
+            SecureExam.Logger.log("removed listener from EXAMTIMEEXPIRED", "exam", SecureExam.Logger.ErrorLevel.info);
             break;
         }
     }
@@ -939,97 +1047,21 @@ SecureExam.Exam = function (htmlInfo) {
         },
         isExported: function () {
             return (that.Settings.examExportedTime !== null);
-        }
-    }
-}
-
-
-
-function isOnline(e) {
-    console.log("isonline");
-    document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungsabbruch, Internetzugriff festgestellt!</p>';
-    exam.stop();
-}
-
-function timeWrong(e) {
-    console.log("timewrong");
-    document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungsabbruch, Zeitmanipulation entdeckt!</p>';
-    exam.stop();
-}
-
-function tabChange(e) {
-    //document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungsunterbruch, Tab gewechselt! Bitte loggen Sie sich neu ein!</p>';
-    //exam.stop();
-    if( e === "hidden" ) {
-        exam.removeEventListener(SecureExam.Event.SecureTime.TIMEERROR,timeWrong);
-        console.log("tabchange removed listener");
-    } else {
-        exam.addEventListener(SecureExam.Event.SecureTime.TIMEERROR, timeWrong);
-        console.log("tabchange added listener");
-    }
-}
-
-function timeLeftChanged(newTime) {
-    document.getElementById("timeLeft").innerHTML = newTime;
-}
-
-function autoSave(e) {
-    var date = new Date(e);
-    document.getElementById("autoSaveInfo").innerHTML = "AutoSave: " + date.toHHMMSSString();
-}
-
-
-function resetDB() {
-    window.localStorage.removeItem("secureExam");
-}
-
-function resetAutoSave() {
-    window.localStorage.removeItem("secureExamAutoSave");
-}
-
-//        relogin (neue prüfung?)
-
-
-var exam;
-function startExam() {
-    SecureExam.Logger.addLogger(console, SecureExam.Logger.ErrorLevel.info);
-    //SecureExam.Const.Cryptography.SHA256ITERATIONS = $SHA256ITERATIONS$;
-
-    var htmlInfo = new SecureExam.Lib.HTMLInfo("userDB", "data", "questions");
-    exam = new SecureExam.Exam(htmlInfo);
-    var vorname = document.getElementById("vorname").value;
-    var nachname = document.getElementById("nachname").value;
-    var immNummer = document.getElementById("immNummer").value;
-    var passwort = document.getElementById("passwort").value;
-    if( vorname !== "" && nachname !== "" && immNummer !== "" && passwort !== "" ) {
-        try {
-            exam.setInternalTimeMaxVariance(25);
-            exam.setHistoryTimeMaxVariance(25);
-
-            exam.addEventListener(SecureExam.Event.InternetAccess.ONLINE, isOnline);
-            exam.addEventListener(SecureExam.Event.SecureTime.TIMEERROR, timeWrong);
-            exam.addEventListener(SecureExam.Event.SecureTime.TABCHANGE, tabChange);
-            exam.addEventListener(SecureExam.Event.TIMELEFT, timeLeftChanged);
-            exam.addEventListener(SecureExam.Event.AUTOSAVE, autoSave);   
-
-            exam.start("Daniel", "Jampen", "S12198320", "2945738F14");
-        } catch (e) {
-            switch (e) {
-            case SecureExam.ErrorCode.ALREADYEXPORTED:
-                document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfung bereits abgeschlossen!</p>';
-                break;
-            case SecureExam.ErrorCode.INVALIDUSERSECRET:
-                document.getElementById("passwort").style.border = "1px solid red";
-                break;
-            case SecureExam.ErrorCode.TOOEARLY:
-                document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfung noch nicht freigegeben!</p>';
-                break;
-            case SecureExam.ErrorCode.TOOLATE:
-                document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungszeitraum abeglaufen!</p>';
-                break;
+        },
+        setConfirmAutoSaveRestore: function (value) {
+            that.confirmAutoSaveRestore = value;
+        },
+        continueAutoSaveRestore: function (continueRestore) {
+            if (continueRestore) {
+                that.confirmAutoSaveRestore = false;
+                that.init(that.User.firstname, that.User.lastname, that.User.immNumber, that.User.secret, true);
+                that.confirmAutoSaveRestore = true;
+            } else {
+                that.confirmAutoSaveRestore = false;
+                window.localStorage.removeItem("secureExamAutoSave");
+                that.init(that.User.firstname, that.User.lastname, that.User.immNumber, that.User.secret);
+                that.confirmAutoSaveRestore = true;
             }
-        } 
-    } else {
-        alert("Bitte alle Felder richtig ausfüllen!");
+        }
     }
 }
