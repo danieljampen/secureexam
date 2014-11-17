@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureExam", "SecureExam\SecureExam.csproj", "{32142FAC-C8ED-42A6-B21D-01C7A2B23D39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{E9D5E920-0B29-41A9-B713-A34ACB8ACA4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{32142FAC-C8ED-42A6-B21D-01C7A2B23D39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32142FAC-C8ED-42A6-B21D-01C7A2B23D39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32142FAC-C8ED-42A6-B21D-01C7A2B23D39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9D5E920-0B29-41A9-B713-A34ACB8ACA4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9D5E920-0B29-41A9-B713-A34ACB8ACA4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9D5E920-0B29-41A9-B713-A34ACB8ACA4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9D5E920-0B29-41A9-B713-A34ACB8ACA4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
