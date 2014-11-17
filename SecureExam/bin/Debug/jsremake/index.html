@@ -1,4 +1,4 @@
-﻿<html>
+<html>
 
 <head>
     <style>
@@ -206,7 +206,6 @@
             document.getElementById("autoSaveInfo").innerHTML = "AutoSave: " + date.toHHMMSSString();
         }
 
-
         function resetDB() {
             window.localStorage.removeItem("secureExam");
         }
@@ -227,6 +226,11 @@
                 document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfung beendet!</p>';
             }
         }
+        
+        function examexpired() {
+            document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfung beendet!</p>';
+            document.getElementById("finishButton").innerHTML = '';
+        }
 
         var exam;
         function startExam() {
@@ -239,7 +243,7 @@
             var nachname = document.getElementById("nachname").value;
             var immNummer = document.getElementById("immNummer").value;
             var passwort = document.getElementById("passwort").value;
-            if( vorname !== "" && nachname !== "" && immNummer !== "" && passwort !== "" ) {
+            if( vorname !== "" && nachname !== "" && passwort !== "" ) {
                 try {
                     document.getElementById("studentDetails").innerHTML = "Vorname: " + vorname + " Nachname: " + nachname + " Immatrikulationsnummer: " + immNummer;
                     
@@ -251,7 +255,8 @@
                     exam.addEventListener(SecureExam.Event.SecureTime.TIMEERROR, timeWrong);
                     exam.addEventListener(SecureExam.Event.SecureTime.TABCHANGE, tabChange);
                     exam.addEventListener(SecureExam.Event.TIMELEFT, timeLeftChanged);
-                    exam.addEventListener(SecureExam.Event.AUTOSAVE, autoSave);   
+                    exam.addEventListener(SecureExam.Event.AUTOSAVE, autoSave);
+                    exam.addEventListener(SecureExam.Event.EXAMTIMEEXPIRED, examexpired);  
 
                     exam.start("Daniel", "Jampen", "S12198320", "211423C1A9");
                     

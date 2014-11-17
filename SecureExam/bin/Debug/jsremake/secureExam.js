@@ -773,7 +773,6 @@ SecureExam.Exam = function (htmlInfo) {
         that.removeAllEventListeners();
         that.InternetAccess.stop();
         that.SecureTime.stop();
-        that.HTMLInfo.DivQuestions.innerHTML = '<p class="questionText center">Prüfung beendet!</p>';
     }
 
     this.removeAllEventListeners = function () {
@@ -861,9 +860,9 @@ SecureExam.Exam = function (htmlInfo) {
 
     this.examTimeExpiredCheck = function () {
         if (that.timeLeft <= 0 || that.Settings.overallEndTime <= new Date()) {
-            that.riseEvent(SecureExam.Event.EXAMTIMEEXPIRED, null);
             SecureExam.Logger.log("exam expired", "exam", SecureExam.Logger.ErrorLevel.info);
             that.stop();
+            that.riseEvent(SecureExam.Event.EXAMTIMEEXPIRED, null);
         }
     }
 
