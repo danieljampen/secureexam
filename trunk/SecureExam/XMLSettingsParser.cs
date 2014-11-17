@@ -22,6 +22,8 @@ namespace SecureExam
 
                 DataProvider.getInstance().examDetails.examTitle = getElementByTagName("examTitle");
                 DataProvider.getInstance().examDetails.subject = getElementByTagName("subject");
+                DataProvider.getInstance().examDetails.examNotes = getElementByTagName("examNotes");
+
                 DataProvider.getInstance().examDetails.examDurationMinutes = int.Parse(getElementByTagName("duration"));
 
                 string examDateString = getElementByTagName("examDate");

@@ -31,7 +31,7 @@ namespace SecureExam
         {
             using(SHA256 mySHA256 = SHA256Managed.Create())
             {
-                if(iv.Length != BasicSettings.getInstance().Encryption.SHA256.SALTLENGTH)
+                if(iv.Length != BasicSettings.getInstance().Encryption.SHA256.SaltLength/8)
                     throw new ArgumentException("SHA256 IV length invalid");
                 if (iterations <= 0)
                     throw new ArgumentException("SHA256 Iterations invalid");

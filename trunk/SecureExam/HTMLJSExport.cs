@@ -18,8 +18,8 @@ namespace SecureExam
 
             if (BasicSettings.getInstance().Encryption.AES.questionsAESKey == null)
             {
-                BasicSettings.getInstance().Encryption.AES.questionsAESKey = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.AES.KEYLENGTH);
-                BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.AES.IVLENGTH);
+                BasicSettings.getInstance().Encryption.AES.questionsAESKey = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.AES.KeyLength/8);
+                BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.AES.IvLength/8);
             }
 
             try
@@ -28,7 +28,7 @@ namespace SecureExam
                 String html = htmlSkeleton.ReadToEnd();
 
                 // Replace the placeholders in HTML code with real data
-                html = html.Replace("$SHA256ITERATIONS$", BasicSettings.getInstance().Encryption.SHA256.ITERATIONS.ToString());
+                html = html.Replace("$SHA256ITERATIONS$", BasicSettings.getInstance().Encryption.SHA256.Iterations.ToString());
                 html = html.Replace("$RANDOMCHARSINUSERSECRET$", BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret.ToString());
                 html = html.Replace("$ENCRYPTEDDATA$", this.exportQuestions());
                 html = html.Replace("$USERKEYDB$", this.exportUserKeyDB());
@@ -76,9 +76,9 @@ namespace SecureExam
                 StringBuilder sb = new StringBuilder();
                 foreach (Participant participant in DataProvider.getInstance().Participants)
                 {
-                    byte[] salt = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.SHA256.SALTLENGTH);
-                    byte[] aesIV = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.AES.IVLENGTH);
-                    byte[] userHAsh = Helper.SHA256(participant.StudentSecret, salt, BasicSettings.getInstance().Encryption.SHA256.ITERATIONS);
+                    byte[] salt = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.SHA256.SaltLength/8);
+                    byte[] aesIV = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.AES.IvLength/8);
+                    byte[] userHAsh = Helper.SHA256(participant.StudentSecret, salt, BasicSettings.getInstance().Encryption.SHA256.Iterations);
                     string encryptedMasterKey = Helper.ByteArrayToHexString( Helper.encryptAES(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey), userHAsh, aesIV) );
 
                     if( participant.GetType() == typeof(Student))

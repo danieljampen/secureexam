@@ -3,7 +3,6 @@
   <xsl:output indent="yes" encoding="ISO-8859-1" method="xml" />
 
   <xsl:variable name="QUESTION" select = "'Frage'" />
-  <xsl:variable name="EXAMNOTES" select = "'Prüfungshinweis'" />
   <xsl:variable name="SUBJECT" select = "'Fach:'" />
   
   <xsl:template match="text:p[not(.//draw:control)]">
@@ -15,11 +14,6 @@
             <xsl:value-of select="." />
 		  </legend>
         </question>
-      </xsl:when>
-	  <xsl:when test="starts-with(text(),$EXAMNOTES)">
-        <examNotes>
-          <xsl:value-of select="." />
-        </examNotes>
       </xsl:when>
       <xsl:otherwise>
         <p>
@@ -55,12 +49,6 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="text:h">
-    <examTitle>
-      <xsl:value-of select="." />
-    </examTitle>
-  </xsl:template>
-
   <xsl:template match="text()|@*"> 
     <!-- ignore unmatched text -->
   </xsl:template>
@@ -71,7 +59,6 @@
 
   <xsl:template match="/*">
     <questions>
-      <xsl:apply-templates select=".//text:h" />
       <xsl:apply-templates select=".//text:p" />
     </questions>
   </xsl:template>

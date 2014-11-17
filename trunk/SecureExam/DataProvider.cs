@@ -22,6 +22,7 @@ namespace SecureExam
         private IStudentParser studentParser;
         private ISettingsParser settingsParser;
         public ExamDetails examDetails { get; set; }
+        private const string PARAMETER_XML_PATH = "SecureExam.xml";
 
         // methods
         private DataProvider()
@@ -82,6 +83,7 @@ namespace SecureExam
                 default:
                     throw new InvalidFormularTypeException(formularType.ToString());
             }
+            //Exception
             StreamReader streamReader = new StreamReader(formularPath);
             this.questions = this.formularParser.parse(streamReader);
 
@@ -98,6 +100,12 @@ namespace SecureExam
 
             this.settingsParser = new XMLSettingsParser();
             examDetails = this.settingsParser.parse(settingsPath);
+
+            XMLParameterParser parameterParser = new XMLParameterParser();
+            if (!parameterParser.parse(PARAMETER_XML_PATH))
+            {
+                //problem mit file laden
+            }
 
 
             return (this.questions.Count != 0 && this.participants.Count != 0);

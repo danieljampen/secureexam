@@ -26,7 +26,7 @@ namespace SecureExam
 
                 //professor
                 XmlNodeList professor = xmlDoc.GetElementsByTagName("professor");
-                BasicSettings basicSettings = BasicSettings.getInstance();
+                //BasicSettings basicSettings = BasicSettings.getInstance();
                 participants.AddLast(new Professor(professor[0].InnerText.ToLower()));
 
 
