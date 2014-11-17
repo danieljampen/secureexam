@@ -22,15 +22,40 @@ namespace SecureExam
                 BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret = int.Parse(getElementByTagName("NumberOfRandomCharsInStudentSecret"));
                 
                 //AES
-                BasicSettings.getInstance().Encryption.AES.KeyLength = int.Parse(getElementByTagName("keyLength"));
-                BasicSettings.getInstance().Encryption.AES.IvLength = int.Parse(getElementByTagName("ivLength"));
+                if (this.xmlDoc.GetElementsByTagName("AESSettings").Count > 0)
+                {
+                    foreach (XmlNode node in this.xmlDoc.GetElementsByTagName("AESSettings")[0].ChildNodes)
+                    {
+                        if (node.Name == "keyLength")
+                        {
+                            BasicSettings.getInstance().Encryption.AES.KeyLength = int.Parse(node.InnerText);
+                        }
+                        else if (node.Name == "ivLength")
+                        {
+                            BasicSettings.getInstance().Encryption.AES.IvLength = int.Parse(node.InnerText);
+                        }
+                    }
+                }
                 
                 //SHA
-                BasicSettings.getInstance().Encryption.SHA256.Iterations = int.Parse(getElementByTagName("iterations"));
-                BasicSettings.getInstance().Encryption.SHA256.SaltLength = int.Parse(getElementByTagName("saltLength"));
-                BasicSettings.getInstance().Encryption.SHA256.Length = int.Parse(getElementByTagName("length"));
-                
-
+                if (this.xmlDoc.GetElementsByTagName("SHA256Setttings").Count > 0)
+                {
+                    foreach (XmlNode node in this.xmlDoc.GetElementsByTagName("SHA256Setttings")[0].ChildNodes)
+                    {
+                        if (node.Name == "iterations")
+                        {
+                            BasicSettings.getInstance().Encryption.SHA256.Iterations = int.Parse(node.InnerText);
+                        }
+                        else if (node.Name == "saltLength")
+                        {
+                            BasicSettings.getInstance().Encryption.SHA256.SaltLength = int.Parse(node.InnerText);
+                        }
+                        else if (node.Name == "length")
+                        {
+                            BasicSettings.getInstance().Encryption.SHA256.Length = int.Parse(node.InnerText);
+                        }
+                    }
+                }
             }
             catch (DirectoryNotFoundException e)
             {
