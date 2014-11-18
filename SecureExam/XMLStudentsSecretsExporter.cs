@@ -22,8 +22,20 @@ namespace SecureExam
                     foreach (Participant student in DataProvider.getInstance().Participants)
                     {
                         writer.WriteStartElement("Participant");
+                        if( student.GetType() == typeof(Student)) {
+                            Student stud = (Student)student;
+                            writer.WriteElementString("Vorname", stud.studentPreName);
+                            writer.WriteElementString("Nachname", stud.studentSurName);
+                            writer.WriteElementString("Immatrikulationsnummer", stud.studentID);
+                            writer.WriteElementString("Passwort", stud.StudentSecret);
+                        }
+                        else if (student.GetType() == typeof(Professor))
+                        {
+                            Professor prof = (Professor)student;
+                            writer.WriteElementString("Name", prof.name);
+                            writer.WriteElementString("Passwort", prof.StudentSecret);
+                        }
 
-                        writer.WriteElementString("Secret", student.StudentSecret);
 
                         writer.WriteEndElement();
                     }
