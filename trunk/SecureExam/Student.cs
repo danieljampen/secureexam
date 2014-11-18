@@ -14,6 +14,7 @@ namespace SecureExam
         public string studentPreName { get; set; }
         public string studentSurName { get; set; }
         public string studentID { get; set; }
+
         private string studentSecret;
         public string StudentSecret
         {
@@ -28,12 +29,7 @@ namespace SecureExam
         // methods
         protected override string generateStudentSecret()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(studentPreName);
-            sb.Append(studentSurName);
-            sb.Append(studentID);
-            sb.Append(Helper.ByteArrayToHexString(Helper.getSecureRandomBytes(BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret/2)));
-            return sb.ToString();
+            return Helper.ByteArrayToHexString(Helper.getSecureRandomBytes(BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret / 2));
         }
     }
 }

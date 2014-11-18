@@ -17,10 +17,7 @@ namespace SecureExam
 
         protected override string generateStudentSecret()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(name);
-            sb.Append(Helper.ByteArrayToHexString(Helper.getSecureRandomBytes(BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret / 2)));
-            return sb.ToString();
+            return Helper.ByteArrayToHexString(Helper.getSecureRandomBytes(BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret / 2));
         }
     }
 }
