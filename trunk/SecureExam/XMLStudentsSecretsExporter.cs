@@ -23,17 +23,15 @@ namespace SecureExam
                     {
                         writer.WriteStartElement("Participant");
                         if( student.GetType() == typeof(Student)) {
-                            Student stud = (Student)student;
-                            writer.WriteElementString("Vorname", stud.studentPreName);
-                            writer.WriteElementString("Nachname", stud.studentSurName);
-                            writer.WriteElementString("Immatrikulationsnummer", stud.studentID);
-                            writer.WriteElementString("Passwort", stud.StudentSecret);
+                            writer.WriteElementString("Vorname", ((Student)student).studentPreName);
+                            writer.WriteElementString("Nachname", ((Student)student).studentSurName);
+                            writer.WriteElementString("Immatrikulationsnummer", ((Student)student).studentID);
+                            writer.WriteElementString("Passwort", ((Student)student).secret);
                         }
                         else if (student.GetType() == typeof(Professor))
                         {
-                            Professor prof = (Professor)student;
-                            writer.WriteElementString("Name", prof.name);
-                            writer.WriteElementString("Passwort", prof.StudentSecret);
+                            writer.WriteElementString("Name", ((Professor)student).name);
+                            writer.WriteElementString("Passwort", ((Professor)student).secret);
                         }
 
 

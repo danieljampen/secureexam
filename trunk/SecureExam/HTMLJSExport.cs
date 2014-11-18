@@ -29,20 +29,11 @@ namespace SecureExam
 
                 // Replace the placeholders in HTML code with real data
                 html = html.Replace("$SHA256ITERATIONS$", BasicSettings.getInstance().Encryption.SHA256.Iterations.ToString());
-                html = html.Replace("$RANDOMCHARSINUSERSECRET$", BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret.ToString());
                 html = html.Replace("$ENCRYPTEDDATA$", this.exportQuestions());
                 html = html.Replace("$USERKEYDB$", this.exportUserKeyDB());
                 html = html.Replace("$SUBJECT$", DataProvider.getInstance().examDetails.subject);
                 html = html.Replace("$EXAMTITLE$", DataProvider.getInstance().examDetails.examTitle);
-                html = html.Replace("$PROFESSOR$", DataProvider.getInstance().getProfessor().name);
-                html = html.Replace("$EXAMDURATION$", DataProvider.getInstance().examDetails.examDurationMinutes.ToString());
                 html = html.Replace("$EXAMNOTES$", DataProvider.getInstance().examDetails.examNotes);
-                DateTime baseDate = new DateTime(1970, 1, 1);
-                baseDate = baseDate.Add( new TimeSpan(1,0,0) ); // JS FIX 
-                TimeSpan diff = DataProvider.getInstance().examDetails.examStartTime - baseDate;
-                html = html.Replace("$EXAMSTARTTIME$", diff.TotalMilliseconds.ToString());
-                diff = DataProvider.getInstance().examDetails.examEndTime - baseDate;
-                html = html.Replace("$EXAMENDTIME$", diff.TotalMilliseconds.ToString());
 
                 // write data to file
                 outFile.Write(html);
@@ -65,7 +56,17 @@ namespace SecureExam
             StringBuilder sb = new StringBuilder();
             sb.Append(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV));
             sb.Append(",");
-            sb.Append(Helper.ByteArrayToHexString(Helper.encryptAES(this.generateQuestionsHTML(), BasicSettings.getInstance().Encryption.AES.questionsAESKey, BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV)));
+
+            StringBuilder dataToEncrypt = new StringBuilder();
+            dataToEncrypt.Append(Helper.dateTimeToMillisecondsSince1970ForJS( DataProvider.getInstance().examDetails.examStartTime ) );
+            dataToEncrypt.Append(",");
+            dataToEncrypt.Append(Helper.dateTimeToMillisecondsSince1970ForJS( DataProvider.getInstance().examDetails.examEndTime ) );
+            dataToEncrypt.Append(",");
+            dataToEncrypt.Append(DataProvider.getInstance().examDetails.examDurationMinutes );
+            dataToEncrypt.Append(",");
+            dataToEncrypt.Append(this.generateQuestionsHTML());
+
+            sb.Append(Helper.ByteArrayToHexString(Helper.encryptAES(dataToEncrypt.ToString(), BasicSettings.getInstance().Encryption.AES.questionsAESKey, BasicSettings.getInstance().Encryption.AES.questionsAESKeyIV)));
             return sb.ToString();
         }
 
@@ -86,10 +87,12 @@ namespace SecureExam
                         sb.Append(((Student)participant).studentPreName);
                         sb.Append(((Student)participant).studentSurName);
                         sb.Append(((Student)participant).studentID);
+                        Debug.WriteLine("STUDENT-> Vorname: " + ((Student)participant).studentPreName + " Nachname: " + ((Student)participant).studentSurName + " ID: " + ((Student)participant).studentID + " Passwort: " + ((Student)participant).secret);
                     }
                     else if( participant.GetType() == typeof(Professor))
                     {
                         sb.Append(((Professor)participant).name);
+                        Debug.WriteLine("PROFESSOR-> Name: " + ((Professor)participant).name + " UserSecret: " + ((Professor)participant).secret);
                     }
                     sb.Append(",");
                     sb.Append(encryptedMasterKey);
@@ -97,9 +100,8 @@ namespace SecureExam
                     sb.Append(Helper.ByteArrayToHexString(aesIV));
                     sb.Append(",");
                     sb.Append(Convert.ToBase64String(salt));
-                    sb.Append("<br>");
+                    sb.Append(";");
 
-                    Debug.WriteLine("-> UserSecret: " + participant.StudentSecret);
                 }
                 return sb.ToString();
             }
