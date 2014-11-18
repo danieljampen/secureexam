@@ -107,5 +107,13 @@ namespace SecureExam
                 }
             }
         }
+
+        public static double dateTimeToMillisecondsSince1970ForJS(DateTime date)
+        {
+            DateTime baseDate = new DateTime(1970, 1, 1);
+            baseDate = baseDate.Add(new TimeSpan(1, 0, 0)); // JS FIX 
+            TimeSpan diff = date - baseDate;
+            return diff.TotalMilliseconds;
+        }
     }
 }

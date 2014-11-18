@@ -1,4 +1,4 @@
-﻿<html>
+<html>
 
 <head>
     <style>
@@ -184,16 +184,16 @@
     <script>
         function isOnline(e) {
             exam.stop();
-            document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungsabbruch, Internetzugriff festgestellt!</p>';
+            document.getElementById("questions").innerHTML = '<p class="questionText center">Pr&uuml;fungsabbruch, Internetzugriff festgestellt!</p>';
         }
 
         function timeWrong(e) {
             exam.stop();
-            document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungsabbruch, Zeitmanipulation entdeckt!</p>';
+            document.getElementById("questions").innerHTML = '<p class="questionText center">Pr&uuml;fungsabbruch, Zeitmanipulation entdeckt!</p>';
         }
 
         function tabChange(e) {
-            //document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungsunterbruch, Tab gewechselt! Bitte loggen Sie sich neu ein!</p>';
+            //document.getElementById("questions").innerHTML = '<p class="questionText center">Pr&uuml;fungsunterbruch, Tab gewechselt! Bitte loggen Sie sich neu ein!</p>';
             //exam.stop();
         }
         
@@ -221,14 +221,14 @@
         }
         
         function confirmFinishExam() {
-            if( confirm("Wollen Sie die Prüfung wirklich einreichen? Dies kann nicht rückgängig gemacht werden!") ) {
+            if( confirm("Wollen Sie die Pr&uuml;fung wirklich einreichen? Dies kann nicht r&uuml;ckgängig gemacht werden!") ) {
                 exam.stop();
-                document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfung beendet!</p>';
+                document.getElementById("questions").innerHTML = '<p class="questionText center">Pr&uuml;fung beendet!</p>';
             }
         }
         
         function examexpired() {
-            document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfung beendet!</p>';
+            document.getElementById("questions").innerHTML = '<p class="questionText center">Pr&uuml;fung beendet!</p>';
             document.getElementById("finishButton").innerHTML = '';
         }
 
@@ -258,35 +258,36 @@
                     exam.addEventListener(SecureExam.Event.AUTOSAVE, autoSave);
                     exam.addEventListener(SecureExam.Event.EXAMTIMEEXPIRED, examexpired);  
 
-                    exam.start("Daniel", "Jampen", "S12198320", "211423C1A9");
+                    exam.start(vorname, nachname, immNummer, passwort);
                     
-                    document.getElementById("finishButton").innerHTML = '<button onclick="confirmFinishExam()">Prüfung einreichen</button>';
+                    document.getElementById("finishButton").innerHTML = '<button onclick="confirmFinishExam()">Pr&uuml;fung einreichen</button>';
                 } catch (e) {
                     switch (e) {
                         case SecureExam.ErrorCode.ALREADYEXPORTED:
-                            document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfung bereits abgeschlossen!</p>';
+                            document.getElementById("questions").innerHTML = '<p class="questionText center">Pr&uuml;fung bereits abgeschlossen!</p>';
                             break;
                         case SecureExam.ErrorCode.INVALIDUSERSECRET:
                             document.getElementById("passwort").style.border = "1px solid red";
                             break;
                         case SecureExam.ErrorCode.TOOEARLY:
-                            document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfung noch nicht freigegeben!</p>';
+                            document.getElementById("questions").innerHTML = '<p class="questionText center">Pr&uuml;fung noch nicht freigegeben!</p>';
                             break;
                         case SecureExam.ErrorCode.TOOLATE:
-                            document.getElementById("questions").innerHTML = '<p class="questionText center">Prüfungszeitraum abeglaufen!</p>';
+                            document.getElementById("questions").innerHTML = '<p class="questionText center">Pr&uuml;fungszeitraum abeglaufen!</p>';
                             break;
                         case SecureExam.ErrorCode.CONFIRMAUTOSAVERESTORE:
                             document.getElementById("questions").innerHTML = '<p class="questionText center">Möchten Sie den letzten Sicherungspunkt wiederherstellen oder neu anfangen?</p>';
-                            document.getElementById("questions").innerHTML += '<p class="center"><button onclick="exam.continueAutoSaveRestore(true)">Sicherung wiederherstellen</button>   <button onclick="exam.continueAutoSaveRestore(false)">Neue Prüfung</button></p><br><br>';
-                            document.getElementById("finishButton").innerHTML = '<button onclick="confirmFinishExam()">Prüfung einreichen</button>';
+                            document.getElementById("questions").innerHTML += '<p class="center"><button onclick="exam.continueAutoSaveRestore(true)">Sicherung wiederherstellen</button>   <button onclick="exam.continueAutoSaveRestore(false)">Neue Pr&uuml;fung</button></p><br><br>';
+                            document.getElementById("finishButton").innerHTML = '<button onclick="confirmFinishExam()">Pr&uuml;fung einreichen</button>';
                             break;
                         default:
                             throw e;
                     }
                 } 
             } else {
-                alert("Bitte alle Felder richtig ausfüllen!");
+                alert("Bitte alle Felder richtig ausf&uuml;llen!");
             }
+            return false;
         }
     </script>
 </head>
@@ -309,22 +310,24 @@
         <p class="notes">$EXAMNOTES$</div>
     <div class="examContainer paper">
         <div id="questions">
-            <p class="loginForms center">Bitte geben Sie die geforderten Informationen ein um die Prüfung starten zu können! Viel Glück!</p>
-            <p class="loginForms center">Vorname:<br>
-                <input type="text" id="vorname" size="35" onkeyup="return keyUpUserSecret(event)">
-            </p>
-            <p class="loginForms center">Nachname:<br>
-                <input type="text" id="nachname" size="35" onkeyup="return keyUpUserSecret(event)">
-            </p>
-            <p class="loginForms center">Immatrikulationsnummer:<br>
-                <input type="text" id="immNummer" size="35" onkeyup="return keyUpUserSecret(event)">
-            </p>
-            <p class="loginForms center">Passwort:<br>
-                <input type="text" id="passwort" size="35" onkeyup="return keyUpUserSecret(event)">
-            </p>
-            <p class="loginForms center">
-                <button onclick="startExam()">Prüfung starten!</button><br><br>
-            </p>
+            <form onsubmit="return startExam()">
+                <p class="loginForms center">Bitte geben Sie die geforderten Informationen ein um die Pr&uuml;fung starten zu können! Viel Gl&uuml;ck!</p>
+                <p class="loginForms center">Vorname:<br>
+                    <input type="text" id="vorname" size="35" onkeyup="return keyUpUserSecret(event)">
+                </p>
+                <p class="loginForms center">Nachname:<br>
+                    <input type="text" id="nachname" size="35" onkeyup="return keyUpUserSecret(event)">
+                </p>
+                <p class="loginForms center">Immatrikulationsnummer:<br>
+                    <input type="text" id="immNummer" size="35" onkeyup="return keyUpUserSecret(event)">
+                </p>
+                <p class="loginForms center">Passwort:<br>
+                    <input type="text" id="passwort" size="35" onkeyup="return keyUpUserSecret(event)">
+                </p>
+                <p class="loginForms center">
+                    <input type="submit" value="Pr&uuml;fung starten!"><br><br>
+                </p>
+            </form>
         </div>
     </div>
     <div class="hidden">

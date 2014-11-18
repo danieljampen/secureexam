@@ -745,8 +745,7 @@ SecureExam.Exam = function (htmlInfo) {
             var decryptedData = decryptedString.split(",");
             that.Settings.overallStartTime = new Date(Number(decryptedData[0]));
             that.Settings.overallEndTime = new Date(Number(decryptedData[1]));
-            //that.Settings.examExpireTime = new Date(that.Settings.examStartTime.getTime() + (Number(decryptedData[2]) * 60 * 1000));
-            that.Settings.examExpireTime = new Date(that.Settings.examStartTime.getTime() + (1 * 60 * 1000));
+            that.Settings.examExpireTime = new Date(that.Settings.examStartTime.getTime() + (Number(decryptedData[2]) * 60 * 1000));
             that.riseEvent(SecureExam.Event.TIMELEFT, decryptedData[2] + ":00");
             SecureExam.Logger.log("important times decrypted and set", "exam", SecureExam.Logger.ErrorLevel.info);
 

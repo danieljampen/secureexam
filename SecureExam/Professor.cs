@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    class Professor:Participant
+    class Professor : Participant
     {
         public string name { get; set; }
+        public string secret { get; set; }
 
         public Professor(string name)
         {
@@ -17,7 +18,11 @@ namespace SecureExam
 
         protected override string generateStudentSecret()
         {
-            return Helper.ByteArrayToHexString(Helper.getSecureRandomBytes(BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret / 2));
+            StringBuilder sb = new StringBuilder();
+            sb.Append(name);
+            secret = Helper.ByteArrayToHexString(Helper.getSecureRandomBytes(BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret / 2));
+            sb.Append(secret);
+            return sb.ToString();
         }
     }
 }
