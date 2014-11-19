@@ -1023,7 +1023,7 @@ SecureExam.Exam = function (htmlInfo) {
                 throw SecureExam.ErrorCode.INVALIDEVENT;
             }
         },
-        export: function () {
+        exportExam: function () {
             if (that.Settings.examExportedTime === null) {
                 that.stop();
             } else {
