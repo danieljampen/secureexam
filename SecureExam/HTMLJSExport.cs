@@ -39,6 +39,7 @@ namespace SecureExam
                 html = html.Replace("$HISTORYTIMEMAXVARIANCE$", "5000");
                 html = html.Replace("$INTERNALTIMEMAXVARIANCE$", "5000");
                 html = html.Replace("$CONFIRMAUTOSAVERESTORE$", "true");
+                html = html.Replace("$EBOOKREADEREXPORT$", "false");
 
                 // Activate choosen security features
                 StringBuilder listeners = new StringBuilder();

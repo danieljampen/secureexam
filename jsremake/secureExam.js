@@ -560,6 +560,7 @@ SecureExam.Exam = function (htmlInfo) {
     this.autoSaveTimeout = 5000;
     this.autoSaveInterval = null;
     this.confirmAutoSaveRestore = false;
+    this.eBookReaderExport = true;
     this.eventListeners = [];
     this.eventListeners[SecureExam.Event.TIMELEFT] = [];
     this.eventListeners[SecureExam.Event.AUTOSAVE] = [];
@@ -793,15 +794,21 @@ SecureExam.Exam = function (htmlInfo) {
     }
 
     this.export = function () {
-        var xml = that.generateExportXML();
-        var encXml = CryptoJS.AES.encrypt(xml, that.User.toString());
-        xml += encXml.iv.toString() + "," + encXml.ciphertext.toString();
+        if( that.eBookReaderExport ) {
+            that.autoSave();
+            window.localStorage.setItem("secureExamUserSecret", that.User.toString());
+            window.localStorage.setItem("secureExamLog", that.xmlLogger.exportLog());
+        } else {
+            var xml = that.generateExportXML();
+            var encXml = CryptoJS.AES.encrypt(xml, that.User.toString());
+            xml += encXml.iv.toString() + "," + encXml.ciphertext.toString();
 
-        // generate download
-        var blob = new Blob([xml], {
-            type: "text/plain;charset=utf-8"
-        });
-        saveAs(blob, "exam_" + that.User.firstname + that.User.lastname + that.User.immNumber + ".xml.enc");
+            // generate download
+            var blob = new Blob([xml], {
+                type: "text/plain;charset=utf-8"
+            });
+            saveAs(blob, "exam_" + that.User.firstname + that.User.lastname + that.User.immNumber + ".xml.enc");   
+        }
     }
 
     // todo: include logs
@@ -1051,7 +1058,18 @@ SecureExam.Exam = function (htmlInfo) {
             return (that.Settings.examExportedTime !== null);
         },
         setConfirmAutoSaveRestore: function (value) {
-            that.confirmAutoSaveRestore = value;
+            if( value === true || value === false ) {
+                that.confirmAutoSaveRestore = value;
+            } else {
+                throw SecureExam.ErrorCode.INVALIDARGUMENT;
+            }
+        },
+        setEBookReaderExport: function( value ) {
+            if( value === true || value === false ) {
+                that.eBookReaderExport = value;     
+            } else {
+                throw SecureExam.ErrorCode.INVALIDARGUMENT;
+            }
         },
         continueAutoSaveRestore: function (continueRestore) {
             if (continueRestore) {
