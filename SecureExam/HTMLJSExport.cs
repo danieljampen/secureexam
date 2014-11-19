@@ -28,12 +28,29 @@ namespace SecureExam
                 String html = htmlSkeleton.ReadToEnd();
 
                 // Replace the placeholders in HTML code with real data
-                html = html.Replace("$SHA256ITERATIONS$", BasicSettings.getInstance().Encryption.SHA256.Iterations.ToString());
                 html = html.Replace("$ENCRYPTEDDATA$", this.exportQuestions());
                 html = html.Replace("$USERKEYDB$", this.exportUserKeyDB());
                 html = html.Replace("$SUBJECT$", DataProvider.getInstance().examDetails.subject);
                 html = html.Replace("$EXAMTITLE$", DataProvider.getInstance().examDetails.examTitle);
                 html = html.Replace("$EXAMNOTES$", DataProvider.getInstance().examDetails.examNotes);
+
+                // set variables & constants
+                html = html.Replace("$SHA256ITERATIONS$", BasicSettings.getInstance().Encryption.SHA256.Iterations.ToString());
+                html = html.Replace("$HISTORYTIMEMAXVARIANCE$", "5000");
+                html = html.Replace("$INTERNALTIMEMAXVARIANCE$", "5000");
+                html = html.Replace("$CONFIRMAUTOSAVERESTORE$", "true");
+
+                // Activate choosen security features
+                StringBuilder listeners = new StringBuilder();
+                if (true) // internetAccess
+                {
+                    listeners.Append("exam.addEventListener(SecureExam.Event.InternetAccess.ONLINE, isOnline);\n");
+                }
+                if (true) // tabchange
+                {
+                    listeners.Append("exam.addEventListener(SecureExam.Event.SecureTime.TABCHANGE, tabChange);\n");
+                }
+                html = html.Replace("$LISTENERS$", listeners.ToString());
 
                 // write data to file
                 outFile.Write(html);

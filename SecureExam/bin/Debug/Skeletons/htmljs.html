@@ -193,8 +193,8 @@
         }
 
         function tabChange(e) {
-            //document.getElementById("questions").innerHTML = '<p class="questionText center">Pr&uuml;fungsunterbruch, Tab gewechselt! Bitte loggen Sie sich neu ein!</p>';
-            //exam.stop();
+            document.getElementById("questions").innerHTML = '<p class="questionText center">Pr&uuml;fungsunterbruch, Tab gewechselt! Bitte loggen Sie sich neu ein!</p>';
+            exam.stop();
         }
         
         function timeLeftChanged(newTime) {
@@ -247,13 +247,12 @@
                 try {
                     document.getElementById("studentDetails").innerHTML = "Vorname: " + vorname + " Nachname: " + nachname + " Immatrikulationsnummer: " + immNummer;
                     
-                    exam.setInternalTimeMaxVariance(5000);
-                    exam.setHistoryTimeMaxVariance(5000);
-                    exam.setConfirmAutoSaveRestore(true);
+                    exam.setInternalTimeMaxVariance($INTERNALTIMEMAXVARIANCE$);
+                    exam.setHistoryTimeMaxVariance($HISTORYTIMEMAXVARIANCE$);
+                    exam.setConfirmAutoSaveRestore($CONFIRMAUTOSAVERESTORE$);
 
-                    //exam.addEventListener(SecureExam.Event.InternetAccess.ONLINE, isOnline);
+                    $LISTENERS$
                     exam.addEventListener(SecureExam.Event.SecureTime.TIMEERROR, timeWrong);
-                    exam.addEventListener(SecureExam.Event.SecureTime.TABCHANGE, tabChange);
                     exam.addEventListener(SecureExam.Event.TIMELEFT, timeLeftChanged);
                     exam.addEventListener(SecureExam.Event.AUTOSAVE, autoSave);
                     exam.addEventListener(SecureExam.Event.EXAMTIMEEXPIRED, examexpired);  
@@ -268,6 +267,9 @@
                             break;
                         case SecureExam.ErrorCode.INVALIDUSERSECRET:
                             document.getElementById("passwort").style.border = "1px solid red";
+                            document.getElementById("vorname").style.border = "1px solid red";
+                            document.getElementById("nachname").style.border = "1px solid red";
+                            document.getElementById("immNummer").style.border = "1px solid red";
                             break;
                         case SecureExam.ErrorCode.TOOEARLY:
                             document.getElementById("questions").innerHTML = '<p class="questionText center">Pr&uuml;fung noch nicht freigegeben!</p>';
