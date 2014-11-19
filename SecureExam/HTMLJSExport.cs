@@ -36,18 +36,18 @@ namespace SecureExam
 
                 // set variables & constants
                 html = html.Replace("$SHA256ITERATIONS$", BasicSettings.getInstance().Encryption.SHA256.Iterations.ToString());
-                html = html.Replace("$HISTORYTIMEMAXVARIANCE$", "5000");
-                html = html.Replace("$INTERNALTIMEMAXVARIANCE$", "5000");
-                html = html.Replace("$CONFIRMAUTOSAVERESTORE$", "true");
-                html = html.Replace("$EBOOKREADEREXPORT$", "false");
+                html = html.Replace("$HISTORYTIMEMAXVARIANCE$", DataProvider.getInstance().examDetails.historyTimeMaxVariance.ToString());
+                html = html.Replace("$INTERNALTIMEMAXVARIANCE$", DataProvider.getInstance().examDetails.internalTimeMaxVariance.ToString());
+                html = html.Replace("$CONFIRMAUTOSAVERESTORE$", DataProvider.getInstance().examDetails.confirmAutosaveRestore.ToString().ToLower());
+                html = html.Replace("$EBOOKREADEREXPORT$", DataProvider.getInstance().examDetails.ebookreaderExport.ToString().ToLower());
 
                 // Activate choosen security features
                 StringBuilder listeners = new StringBuilder();
-                if (true) // internetAccess
+                if (!DataProvider.getInstance().examDetails.internetAllowed) // internetAccess
                 {
                     listeners.Append("exam.addEventListener(SecureExam.Event.InternetAccess.ONLINE, isOnline);\n");
                 }
-                if (true) // tabchange
+                if (!DataProvider.getInstance().examDetails.tabChangeAllowed) // tabchange
                 {
                     listeners.Append("exam.addEventListener(SecureExam.Event.SecureTime.TABCHANGE, tabChange);\n");
                 }
