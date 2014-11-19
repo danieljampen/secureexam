@@ -23,7 +23,12 @@ namespace SecureExam
                 DataProvider.getInstance().examDetails.examTitle = getElementByTagName("examTitle");
                 DataProvider.getInstance().examDetails.subject = getElementByTagName("subject");
                 DataProvider.getInstance().examDetails.examNotes = getElementByTagName("examNotes");
-
+                DataProvider.getInstance().examDetails.internetAllowed = setBoolean(getElementByTagName("internetAllowed"));
+                DataProvider.getInstance().examDetails.tabChangeAllowed = setBoolean(getElementByTagName("tabChangeAllowed"));
+                DataProvider.getInstance().examDetails.confirmAutosaveRestore = setBoolean(getElementByTagName("confirmAutosaveRestore"));
+                DataProvider.getInstance().examDetails.ebookreaderExport = setBoolean(getElementByTagName("ebookreaderExport"));
+                DataProvider.getInstance().examDetails.internalTimeMaxVariance = int.Parse(getElementByTagName("internalTimeMaxVariance"));
+                DataProvider.getInstance().examDetails.historyTimeMaxVariance = int.Parse(getElementByTagName("historyTimeMaxVariance"));
                 DataProvider.getInstance().examDetails.examDurationMinutes = int.Parse(getElementByTagName("duration"));
 
                 string examDateString = getElementByTagName("examDate");
@@ -48,6 +53,10 @@ namespace SecureExam
             {
                 throw new NotImplementedException(e.ToString());
             }
+            catch (Exception e)
+            {
+                throw new NotImplementedException(e.ToString());
+            }
 
             return examDetails;
         }
@@ -60,6 +69,18 @@ namespace SecureExam
                 result = this.xmlDoc.GetElementsByTagName(tag)[0].InnerText;
             }
             return result;
+        }
+
+        private bool setBoolean(string text)
+        {
+            if (text == "true")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
