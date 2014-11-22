@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    class SecureExamConsoleApplication
+    public class SecureExamConsoleApplication
     {
         private const int RETURNERROR = -1;
         private const int RETURNOK = 0;

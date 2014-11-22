@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    class Professor : Participant
+    public class Professor : Participant
     {
         public string name { get; set; }
         public string secret { get; set; }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    class XMLStudentParser:IStudentParser
+    public class XMLStudentParser : IStudentParser
     {
         public LinkedList<Participant> parse(String studentPath)
         {

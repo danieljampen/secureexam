@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 
 namespace SecureExam
 {
-    class HTMLJSExport : IQuestionsExport
+    public class HTMLJSExport : IQuestionsExport
     {
         public bool export(String filename)
         {

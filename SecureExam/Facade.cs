@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    class Facade
+    public class Facade
     {
         // methods
         public bool export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat) { return DataProvider.getInstance().export(type, path, studentSecretsFileFormat); }

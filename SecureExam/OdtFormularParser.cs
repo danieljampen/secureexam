@@ -10,7 +10,7 @@ using System.IO.Compression;
 
 namespace SecureExam
 {
-    class OdtFormularParser:IFormularParser
+    public class OdtFormularParser : IFormularParser
     {
         public LinkedList<Question> parse(StreamReader streamReader)
         {
