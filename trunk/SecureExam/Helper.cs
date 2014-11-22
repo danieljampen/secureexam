@@ -10,7 +10,7 @@ using Ionic.Zip;
 
 namespace SecureExam
 {
-    class Helper
+    public class Helper
     {
         private static Random random = new Random();
 

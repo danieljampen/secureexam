@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 
 namespace SecureExam
 {
-    class BasicSettings
+    public class BasicSettings
     {
         //members
         private static BasicSettings instance;

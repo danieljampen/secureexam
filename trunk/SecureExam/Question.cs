@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    class Question
+    public class Question
     {
         public string text { get; set; }
         public List<Answer> answers { get; set; }

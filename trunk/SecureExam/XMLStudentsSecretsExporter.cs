@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace SecureExam
 {
-    class XMLStudentsSecretsExporter: IStudentsSecretExport
+    public class XMLStudentsSecretsExporter : IStudentsSecretExport
     {
         bool IStudentsSecretExport.export(string filename)
         {

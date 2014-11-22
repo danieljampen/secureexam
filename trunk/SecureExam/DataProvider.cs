@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace SecureExam
 {
-    class DataProvider : IDataProvider
+    public class DataProvider : IDataProvider
     {
         // members
         private static DataProvider instance;

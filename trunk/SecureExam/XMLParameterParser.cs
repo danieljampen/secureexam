@@ -8,7 +8,7 @@ using System.IO;
 
 namespace SecureExam
 {
-    class XMLParameterParser : IParameterParser
+    public class XMLParameterParser : IParameterParser
     {
         private XmlDocument xmlDoc;
 

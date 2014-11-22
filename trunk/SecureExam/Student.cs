@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace SecureExam
 {
-    class Student : Participant
+    public class Student : Participant
     {
 
         // setter n getter
