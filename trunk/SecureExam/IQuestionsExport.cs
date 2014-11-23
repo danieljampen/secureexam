@@ -9,6 +9,6 @@ namespace SecureExam
 {
     public interface IQuestionsExport
     {
-        bool export(String filename);
+        void export(String filename);
     }
 }

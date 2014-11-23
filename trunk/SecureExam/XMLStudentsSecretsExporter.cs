@@ -10,7 +10,7 @@ namespace SecureExam
 {
     public class XMLStudentsSecretsExporter : IStudentsSecretExport
     {
-        bool IStudentsSecretExport.export(string filename)
+        void IStudentsSecretExport.export(string filename)
         {
             try
             {
@@ -30,10 +30,10 @@ namespace SecureExam
                         }
                         else if (student.GetType() == typeof(Professor))
                         {
-                            writer.WriteElementString("Name", ((Professor)student).name);
+                            writer.WriteElementString("Name", ((Professor)student).preName);
+                            writer.WriteElementString("Name", ((Professor)student).surName);
                             writer.WriteElementString("Passwort", ((Professor)student).secret);
                         }
-
 
                         writer.WriteEndElement();
                     }
@@ -44,9 +44,8 @@ namespace SecureExam
             }
             catch( Exception e)
             {
-                return false;
+                throw e;
             }
-            return true;
         }
     }
 }
