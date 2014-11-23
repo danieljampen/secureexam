@@ -15,49 +15,42 @@ namespace SecureExam
             LinkedList<Participant> participants = new LinkedList<Participant>();
 
             //Create an instance of the XmlTextReader and call Read method to read the file
-            try
+            XmlTextReader textReader = new XmlTextReader(studentPath);
+            textReader.Read();
+
+
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(textReader);
+
+            //professor
+            XmlNodeList professor = xmlDoc.GetElementsByTagName("professor");
+            //BasicSettings basicSettings = BasicSettings.getInstance();
+            participants.AddLast(new Professor(professor[0].InnerText.ToLower()));
+
+
+            //participant parsen
+            XmlNodeList studentList = xmlDoc.GetElementsByTagName("student");
+            for (int i = 0; i < studentList.Count; i++)
             {
-                XmlTextReader textReader = new XmlTextReader(studentPath);
-                textReader.Read();
+                XmlNodeList studentData = studentList[i].ChildNodes;
+                Student student = new Student();
 
-
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(textReader);
-
-                //professor
-                XmlNodeList professor = xmlDoc.GetElementsByTagName("professor");
-                //BasicSettings basicSettings = BasicSettings.getInstance();
-                participants.AddLast(new Professor(professor[0].InnerText.ToLower()));
-
-
-                //participant parsen
-                XmlNodeList studentList = xmlDoc.GetElementsByTagName("student");
-                for (int i = 0; i < studentList.Count; i++)
+                for (int j = 0; j < studentData.Count; j++)
                 {
-                    XmlNodeList studentData = studentList[i].ChildNodes;
-                    Student student = new Student();
-
-                    for (int j = 0; j < studentData.Count; j++)
+                    switch (studentData[j].Name)
                     {
-                        switch (studentData[j].Name)
-                        {
-                            case "name":
-                                student.studentSurName = studentData[j].InnerText;
-                                break;
-                            case "vorname":
-                                student.studentPreName = studentData[j].InnerText;
-                                break;
-                            case "number":
-                                student.studentID = studentData[j].InnerText;
-                                break;
-                        }
+                        case "name":
+                            student.studentSurName = studentData[j].InnerText;
+                            break;
+                        case "vorname":
+                            student.studentPreName = studentData[j].InnerText;
+                            break;
+                        case "number":
+                            student.studentID = studentData[j].InnerText;
+                            break;
                     }
-                    participants.AddLast(student);
                 }
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                throw new NotImplementedException(e.ToString());
+                participants.AddLast(student);
             }
             return participants;
         }
