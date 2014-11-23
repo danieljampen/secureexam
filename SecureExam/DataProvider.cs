@@ -137,8 +137,8 @@ namespace SecureExam
                     throw new InvalidStudentSecretsFileFormatException(type.ToString());
             }
 
-            success = this.questionsExporter.export(path);
-            success = success & this.studentsSecretExporter.export(studentsSecretPath);
+            this.questionsExporter.export(path);
+            this.studentsSecretExporter.export(studentsSecretPath);
             return success;
         }        
     }
