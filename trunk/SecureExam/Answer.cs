@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    struct Answer
+    public struct Answer
     {
         public string text { get; set; }
         public string placeHolder { get; set; }

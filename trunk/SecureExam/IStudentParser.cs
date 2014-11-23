@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    interface IStudentParser
+    public interface IStudentParser
     {
         LinkedList<Participant> parse(String studentPath);
     }

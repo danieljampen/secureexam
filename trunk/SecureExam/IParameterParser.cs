@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SecureExam
 {
-    interface IParameterParser
+    public interface IParameterParser
     {
         Boolean parse(String parameterPath);
     }

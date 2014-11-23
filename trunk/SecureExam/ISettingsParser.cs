@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SecureExam
 {
-    interface ISettingsParser
+    public interface ISettingsParser
     {
         ExamDetails parse(String settingsPath);
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    interface IStudentsSecretExport
+    public interface IStudentsSecretExport
     {
         bool export(String filename);
     }

@@ -6,29 +6,29 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    enum OutputType
+    public enum OutputType
     {
         HTMLJS
     }
 
-    enum QuestionFormularType
+    public enum QuestionFormularType
     {
         ODT,
         XML
     }
 
-    enum StudentFileType
+    public enum StudentFileType
     {
         XML
     }
 
-    enum QuestionType
+    public enum QuestionType
     {
         CHECK_BOX,
         TEXT_BOX
     }
 
-    enum StudentSecretsFileFormat
+    public enum StudentSecretsFileFormat
     {
         XML
     }

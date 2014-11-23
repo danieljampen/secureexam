@@ -6,7 +6,7 @@
     <ProjectGuid>{E9D5E920-0B29-41A9-B713-A34ACB8ACA4F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTestProject</RootNamespace>
+    <RootNamespace>SecureExam</RootNamespace>
     <AssemblyName>UnitTestProject</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="SecureExam.Fakes">
+      <HintPath>FakesAssemblies\SecureExam.Fakes.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -69,6 +73,9 @@
       <Project>{32142fac-c8ed-42a6-b21d-01c7a2b23d39}</Project>
       <Name>SecureExam</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Fakes Include="Fakes\SecureExam.fakes" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
