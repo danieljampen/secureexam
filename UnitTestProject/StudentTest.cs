@@ -10,59 +10,40 @@ namespace SecureExam
         [TestMethod]
         public void testName()
         {
-            Student stud = new Student();
-            String name = "Lukes";
-            stud.studentSurName = name;
-            Assert.AreEqual(name ,stud.studentSurName);
+            Student stud = new Student("Simon", "Lukes", "S10290182");
+            Assert.AreEqual("Lukes" ,stud.studentSurName);
         }
         [TestMethod]
         public void testVorname()
         {
-            Student stud = new Student();
-            String name = "Simon";
-            stud.studentPreName = name;
-            Assert.AreEqual(name, stud.studentPreName);
+            Student stud = new Student("Simon", "Lukes", "S10290182");
+            Assert.AreEqual("Simon", stud.studentPreName);
         }
         [TestMethod]
-        public void testNr()
+        public void testID()
         {
-            Student stud = new Student();
-            String id = "S10290182";
-            stud.studentID = id;
-            Assert.AreEqual(id, stud.studentID);
+            Student stud = new Student("Simon", "Lukes", "S10290182");
+            Assert.AreEqual("S10290182", stud.studentID);
         }
         [TestMethod]
         public void testSecretLength()
         {
             SecureExam.BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret = 10;
 
-            Student stud = new Student();
-            stud = new Student();
             String name = "Lukes";
-            stud.studentSurName = name;
             String vorname = "Simon";
-            stud.studentPreName = name;
             String id = "S10290182";
-            stud.studentID = id;
 
-            string secret = stud.StudentSecret;
-            Assert.AreEqual(name.Length + vorname.Length + id.Length + SecureExam.BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret, secret.Length);
+            Student stud = new Student(vorname,name,id);
+
+            Assert.AreEqual(name.Length + vorname.Length + id.Length + SecureExam.BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret, stud.ParticipantSecret.Length);
         }
         [TestMethod]
         public void testSecretStatic()
         {
-            Student stud = new Student();
-            stud = new Student();
-            String name = "Lukes";
-            stud.studentSurName = name;
-            String vorname = "Simon";
-            stud.studentPreName = vorname;
-            String id = "S10290182";
-            stud.studentID = id;
+            Student stud = new Student("Simon", "Lukes", "S10290182");
 
-            string secret = stud.StudentSecret;
-            string secret2 = stud.StudentSecret;
-            Assert.AreEqual(secret, secret2);
+            Assert.AreEqual(stud.ParticipantSecret, stud.ParticipantSecret);
         }
     }
 }

@@ -97,7 +97,7 @@ namespace SecureExam
                 {
                     byte[] salt = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.SHA256.SaltLength/8);
                     byte[] aesIV = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.AES.IvLength/8);
-                    byte[] userHAsh = Helper.SHA256(participant.StudentSecret, salt, BasicSettings.getInstance().Encryption.SHA256.Iterations);
+                    byte[] userHAsh = Helper.SHA256(participant.ParticipantSecret, salt, BasicSettings.getInstance().Encryption.SHA256.Iterations);
                     string encryptedMasterKey = Helper.ByteArrayToHexString( Helper.encryptAES(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey), userHAsh, aesIV) );
 
                     if( participant.GetType() == typeof(Student))

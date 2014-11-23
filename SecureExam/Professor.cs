@@ -16,7 +16,7 @@ namespace SecureExam
             this.name = name;
         }
 
-        protected override string generateStudentSecret()
+        protected override string generateSecret()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(name);
