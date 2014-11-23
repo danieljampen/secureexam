@@ -32,6 +32,8 @@ namespace SecureExam
         {
             if (data == null)
                 throw new ArgumentNullException("data null");
+            if (iv == null)
+                throw new ArgumentNullException("iv null");
             if (iv.Length != BasicSettings.getInstance().Encryption.SHA256.SaltLength / 8)
                 throw new ArgumentException("SHA256 IV length invalid");
             if (iterations <= 0)
@@ -53,6 +55,9 @@ namespace SecureExam
 
         public static byte[] getSecureRandomBytes(int length)
         {
+            if (length <= 0)
+                throw new ArgumentException("length not valid");
+
             Byte[] array = new Byte[length];
 
             using (RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider())
@@ -101,18 +106,16 @@ namespace SecureExam
                 {
                     directoryInfo.Delete(true);
                 }
-                try
-                {
-                    zip.ExtractAll(outputPath);
-                }
-                catch(Exception e){
-                    throw e;
-                }
+
+                zip.ExtractAll(outputPath);
             }
         }
 
         public static double dateTimeToMillisecondsSince1970ForJS(DateTime date)
         {
+            if (date == null)
+                throw new ArgumentNullException("date null");
+
             DateTime baseDate = new DateTime(1970, 1, 1);
             baseDate = baseDate.Add(new TimeSpan(1, 0, 0)); // JS FIX 
             TimeSpan diff = date - baseDate;

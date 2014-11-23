@@ -1,0 +1,2366 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SecureExam.Fakes</name>
+    </assembly>
+    <members>
+        <member name="T:SecureExam.Fakes.ShimAESSettings">
+            <summary>Shim type of SecureExam.AESSettings</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimAESSettings.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimAESSettings.#ctor(SecureExam.AESSettings)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimAESSettings.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimAESSettings.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.Constructor">
+            <summary>Sets the shim of AESSettings.AESSettings()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.IvLengthGet">
+            <summary>Sets the shim of AESSettings.get_IvLength()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.IvLengthSetInt32">
+            <summary>Sets the shim of AESSettings.set_IvLength(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.KeyLengthGet">
+            <summary>Sets the shim of AESSettings.get_KeyLength()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.KeyLengthSetInt32">
+            <summary>Sets the shim of AESSettings.set_KeyLength(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.questionsAESKeyGet">
+            <summary>Sets the shim of AESSettings.get_questionsAESKey()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.questionsAESKeyIVGet">
+            <summary>Sets the shim of AESSettings.get_questionsAESKeyIV()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.questionsAESKeyIVSetByteArray">
+            <summary>Sets the shim of AESSettings.set_questionsAESKeyIV(Byte[] value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.questionsAESKeySetByteArray">
+            <summary>Sets the shim of AESSettings.set_questionsAESKey(Byte[] value)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimAESSettings.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.AllInstances.IvLengthGet">
+            <summary>Sets the shim of AESSettings.get_IvLength()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.AllInstances.IvLengthSetInt32">
+            <summary>Sets the shim of AESSettings.set_IvLength(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.AllInstances.KeyLengthGet">
+            <summary>Sets the shim of AESSettings.get_KeyLength()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.AllInstances.KeyLengthSetInt32">
+            <summary>Sets the shim of AESSettings.set_KeyLength(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.AllInstances.questionsAESKeyGet">
+            <summary>Sets the shim of AESSettings.get_questionsAESKey()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.AllInstances.questionsAESKeyIVGet">
+            <summary>Sets the shim of AESSettings.get_questionsAESKeyIV()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.AllInstances.questionsAESKeyIVSetByteArray">
+            <summary>Sets the shim of AESSettings.set_questionsAESKeyIV(Byte[] value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAESSettings.AllInstances.questionsAESKeySetByteArray">
+            <summary>Sets the shim of AESSettings.set_questionsAESKey(Byte[] value)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimAnswer">
+            <summary>Shim type of SecureExam.Answer</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimAnswer.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimAnswer.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimAnswer.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimAnswer.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimAnswer.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimBasicSettings">
+            <summary>Shim type of SecureExam.BasicSettings</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimBasicSettings.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimBasicSettings.#ctor(SecureExam.BasicSettings)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimBasicSettings.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimBasicSettings.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimBasicSettings.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimBasicSettings.Constructor">
+            <summary>Sets the shim of BasicSettings.BasicSettings()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimBasicSettings.NumberOfRandomCharsInStudentSecretGet">
+            <summary>Sets the shim of BasicSettings.get_NumberOfRandomCharsInStudentSecret()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimBasicSettings.NumberOfRandomCharsInStudentSecretSetInt32">
+            <summary>Sets the shim of BasicSettings.set_NumberOfRandomCharsInStudentSecret(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimBasicSettings.exportSkeletonsGet">
+            <summary>Sets the shim of BasicSettings.get_exportSkeletons()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimBasicSettings.exportSkeletonsSetDictionaryOfOutputTypeString">
+            <summary>Sets the shim of BasicSettings.set_exportSkeletons(Dictionary`2&lt;OutputType,String&gt; value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimBasicSettings.getInstance">
+            <summary>Sets the shim of BasicSettings.getInstance()</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimBasicSettings.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimBasicSettings.AllInstances.NumberOfRandomCharsInStudentSecretGet">
+            <summary>Sets the shim of BasicSettings.get_NumberOfRandomCharsInStudentSecret()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimBasicSettings.AllInstances.NumberOfRandomCharsInStudentSecretSetInt32">
+            <summary>Sets the shim of BasicSettings.set_NumberOfRandomCharsInStudentSecret(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimBasicSettings.AllInstances.exportSkeletonsGet">
+            <summary>Sets the shim of BasicSettings.get_exportSkeletons()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimBasicSettings.AllInstances.exportSkeletonsSetDictionaryOfOutputTypeString">
+            <summary>Sets the shim of BasicSettings.set_exportSkeletons(Dictionary`2&lt;OutputType,String&gt; value)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimDataProvider">
+            <summary>Shim type of SecureExam.DataProvider</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimDataProvider.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimDataProvider.#ctor(SecureExam.DataProvider)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimDataProvider.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimDataProvider.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimDataProvider.Bind(SecureExam.IDataProvider)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.Constructor">
+            <summary>Sets the shim of DataProvider.DataProvider()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.ParticipantsGet">
+            <summary>Sets the shim of DataProvider.get_Participants()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.QuestionsGet">
+            <summary>Sets the shim of DataProvider.get_Questions()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.examDetailsGet">
+            <summary>Sets the shim of DataProvider.get_examDetails()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.examDetailsSetExamDetails">
+            <summary>Sets the shim of DataProvider.set_examDetails(ExamDetails value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.exportOutputTypeStringStudentSecretsFileFormat">
+            <summary>Sets the shim of DataProvider.export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.getInstance">
+            <summary>Sets the shim of DataProvider.getInstance()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.getProfessor">
+            <summary>Sets the shim of DataProvider.getProfessor()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.readDataQuestionFormularTypeStringStudentFileTypeStringString">
+            <summary>Sets the shim of DataProvider.readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath, String settingsPath)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimDataProvider.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.AllInstances.ParticipantsGet">
+            <summary>Sets the shim of DataProvider.get_Participants()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.AllInstances.QuestionsGet">
+            <summary>Sets the shim of DataProvider.get_Questions()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.AllInstances.examDetailsGet">
+            <summary>Sets the shim of DataProvider.get_examDetails()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.AllInstances.examDetailsSetExamDetails">
+            <summary>Sets the shim of DataProvider.set_examDetails(ExamDetails value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.AllInstances.exportOutputTypeStringStudentSecretsFileFormat">
+            <summary>Sets the shim of DataProvider.export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.AllInstances.getProfessor">
+            <summary>Sets the shim of DataProvider.getProfessor()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataProvider.AllInstances.readDataQuestionFormularTypeStringStudentFileTypeStringString">
+            <summary>Sets the shim of DataProvider.readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath, String settingsPath)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimDataReadException">
+            <summary>Shim type of SecureExam.DataReadException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimDataReadException.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimDataReadException.#ctor(SecureExam.DataReadException)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimDataReadException.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimDataReadException.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimDataReadException.Bind(System.Runtime.Serialization.ISerializable)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataReadException.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimDataReadException.ConstructorString">
+            <summary>Sets the shim of DataReadException.DataReadException(String message)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimDataReadException.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimEncryption">
+            <summary>Shim type of SecureExam.Encryption</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimEncryption.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimEncryption.#ctor(SecureExam.Encryption)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimEncryption.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimEncryption.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimEncryption.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimEncryption.Constructor">
+            <summary>Sets the shim of Encryption.Encryption()</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimEncryption.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimExamDetails">
+            <summary>Shim type of SecureExam.ExamDetails</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimExamDetails.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimExamDetails.#ctor(SecureExam.ExamDetails)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimExamDetails.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimExamDetails.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.Constructor">
+            <summary>Sets the shim of ExamDetails.ExamDetails()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.confirmAutosaveRestoreGet">
+            <summary>Sets the shim of ExamDetails.get_confirmAutosaveRestore()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.confirmAutosaveRestoreSetBoolean">
+            <summary>Sets the shim of ExamDetails.set_confirmAutosaveRestore(Boolean value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.ebookreaderExportGet">
+            <summary>Sets the shim of ExamDetails.get_ebookreaderExport()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.ebookreaderExportSetBoolean">
+            <summary>Sets the shim of ExamDetails.set_ebookreaderExport(Boolean value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.examDurationMinutesGet">
+            <summary>Sets the shim of ExamDetails.get_examDurationMinutes()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.examDurationMinutesSetInt32">
+            <summary>Sets the shim of ExamDetails.set_examDurationMinutes(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.examEndTimeGet">
+            <summary>Sets the shim of ExamDetails.get_examEndTime()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.examEndTimeSetDateTime">
+            <summary>Sets the shim of ExamDetails.set_examEndTime(DateTime value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.examNotesGet">
+            <summary>Sets the shim of ExamDetails.get_examNotes()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.examNotesSetString">
+            <summary>Sets the shim of ExamDetails.set_examNotes(String value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.examStartTimeGet">
+            <summary>Sets the shim of ExamDetails.get_examStartTime()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.examStartTimeSetDateTime">
+            <summary>Sets the shim of ExamDetails.set_examStartTime(DateTime value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.examTitleGet">
+            <summary>Sets the shim of ExamDetails.get_examTitle()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.examTitleSetString">
+            <summary>Sets the shim of ExamDetails.set_examTitle(String value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.historyTimeMaxVarianceGet">
+            <summary>Sets the shim of ExamDetails.get_historyTimeMaxVariance()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.historyTimeMaxVarianceSetInt32">
+            <summary>Sets the shim of ExamDetails.set_historyTimeMaxVariance(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.internalTimeMaxVarianceGet">
+            <summary>Sets the shim of ExamDetails.get_internalTimeMaxVariance()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.internalTimeMaxVarianceSetInt32">
+            <summary>Sets the shim of ExamDetails.set_internalTimeMaxVariance(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.internetAllowedGet">
+            <summary>Sets the shim of ExamDetails.get_internetAllowed()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.internetAllowedSetBoolean">
+            <summary>Sets the shim of ExamDetails.set_internetAllowed(Boolean value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.subjectGet">
+            <summary>Sets the shim of ExamDetails.get_subject()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.subjectSetString">
+            <summary>Sets the shim of ExamDetails.set_subject(String value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.tabChangeAllowedGet">
+            <summary>Sets the shim of ExamDetails.get_tabChangeAllowed()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.tabChangeAllowedSetBoolean">
+            <summary>Sets the shim of ExamDetails.set_tabChangeAllowed(Boolean value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.timeVarianceGet">
+            <summary>Sets the shim of ExamDetails.get_timeVariance()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.timeVarianceSetInt32">
+            <summary>Sets the shim of ExamDetails.set_timeVariance(Int32 value)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimExamDetails.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.confirmAutosaveRestoreGet">
+            <summary>Sets the shim of ExamDetails.get_confirmAutosaveRestore()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.confirmAutosaveRestoreSetBoolean">
+            <summary>Sets the shim of ExamDetails.set_confirmAutosaveRestore(Boolean value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.ebookreaderExportGet">
+            <summary>Sets the shim of ExamDetails.get_ebookreaderExport()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.ebookreaderExportSetBoolean">
+            <summary>Sets the shim of ExamDetails.set_ebookreaderExport(Boolean value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.examDurationMinutesGet">
+            <summary>Sets the shim of ExamDetails.get_examDurationMinutes()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.examDurationMinutesSetInt32">
+            <summary>Sets the shim of ExamDetails.set_examDurationMinutes(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.examEndTimeGet">
+            <summary>Sets the shim of ExamDetails.get_examEndTime()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.examEndTimeSetDateTime">
+            <summary>Sets the shim of ExamDetails.set_examEndTime(DateTime value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.examNotesGet">
+            <summary>Sets the shim of ExamDetails.get_examNotes()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.examNotesSetString">
+            <summary>Sets the shim of ExamDetails.set_examNotes(String value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.examStartTimeGet">
+            <summary>Sets the shim of ExamDetails.get_examStartTime()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.examStartTimeSetDateTime">
+            <summary>Sets the shim of ExamDetails.set_examStartTime(DateTime value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.examTitleGet">
+            <summary>Sets the shim of ExamDetails.get_examTitle()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.examTitleSetString">
+            <summary>Sets the shim of ExamDetails.set_examTitle(String value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.historyTimeMaxVarianceGet">
+            <summary>Sets the shim of ExamDetails.get_historyTimeMaxVariance()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.historyTimeMaxVarianceSetInt32">
+            <summary>Sets the shim of ExamDetails.set_historyTimeMaxVariance(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.internalTimeMaxVarianceGet">
+            <summary>Sets the shim of ExamDetails.get_internalTimeMaxVariance()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.internalTimeMaxVarianceSetInt32">
+            <summary>Sets the shim of ExamDetails.set_internalTimeMaxVariance(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.internetAllowedGet">
+            <summary>Sets the shim of ExamDetails.get_internetAllowed()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.internetAllowedSetBoolean">
+            <summary>Sets the shim of ExamDetails.set_internetAllowed(Boolean value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.subjectGet">
+            <summary>Sets the shim of ExamDetails.get_subject()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.subjectSetString">
+            <summary>Sets the shim of ExamDetails.set_subject(String value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.tabChangeAllowedGet">
+            <summary>Sets the shim of ExamDetails.get_tabChangeAllowed()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.tabChangeAllowedSetBoolean">
+            <summary>Sets the shim of ExamDetails.set_tabChangeAllowed(Boolean value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.timeVarianceGet">
+            <summary>Sets the shim of ExamDetails.get_timeVariance()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.timeVarianceSetInt32">
+            <summary>Sets the shim of ExamDetails.set_timeVariance(Int32 value)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimExportException">
+            <summary>Shim type of SecureExam.ExportException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimExportException.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimExportException.#ctor(SecureExam.ExportException)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimExportException.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimExportException.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimExportException.Bind(System.Runtime.Serialization.ISerializable)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExportException.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExportException.ConstructorString">
+            <summary>Sets the shim of ExportException.ExportException(String message)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimExportException.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimFacade">
+            <summary>Shim type of SecureExam.Facade</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimFacade.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimFacade.#ctor(SecureExam.Facade)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimFacade.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimFacade.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimFacade.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimFacade.Constructor">
+            <summary>Sets the shim of Facade.Facade()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimFacade.exportOutputTypeStringStudentSecretsFileFormat">
+            <summary>Sets the shim of Facade.export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimFacade.readDataQuestionFormularTypeStringStudentFileTypeStringString">
+            <summary>Sets the shim of Facade.readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath, String settingsPath)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimFacade.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimFacade.AllInstances.exportOutputTypeStringStudentSecretsFileFormat">
+            <summary>Sets the shim of Facade.export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimFacade.AllInstances.readDataQuestionFormularTypeStringStudentFileTypeStringString">
+            <summary>Sets the shim of Facade.readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath, String settingsPath)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimHTMLJSExport">
+            <summary>Shim type of SecureExam.HTMLJSExport</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimHTMLJSExport.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimHTMLJSExport.#ctor(SecureExam.HTMLJSExport)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimHTMLJSExport.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimHTMLJSExport.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimHTMLJSExport.Bind(SecureExam.IQuestionsExport)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHTMLJSExport.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHTMLJSExport.Constructor">
+            <summary>Sets the shim of HTMLJSExport.HTMLJSExport()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHTMLJSExport.exportQuestions">
+            <summary>Sets the shim of HTMLJSExport.exportQuestions()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHTMLJSExport.exportString">
+            <summary>Sets the shim of HTMLJSExport.export(String filename)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHTMLJSExport.exportUserKeyDB">
+            <summary>Sets the shim of HTMLJSExport.exportUserKeyDB()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHTMLJSExport.generateQuestionsHTML">
+            <summary>Sets the shim of HTMLJSExport.generateQuestionsHTML()</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimHTMLJSExport.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHTMLJSExport.AllInstances.exportQuestions">
+            <summary>Sets the shim of HTMLJSExport.exportQuestions()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHTMLJSExport.AllInstances.exportString">
+            <summary>Sets the shim of HTMLJSExport.export(String filename)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHTMLJSExport.AllInstances.exportUserKeyDB">
+            <summary>Sets the shim of HTMLJSExport.exportUserKeyDB()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHTMLJSExport.AllInstances.generateQuestionsHTML">
+            <summary>Sets the shim of HTMLJSExport.generateQuestionsHTML()</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimHelper">
+            <summary>Shim type of SecureExam.Helper</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimHelper.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimHelper.#ctor(SecureExam.Helper)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimHelper.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimHelper.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHelper.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHelper.ByteArrayToHexStringByteArray">
+            <summary>Sets the shim of Helper.ByteArrayToHexString(Byte[] array)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHelper.Constructor">
+            <summary>Sets the shim of Helper.Helper()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHelper.SHA256StringByteArrayInt32">
+            <summary>Sets the shim of Helper.SHA256(String data, Byte[] iv, Int32 iterations)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHelper.dateTimeToMillisecondsSince1970ForJSDateTime">
+            <summary>Sets the shim of Helper.dateTimeToMillisecondsSince1970ForJS(DateTime date)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHelper.encryptAESStringByteArrayByteArray">
+            <summary>Sets the shim of Helper.encryptAES(String data, Byte[] Key, Byte[] IV)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHelper.getSecureRandomBytesInt32">
+            <summary>Sets the shim of Helper.getSecureRandomBytes(Int32 length)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHelper.unzipStringString">
+            <summary>Sets the shim of Helper.unzip(String inputPath, String outputPath)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimHelper.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimInvalidDataProviderExportTypeException">
+            <summary>Shim type of SecureExam.InvalidDataProviderExportTypeException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidDataProviderExportTypeException.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidDataProviderExportTypeException.#ctor(SecureExam.InvalidDataProviderExportTypeException)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidDataProviderExportTypeException.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidDataProviderExportTypeException.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidDataProviderExportTypeException.Bind(System.Runtime.Serialization.ISerializable)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimInvalidDataProviderExportTypeException.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimInvalidDataProviderExportTypeException.ConstructorString">
+            <summary>Sets the shim of InvalidDataProviderExportTypeException.InvalidDataProviderExportTypeException(String message)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimInvalidDataProviderExportTypeException.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimInvalidExportTypeException">
+            <summary>Shim type of SecureExam.InvalidExportTypeException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidExportTypeException.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidExportTypeException.#ctor(SecureExam.InvalidExportTypeException)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidExportTypeException.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidExportTypeException.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidExportTypeException.Bind(System.Runtime.Serialization.ISerializable)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimInvalidExportTypeException.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimInvalidExportTypeException.ConstructorString">
+            <summary>Sets the shim of InvalidExportTypeException.InvalidExportTypeException(String message)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimInvalidExportTypeException.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimInvalidFormularTypeException">
+            <summary>Shim type of SecureExam.InvalidFormularTypeException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidFormularTypeException.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidFormularTypeException.#ctor(SecureExam.InvalidFormularTypeException)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidFormularTypeException.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidFormularTypeException.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidFormularTypeException.Bind(System.Runtime.Serialization.ISerializable)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimInvalidFormularTypeException.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimInvalidFormularTypeException.ConstructorString">
+            <summary>Sets the shim of InvalidFormularTypeException.InvalidFormularTypeException(String message)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimInvalidFormularTypeException.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimInvalidStudentFileTypeException">
+            <summary>Shim type of SecureExam.InvalidStudentFileTypeException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidStudentFileTypeException.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidStudentFileTypeException.#ctor(SecureExam.InvalidStudentFileTypeException)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidStudentFileTypeException.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidStudentFileTypeException.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidStudentFileTypeException.Bind(System.Runtime.Serialization.ISerializable)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimInvalidStudentFileTypeException.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimInvalidStudentFileTypeException.ConstructorString">
+            <summary>Sets the shim of InvalidStudentFileTypeException.InvalidStudentFileTypeException(String message)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimInvalidStudentFileTypeException.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimInvalidStudentSecretsFileFormatException">
+            <summary>Shim type of SecureExam.InvalidStudentSecretsFileFormatException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidStudentSecretsFileFormatException.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidStudentSecretsFileFormatException.#ctor(SecureExam.InvalidStudentSecretsFileFormatException)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidStudentSecretsFileFormatException.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidStudentSecretsFileFormatException.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimInvalidStudentSecretsFileFormatException.Bind(System.Runtime.Serialization.ISerializable)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimInvalidStudentSecretsFileFormatException.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimInvalidStudentSecretsFileFormatException.ConstructorString">
+            <summary>Sets the shim of InvalidStudentSecretsFileFormatException.InvalidStudentSecretsFileFormatException(String message)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimInvalidStudentSecretsFileFormatException.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimNoAESKeyException">
+            <summary>Shim type of SecureExam.NoAESKeyException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimNoAESKeyException.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimNoAESKeyException.#ctor(SecureExam.NoAESKeyException)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimNoAESKeyException.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimNoAESKeyException.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimNoAESKeyException.Bind(System.Runtime.Serialization.ISerializable)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimNoAESKeyException.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimNoAESKeyException.ConstructorString">
+            <summary>Sets the shim of NoAESKeyException.NoAESKeyException(String message)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimNoAESKeyException.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimOdtFormularParser">
+            <summary>Shim type of SecureExam.OdtFormularParser</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimOdtFormularParser.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimOdtFormularParser.#ctor(SecureExam.OdtFormularParser)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimOdtFormularParser.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimOdtFormularParser.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimOdtFormularParser.Bind(SecureExam.IFormularParser)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimOdtFormularParser.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimOdtFormularParser.Constructor">
+            <summary>Sets the shim of OdtFormularParser.OdtFormularParser()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimOdtFormularParser.generateXMLStringString">
+            <summary>Sets the shim of OdtFormularParser.generateXML(String xslFilePath, String xml)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimOdtFormularParser.parseStreamReader">
+            <summary>Sets the shim of OdtFormularParser.parse(StreamReader streamReader)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimOdtFormularParser.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimOdtFormularParser.AllInstances.generateXMLStringString">
+            <summary>Sets the shim of OdtFormularParser.generateXML(String xslFilePath, String xml)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimOdtFormularParser.AllInstances.parseStreamReader">
+            <summary>Sets the shim of OdtFormularParser.parse(StreamReader streamReader)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimParticipant">
+            <summary>Shim type of SecureExam.Participant</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimParticipant.#ctor(SecureExam.Participant)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimParticipant.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimParticipant.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimParticipant.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimParticipant.Constructor">
+            <summary>Sets the shim of Participant.Participant()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimParticipant.ParticipantSecretGet">
+            <summary>Sets the shim of Participant.get_ParticipantSecret()</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimParticipant.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimParticipant.AllInstances.ParticipantSecretGet">
+            <summary>Sets the shim of Participant.get_ParticipantSecret()</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimProfessor">
+            <summary>Shim type of SecureExam.Professor</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimProfessor.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimProfessor.#ctor(SecureExam.Professor)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimProfessor.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimProfessor.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimProfessor.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimProfessor.ConstructorString">
+            <summary>Sets the shim of Professor.Professor(String name)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimProfessor.generateSecret">
+            <summary>Sets the shim of Professor.generateSecret()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimProfessor.nameGet">
+            <summary>Sets the shim of Professor.get_name()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimProfessor.nameSetString">
+            <summary>Sets the shim of Professor.set_name(String value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimProfessor.secretGet">
+            <summary>Sets the shim of Professor.get_secret()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimProfessor.secretSetString">
+            <summary>Sets the shim of Professor.set_secret(String value)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimProfessor.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimProfessor.AllInstances.generateSecret">
+            <summary>Sets the shim of Professor.generateSecret()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimProfessor.AllInstances.nameGet">
+            <summary>Sets the shim of Professor.get_name()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimProfessor.AllInstances.nameSetString">
+            <summary>Sets the shim of Professor.set_name(String value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimProfessor.AllInstances.secretGet">
+            <summary>Sets the shim of Professor.get_secret()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimProfessor.AllInstances.secretSetString">
+            <summary>Sets the shim of Professor.set_secret(String value)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimQuestion">
+            <summary>Shim type of SecureExam.Question</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimQuestion.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimQuestion.#ctor(SecureExam.Question)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimQuestion.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimQuestion.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimQuestion.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimQuestion.Constructor">
+            <summary>Sets the shim of Question.Question()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimQuestion.answersGet">
+            <summary>Sets the shim of Question.get_answers()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimQuestion.answersSetListOfAnswer">
+            <summary>Sets the shim of Question.set_answers(List`1&lt;Answer&gt; value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimQuestion.questionTypeGet">
+            <summary>Sets the shim of Question.get_questionType()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimQuestion.questionTypeSetQuestionType">
+            <summary>Sets the shim of Question.set_questionType(QuestionType value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimQuestion.textGet">
+            <summary>Sets the shim of Question.get_text()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimQuestion.textSetString">
+            <summary>Sets the shim of Question.set_text(String value)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimQuestion.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimQuestion.AllInstances.answersGet">
+            <summary>Sets the shim of Question.get_answers()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimQuestion.AllInstances.answersSetListOfAnswer">
+            <summary>Sets the shim of Question.set_answers(List`1&lt;Answer&gt; value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimQuestion.AllInstances.questionTypeGet">
+            <summary>Sets the shim of Question.get_questionType()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimQuestion.AllInstances.questionTypeSetQuestionType">
+            <summary>Sets the shim of Question.set_questionType(QuestionType value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimQuestion.AllInstances.textGet">
+            <summary>Sets the shim of Question.get_text()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimQuestion.AllInstances.textSetString">
+            <summary>Sets the shim of Question.set_text(String value)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimSHA256Setttings">
+            <summary>Shim type of SecureExam.SHA256Setttings</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimSHA256Setttings.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimSHA256Setttings.#ctor(SecureExam.SHA256Setttings)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimSHA256Setttings.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimSHA256Setttings.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSHA256Setttings.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSHA256Setttings.Constructor">
+            <summary>Sets the shim of SHA256Setttings.SHA256Setttings()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSHA256Setttings.IterationsGet">
+            <summary>Sets the shim of SHA256Setttings.get_Iterations()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSHA256Setttings.IterationsSetInt32">
+            <summary>Sets the shim of SHA256Setttings.set_Iterations(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSHA256Setttings.LengthGet">
+            <summary>Sets the shim of SHA256Setttings.get_Length()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSHA256Setttings.LengthSetInt32">
+            <summary>Sets the shim of SHA256Setttings.set_Length(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSHA256Setttings.SaltLengthGet">
+            <summary>Sets the shim of SHA256Setttings.get_SaltLength()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSHA256Setttings.SaltLengthSetInt32">
+            <summary>Sets the shim of SHA256Setttings.set_SaltLength(Int32 value)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimSHA256Setttings.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSHA256Setttings.AllInstances.IterationsGet">
+            <summary>Sets the shim of SHA256Setttings.get_Iterations()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSHA256Setttings.AllInstances.IterationsSetInt32">
+            <summary>Sets the shim of SHA256Setttings.set_Iterations(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSHA256Setttings.AllInstances.LengthGet">
+            <summary>Sets the shim of SHA256Setttings.get_Length()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSHA256Setttings.AllInstances.LengthSetInt32">
+            <summary>Sets the shim of SHA256Setttings.set_Length(Int32 value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSHA256Setttings.AllInstances.SaltLengthGet">
+            <summary>Sets the shim of SHA256Setttings.get_SaltLength()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSHA256Setttings.AllInstances.SaltLengthSetInt32">
+            <summary>Sets the shim of SHA256Setttings.set_SaltLength(Int32 value)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimSecureExamConsoleApplication">
+            <summary>Shim type of SecureExam.SecureExamConsoleApplication</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimSecureExamConsoleApplication.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimSecureExamConsoleApplication.#ctor(SecureExam.SecureExamConsoleApplication)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimSecureExamConsoleApplication.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimSecureExamConsoleApplication.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSecureExamConsoleApplication.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSecureExamConsoleApplication.Constructor">
+            <summary>Sets the shim of SecureExamConsoleApplication.SecureExamConsoleApplication()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSecureExamConsoleApplication.MainStringArray">
+            <summary>Sets the shim of SecureExamConsoleApplication.Main(String[] args)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSecureExamConsoleApplication.printErrorString">
+            <summary>Sets the shim of SecureExamConsoleApplication.printError(String message)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimSecureExamConsoleApplication.printUsage">
+            <summary>Sets the shim of SecureExamConsoleApplication.printUsage()</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimSecureExamConsoleApplication.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimStudent">
+            <summary>Shim type of SecureExam.Student</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimStudent.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimStudent.#ctor(SecureExam.Student)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimStudent.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimStudent.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.ConstructorStringStringString">
+            <summary>Sets the shim of Student.Student(String preName, String surName, String id)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.generateSecret">
+            <summary>Sets the shim of Student.generateSecret()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.secretGet">
+            <summary>Sets the shim of Student.get_secret()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.secretSetString">
+            <summary>Sets the shim of Student.set_secret(String value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.studentIDGet">
+            <summary>Sets the shim of Student.get_studentID()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.studentIDSetString">
+            <summary>Sets the shim of Student.set_studentID(String value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.studentPreNameGet">
+            <summary>Sets the shim of Student.get_studentPreName()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.studentPreNameSetString">
+            <summary>Sets the shim of Student.set_studentPreName(String value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.studentSurNameGet">
+            <summary>Sets the shim of Student.get_studentSurName()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.studentSurNameSetString">
+            <summary>Sets the shim of Student.set_studentSurName(String value)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimStudent.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.AllInstances.generateSecret">
+            <summary>Sets the shim of Student.generateSecret()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.AllInstances.secretGet">
+            <summary>Sets the shim of Student.get_secret()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.AllInstances.secretSetString">
+            <summary>Sets the shim of Student.set_secret(String value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.AllInstances.studentIDGet">
+            <summary>Sets the shim of Student.get_studentID()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.AllInstances.studentIDSetString">
+            <summary>Sets the shim of Student.set_studentID(String value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.AllInstances.studentPreNameGet">
+            <summary>Sets the shim of Student.get_studentPreName()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.AllInstances.studentPreNameSetString">
+            <summary>Sets the shim of Student.set_studentPreName(String value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.AllInstances.studentSurNameGet">
+            <summary>Sets the shim of Student.get_studentSurName()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimStudent.AllInstances.studentSurNameSetString">
+            <summary>Sets the shim of Student.set_studentSurName(String value)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimXMLFormularParser">
+            <summary>Shim type of SecureExam.XMLFormularParser</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLFormularParser.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLFormularParser.#ctor(SecureExam.XMLFormularParser)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLFormularParser.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLFormularParser.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLFormularParser.Bind(SecureExam.IFormularParser)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLFormularParser.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLFormularParser.Constructor">
+            <summary>Sets the shim of XMLFormularParser.XMLFormularParser()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLFormularParser.getTextByTagNameString">
+            <summary>Sets the shim of XMLFormularParser.getTextByTagName(String tag)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLFormularParser.parseStreamReader">
+            <summary>Sets the shim of XMLFormularParser.parse(StreamReader streamReader)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimXMLFormularParser.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLFormularParser.AllInstances.getTextByTagNameString">
+            <summary>Sets the shim of XMLFormularParser.getTextByTagName(String tag)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLFormularParser.AllInstances.parseStreamReader">
+            <summary>Sets the shim of XMLFormularParser.parse(StreamReader streamReader)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimXMLParameterParser">
+            <summary>Shim type of SecureExam.XMLParameterParser</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLParameterParser.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLParameterParser.#ctor(SecureExam.XMLParameterParser)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLParameterParser.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLParameterParser.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLParameterParser.Bind(SecureExam.IParameterParser)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLParameterParser.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLParameterParser.Constructor">
+            <summary>Sets the shim of XMLParameterParser.XMLParameterParser()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLParameterParser.getElementByTagNameString">
+            <summary>Sets the shim of XMLParameterParser.getElementByTagName(String tag)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLParameterParser.parseString">
+            <summary>Sets the shim of XMLParameterParser.parse(String parameterPath)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimXMLParameterParser.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLParameterParser.AllInstances.getElementByTagNameString">
+            <summary>Sets the shim of XMLParameterParser.getElementByTagName(String tag)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLParameterParser.AllInstances.parseString">
+            <summary>Sets the shim of XMLParameterParser.parse(String parameterPath)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimXMLSettingsParser">
+            <summary>Shim type of SecureExam.XMLSettingsParser</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLSettingsParser.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLSettingsParser.#ctor(SecureExam.XMLSettingsParser)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLSettingsParser.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLSettingsParser.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLSettingsParser.Bind(SecureExam.ISettingsParser)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLSettingsParser.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLSettingsParser.Constructor">
+            <summary>Sets the shim of XMLSettingsParser.XMLSettingsParser()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLSettingsParser.getElementByTagNameString">
+            <summary>Sets the shim of XMLSettingsParser.getElementByTagName(String tag)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLSettingsParser.parseString">
+            <summary>Sets the shim of XMLSettingsParser.parse(String settingsPath)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLSettingsParser.setBooleanString">
+            <summary>Sets the shim of XMLSettingsParser.setBoolean(String text)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimXMLSettingsParser.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLSettingsParser.AllInstances.getElementByTagNameString">
+            <summary>Sets the shim of XMLSettingsParser.getElementByTagName(String tag)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLSettingsParser.AllInstances.parseString">
+            <summary>Sets the shim of XMLSettingsParser.parse(String settingsPath)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLSettingsParser.AllInstances.setBooleanString">
+            <summary>Sets the shim of XMLSettingsParser.setBoolean(String text)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimXMLStudentParser">
+            <summary>Shim type of SecureExam.XMLStudentParser</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLStudentParser.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLStudentParser.#ctor(SecureExam.XMLStudentParser)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLStudentParser.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLStudentParser.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLStudentParser.Bind(SecureExam.IStudentParser)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLStudentParser.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLStudentParser.Constructor">
+            <summary>Sets the shim of XMLStudentParser.XMLStudentParser()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLStudentParser.parseString">
+            <summary>Sets the shim of XMLStudentParser.parse(String studentPath)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimXMLStudentParser.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLStudentParser.AllInstances.parseString">
+            <summary>Sets the shim of XMLStudentParser.parse(String studentPath)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimXMLStudentsSecretsExporter">
+            <summary>Shim type of SecureExam.XMLStudentsSecretsExporter</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLStudentsSecretsExporter.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLStudentsSecretsExporter.#ctor(SecureExam.XMLStudentsSecretsExporter)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLStudentsSecretsExporter.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLStudentsSecretsExporter.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.ShimXMLStudentsSecretsExporter.Bind(SecureExam.IStudentsSecretExport)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLStudentsSecretsExporter.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLStudentsSecretsExporter.Constructor">
+            <summary>Sets the shim of XMLStudentsSecretsExporter.XMLStudentsSecretsExporter()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLStudentsSecretsExporter.SecureExamIStudentsSecretExportexportString">
+            <summary>Sets the shim of XMLStudentsSecretsExporter.SecureExam.IStudentsSecretExport.export(String filename)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.ShimXMLStudentsSecretsExporter.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimXMLStudentsSecretsExporter.AllInstances.SecureExamIStudentsSecretExportexportString">
+            <summary>Sets the shim of XMLStudentsSecretsExporter.SecureExam.IStudentsSecretExport.export(String filename)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubAESSettings">
+            <summary>Stub type of SecureExam.AESSettings</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubAESSettings.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubAESSettings.InitializeStub">
+            <summary>Initializes a new instance of type StubAESSettings</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubAESSettings.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubAESSettings.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubAESSettings.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubDataReadException">
+            <summary>Stub type of SecureExam.DataReadException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubDataReadException.#ctor(System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubDataReadException.AttachBackingFieldToHelpLink">
+            <summary>Attaches delegates to emulate StubDataReadException.HelpLink as a property with a backing field.</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubDataReadException.AttachBackingFieldToSource">
+            <summary>Attaches delegates to emulate StubDataReadException.Source as a property with a backing field.</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubDataReadException.DataGet">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubDataReadException.GetBaseException">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubDataReadException.GetBaseException01">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubDataReadException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubDataReadException.GetObjectDataSerializationInfoStreamingContext">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubDataReadException.HelpLinkGet">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubDataReadException.HelpLinkSetString">
+            <summary>Sets the stub of Exception.set_HelpLink(String value)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubDataReadException.InitializeStub">
+            <summary>Initializes a new instance of type StubDataReadException</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubDataReadException.MessageGet">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubDataReadException.SourceGet">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubDataReadException.SourceSetString">
+            <summary>Sets the stub of Exception.set_Source(String value)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubDataReadException.StackTraceGet">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubDataReadException.ToString">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubDataReadException.ToString01">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubDataReadException.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubDataReadException.Data">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubDataReadException.HelpLink">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubDataReadException.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubDataReadException.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubDataReadException.Message">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubDataReadException.Source">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubDataReadException.StackTrace">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubEncryption">
+            <summary>Stub type of SecureExam.Encryption</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubEncryption.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubEncryption.InitializeStub">
+            <summary>Initializes a new instance of type StubEncryption</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubEncryption.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubEncryption.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubEncryption.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubExamDetails">
+            <summary>Stub type of SecureExam.ExamDetails</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubExamDetails.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubExamDetails.InitializeStub">
+            <summary>Initializes a new instance of type StubExamDetails</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubExamDetails.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubExamDetails.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubExamDetails.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubExportException">
+            <summary>Stub type of SecureExam.ExportException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubExportException.#ctor(System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubExportException.AttachBackingFieldToHelpLink">
+            <summary>Attaches delegates to emulate StubExportException.HelpLink as a property with a backing field.</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubExportException.AttachBackingFieldToSource">
+            <summary>Attaches delegates to emulate StubExportException.Source as a property with a backing field.</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubExportException.DataGet">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubExportException.GetBaseException">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubExportException.GetBaseException01">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubExportException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubExportException.GetObjectDataSerializationInfoStreamingContext">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubExportException.HelpLinkGet">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubExportException.HelpLinkSetString">
+            <summary>Sets the stub of Exception.set_HelpLink(String value)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubExportException.InitializeStub">
+            <summary>Initializes a new instance of type StubExportException</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubExportException.MessageGet">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubExportException.SourceGet">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubExportException.SourceSetString">
+            <summary>Sets the stub of Exception.set_Source(String value)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubExportException.StackTraceGet">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubExportException.ToString">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubExportException.ToString01">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubExportException.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubExportException.Data">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubExportException.HelpLink">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubExportException.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubExportException.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubExportException.Message">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubExportException.Source">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubExportException.StackTrace">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubFacade">
+            <summary>Stub type of SecureExam.Facade</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubFacade.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubFacade.InitializeStub">
+            <summary>Initializes a new instance of type StubFacade</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubFacade.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubFacade.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubFacade.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubHTMLJSExport">
+            <summary>Stub type of SecureExam.HTMLJSExport</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubHTMLJSExport.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubHTMLJSExport.InitializeStub">
+            <summary>Initializes a new instance of type StubHTMLJSExport</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubHTMLJSExport.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubHTMLJSExport.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubHTMLJSExport.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubHelper">
+            <summary>Stub type of SecureExam.Helper</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubHelper.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubHelper.InitializeStub">
+            <summary>Initializes a new instance of type StubHelper</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubHelper.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubHelper.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubHelper.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubIDataProvider">
+            <summary>Stub type of SecureExam.IDataProvider</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubIDataProvider.#ctor">
+            <summary>Initializes a new instance of type StubIDataProvider</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubIDataProvider.ExportOutputTypeStringStudentSecretsFileFormat">
+            <summary>Sets the stub of IDataProvider.export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubIDataProvider.ReadDataQuestionFormularTypeStringStudentFileTypeStringString">
+            <summary>Sets the stub of IDataProvider.readData(QuestionFormularType fromularType, String formularPath, StudentFileType studentType, String studentPath, String settingsPath)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubIDataProvider.se::SecureExam#IDataProvider#export(SecureExam.OutputType,System.String,SecureExam.StudentSecretsFileFormat)">
+            <summary>Sets the stub of IDataProvider.export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubIDataProvider.se::SecureExam#IDataProvider#readData(SecureExam.QuestionFormularType,System.String,SecureExam.StudentFileType,System.String,System.String)">
+            <summary>Sets the stub of IDataProvider.readData(QuestionFormularType fromularType, String formularPath, StudentFileType studentType, String studentPath, String settingsPath)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubIFormularParser">
+            <summary>Stub type of SecureExam.IFormularParser</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubIFormularParser.#ctor">
+            <summary>Initializes a new instance of type StubIFormularParser</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubIFormularParser.ParseStreamReader">
+            <summary>Sets the stub of IFormularParser.parse(StreamReader streamReader)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubIFormularParser.se::SecureExam#IFormularParser#parse(System.IO.StreamReader)">
+            <summary>Sets the stub of IFormularParser.parse(StreamReader streamReader)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubIParameterParser">
+            <summary>Stub type of SecureExam.IParameterParser</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubIParameterParser.#ctor">
+            <summary>Initializes a new instance of type StubIParameterParser</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubIParameterParser.ParseString">
+            <summary>Sets the stub of IParameterParser.parse(String parameterPath)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubIParameterParser.se::SecureExam#IParameterParser#parse(System.String)">
+            <summary>Sets the stub of IParameterParser.parse(String parameterPath)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubIQuestionsExport">
+            <summary>Stub type of SecureExam.IQuestionsExport</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubIQuestionsExport.#ctor">
+            <summary>Initializes a new instance of type StubIQuestionsExport</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubIQuestionsExport.ExportString">
+            <summary>Sets the stub of IQuestionsExport.export(String filename)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubIQuestionsExport.se::SecureExam#IQuestionsExport#export(System.String)">
+            <summary>Sets the stub of IQuestionsExport.export(String filename)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubISettingsParser">
+            <summary>Stub type of SecureExam.ISettingsParser</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubISettingsParser.#ctor">
+            <summary>Initializes a new instance of type StubISettingsParser</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubISettingsParser.ParseString">
+            <summary>Sets the stub of ISettingsParser.parse(String settingsPath)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubISettingsParser.se::SecureExam#ISettingsParser#parse(System.String)">
+            <summary>Sets the stub of ISettingsParser.parse(String settingsPath)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubIStudentParser">
+            <summary>Stub type of SecureExam.IStudentParser</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubIStudentParser.#ctor">
+            <summary>Initializes a new instance of type StubIStudentParser</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubIStudentParser.ParseString">
+            <summary>Sets the stub of IStudentParser.parse(String studentPath)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubIStudentParser.se::SecureExam#IStudentParser#parse(System.String)">
+            <summary>Sets the stub of IStudentParser.parse(String studentPath)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubIStudentsSecretExport">
+            <summary>Stub type of SecureExam.IStudentsSecretExport</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubIStudentsSecretExport.#ctor">
+            <summary>Initializes a new instance of type StubIStudentsSecretExport</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubIStudentsSecretExport.ExportString">
+            <summary>Sets the stub of IStudentsSecretExport.export(String filename)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubIStudentsSecretExport.se::SecureExam#IStudentsSecretExport#export(System.String)">
+            <summary>Sets the stub of IStudentsSecretExport.export(String filename)</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubInvalidDataProviderExportTypeException">
+            <summary>Stub type of SecureExam.InvalidDataProviderExportTypeException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.#ctor(System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.AttachBackingFieldToHelpLink">
+            <summary>Attaches delegates to emulate StubInvalidDataProviderExportTypeException.HelpLink as a property with a backing field.</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.AttachBackingFieldToSource">
+            <summary>Attaches delegates to emulate StubInvalidDataProviderExportTypeException.Source as a property with a backing field.</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.DataGet">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.GetBaseException">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.GetBaseException01">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.GetObjectDataSerializationInfoStreamingContext">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.HelpLinkGet">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.HelpLinkSetString">
+            <summary>Sets the stub of Exception.set_HelpLink(String value)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.InitializeStub">
+            <summary>Initializes a new instance of type StubInvalidDataProviderExportTypeException</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.MessageGet">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.SourceGet">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.SourceSetString">
+            <summary>Sets the stub of Exception.set_Source(String value)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.StackTraceGet">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.ToString">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.ToString01">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.Data">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.HelpLink">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.Message">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.Source">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidDataProviderExportTypeException.StackTrace">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubInvalidExportTypeException">
+            <summary>Stub type of SecureExam.InvalidExportTypeException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidExportTypeException.#ctor(System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidExportTypeException.AttachBackingFieldToHelpLink">
+            <summary>Attaches delegates to emulate StubInvalidExportTypeException.HelpLink as a property with a backing field.</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidExportTypeException.AttachBackingFieldToSource">
+            <summary>Attaches delegates to emulate StubInvalidExportTypeException.Source as a property with a backing field.</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidExportTypeException.DataGet">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidExportTypeException.GetBaseException">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidExportTypeException.GetBaseException01">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidExportTypeException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidExportTypeException.GetObjectDataSerializationInfoStreamingContext">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidExportTypeException.HelpLinkGet">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidExportTypeException.HelpLinkSetString">
+            <summary>Sets the stub of Exception.set_HelpLink(String value)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidExportTypeException.InitializeStub">
+            <summary>Initializes a new instance of type StubInvalidExportTypeException</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidExportTypeException.MessageGet">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidExportTypeException.SourceGet">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidExportTypeException.SourceSetString">
+            <summary>Sets the stub of Exception.set_Source(String value)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidExportTypeException.StackTraceGet">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidExportTypeException.ToString">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidExportTypeException.ToString01">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidExportTypeException.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidExportTypeException.Data">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidExportTypeException.HelpLink">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidExportTypeException.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidExportTypeException.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidExportTypeException.Message">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidExportTypeException.Source">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidExportTypeException.StackTrace">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubInvalidFormularTypeException">
+            <summary>Stub type of SecureExam.InvalidFormularTypeException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidFormularTypeException.#ctor(System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidFormularTypeException.AttachBackingFieldToHelpLink">
+            <summary>Attaches delegates to emulate StubInvalidFormularTypeException.HelpLink as a property with a backing field.</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidFormularTypeException.AttachBackingFieldToSource">
+            <summary>Attaches delegates to emulate StubInvalidFormularTypeException.Source as a property with a backing field.</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidFormularTypeException.DataGet">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidFormularTypeException.GetBaseException">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidFormularTypeException.GetBaseException01">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidFormularTypeException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidFormularTypeException.GetObjectDataSerializationInfoStreamingContext">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidFormularTypeException.HelpLinkGet">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidFormularTypeException.HelpLinkSetString">
+            <summary>Sets the stub of Exception.set_HelpLink(String value)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidFormularTypeException.InitializeStub">
+            <summary>Initializes a new instance of type StubInvalidFormularTypeException</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidFormularTypeException.MessageGet">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidFormularTypeException.SourceGet">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidFormularTypeException.SourceSetString">
+            <summary>Sets the stub of Exception.set_Source(String value)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidFormularTypeException.StackTraceGet">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidFormularTypeException.ToString">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidFormularTypeException.ToString01">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidFormularTypeException.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidFormularTypeException.Data">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidFormularTypeException.HelpLink">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidFormularTypeException.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidFormularTypeException.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidFormularTypeException.Message">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidFormularTypeException.Source">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidFormularTypeException.StackTrace">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubInvalidStudentFileTypeException">
+            <summary>Stub type of SecureExam.InvalidStudentFileTypeException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidStudentFileTypeException.#ctor(System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidStudentFileTypeException.AttachBackingFieldToHelpLink">
+            <summary>Attaches delegates to emulate StubInvalidStudentFileTypeException.HelpLink as a property with a backing field.</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidStudentFileTypeException.AttachBackingFieldToSource">
+            <summary>Attaches delegates to emulate StubInvalidStudentFileTypeException.Source as a property with a backing field.</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentFileTypeException.DataGet">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidStudentFileTypeException.GetBaseException">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentFileTypeException.GetBaseException01">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidStudentFileTypeException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentFileTypeException.GetObjectDataSerializationInfoStreamingContext">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentFileTypeException.HelpLinkGet">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentFileTypeException.HelpLinkSetString">
+            <summary>Sets the stub of Exception.set_HelpLink(String value)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidStudentFileTypeException.InitializeStub">
+            <summary>Initializes a new instance of type StubInvalidStudentFileTypeException</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentFileTypeException.MessageGet">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentFileTypeException.SourceGet">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentFileTypeException.SourceSetString">
+            <summary>Sets the stub of Exception.set_Source(String value)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentFileTypeException.StackTraceGet">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidStudentFileTypeException.ToString">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentFileTypeException.ToString01">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentFileTypeException.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentFileTypeException.Data">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentFileTypeException.HelpLink">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentFileTypeException.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentFileTypeException.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentFileTypeException.Message">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentFileTypeException.Source">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentFileTypeException.StackTrace">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException">
+            <summary>Stub type of SecureExam.InvalidStudentSecretsFileFormatException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.#ctor(System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.AttachBackingFieldToHelpLink">
+            <summary>Attaches delegates to emulate StubInvalidStudentSecretsFileFormatException.HelpLink as a property with a backing field.</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.AttachBackingFieldToSource">
+            <summary>Attaches delegates to emulate StubInvalidStudentSecretsFileFormatException.Source as a property with a backing field.</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.DataGet">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.GetBaseException">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.GetBaseException01">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.GetObjectDataSerializationInfoStreamingContext">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.HelpLinkGet">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.HelpLinkSetString">
+            <summary>Sets the stub of Exception.set_HelpLink(String value)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.InitializeStub">
+            <summary>Initializes a new instance of type StubInvalidStudentSecretsFileFormatException</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.MessageGet">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.SourceGet">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.SourceSetString">
+            <summary>Sets the stub of Exception.set_Source(String value)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.StackTraceGet">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.ToString">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.ToString01">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.Data">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.HelpLink">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.Message">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.Source">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubInvalidStudentSecretsFileFormatException.StackTrace">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubNoAESKeyException">
+            <summary>Stub type of SecureExam.NoAESKeyException</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubNoAESKeyException.#ctor(System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubNoAESKeyException.AttachBackingFieldToHelpLink">
+            <summary>Attaches delegates to emulate StubNoAESKeyException.HelpLink as a property with a backing field.</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubNoAESKeyException.AttachBackingFieldToSource">
+            <summary>Attaches delegates to emulate StubNoAESKeyException.Source as a property with a backing field.</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubNoAESKeyException.DataGet">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubNoAESKeyException.GetBaseException">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubNoAESKeyException.GetBaseException01">
+            <summary>Sets the stub of Exception.GetBaseException()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubNoAESKeyException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubNoAESKeyException.GetObjectDataSerializationInfoStreamingContext">
+            <summary>Sets the stub of Exception.GetObjectData(SerializationInfo info, StreamingContext context)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubNoAESKeyException.HelpLinkGet">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubNoAESKeyException.HelpLinkSetString">
+            <summary>Sets the stub of Exception.set_HelpLink(String value)</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubNoAESKeyException.InitializeStub">
+            <summary>Initializes a new instance of type StubNoAESKeyException</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubNoAESKeyException.MessageGet">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubNoAESKeyException.SourceGet">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubNoAESKeyException.SourceSetString">
+            <summary>Sets the stub of Exception.set_Source(String value)</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubNoAESKeyException.StackTraceGet">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubNoAESKeyException.ToString">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubNoAESKeyException.ToString01">
+            <summary>Sets the stub of Exception.ToString()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubNoAESKeyException.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubNoAESKeyException.Data">
+            <summary>Sets the stub of Exception.get_Data()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubNoAESKeyException.HelpLink">
+            <summary>Sets the stub of Exception.get_HelpLink()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubNoAESKeyException.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubNoAESKeyException.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubNoAESKeyException.Message">
+            <summary>Sets the stub of Exception.get_Message()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubNoAESKeyException.Source">
+            <summary>Sets the stub of Exception.get_Source()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubNoAESKeyException.StackTrace">
+            <summary>Sets the stub of Exception.get_StackTrace()</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubOdtFormularParser">
+            <summary>Stub type of SecureExam.OdtFormularParser</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubOdtFormularParser.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubOdtFormularParser.InitializeStub">
+            <summary>Initializes a new instance of type StubOdtFormularParser</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubOdtFormularParser.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubOdtFormularParser.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubOdtFormularParser.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubParticipant">
+            <summary>Stub type of SecureExam.Participant</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubParticipant.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubParticipant.GenerateSecret">
+            <summary>Sets the stub of Participant.generateSecret()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubParticipant.InitializeStub">
+            <summary>Initializes a new instance of type StubParticipant</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubParticipant.generateSecret">
+            <summary>Sets the stub of Participant.generateSecret()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubParticipant.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubParticipant.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubParticipant.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubProfessor">
+            <summary>Stub type of SecureExam.Professor</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubProfessor.#ctor(System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubProfessor.GenerateSecret">
+            <summary>Sets the stub of Professor.generateSecret()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubProfessor.InitializeStub">
+            <summary>Initializes a new instance of type StubProfessor</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubProfessor.generateSecret">
+            <summary>Sets the stub of Professor.generateSecret()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubProfessor.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubProfessor.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubProfessor.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubQuestion">
+            <summary>Stub type of SecureExam.Question</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubQuestion.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubQuestion.InitializeStub">
+            <summary>Initializes a new instance of type StubQuestion</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubQuestion.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubQuestion.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubQuestion.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubSHA256Setttings">
+            <summary>Stub type of SecureExam.SHA256Setttings</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubSHA256Setttings.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubSHA256Setttings.InitializeStub">
+            <summary>Initializes a new instance of type StubSHA256Setttings</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubSHA256Setttings.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubSHA256Setttings.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubSHA256Setttings.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubSecureExamConsoleApplication">
+            <summary>Stub type of SecureExam.SecureExamConsoleApplication</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubSecureExamConsoleApplication.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubSecureExamConsoleApplication.InitializeStub">
+            <summary>Initializes a new instance of type StubSecureExamConsoleApplication</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubSecureExamConsoleApplication.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubSecureExamConsoleApplication.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubSecureExamConsoleApplication.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubStudent">
+            <summary>Stub type of SecureExam.Student</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubStudent.#ctor(System.String,System.String,System.String)">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="F:SecureExam.Fakes.StubStudent.GenerateSecret">
+            <summary>Sets the stub of Student.generateSecret()</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubStudent.InitializeStub">
+            <summary>Initializes a new instance of type StubStudent</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubStudent.generateSecret">
+            <summary>Sets the stub of Student.generateSecret()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubStudent.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubStudent.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubStudent.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubXMLFormularParser">
+            <summary>Stub type of SecureExam.XMLFormularParser</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubXMLFormularParser.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubXMLFormularParser.InitializeStub">
+            <summary>Initializes a new instance of type StubXMLFormularParser</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubXMLFormularParser.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubXMLFormularParser.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubXMLFormularParser.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubXMLParameterParser">
+            <summary>Stub type of SecureExam.XMLParameterParser</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubXMLParameterParser.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubXMLParameterParser.InitializeStub">
+            <summary>Initializes a new instance of type StubXMLParameterParser</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubXMLParameterParser.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubXMLParameterParser.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubXMLParameterParser.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubXMLSettingsParser">
+            <summary>Stub type of SecureExam.XMLSettingsParser</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubXMLSettingsParser.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubXMLSettingsParser.InitializeStub">
+            <summary>Initializes a new instance of type StubXMLSettingsParser</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubXMLSettingsParser.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubXMLSettingsParser.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubXMLSettingsParser.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubXMLStudentParser">
+            <summary>Stub type of SecureExam.XMLStudentParser</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubXMLStudentParser.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubXMLStudentParser.InitializeStub">
+            <summary>Initializes a new instance of type StubXMLStudentParser</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubXMLStudentParser.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubXMLStudentParser.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubXMLStudentParser.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="T:SecureExam.Fakes.StubXMLStudentsSecretsExporter">
+            <summary>Stub type of SecureExam.XMLStudentsSecretsExporter</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubXMLStudentsSecretsExporter.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="M:SecureExam.Fakes.StubXMLStudentsSecretsExporter.InitializeStub">
+            <summary>Initializes a new instance of type StubXMLStudentsSecretsExporter</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubXMLStudentsSecretsExporter.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubXMLStudentsSecretsExporter.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.StubXMLStudentsSecretsExporter.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+    </members>
+</doc>
