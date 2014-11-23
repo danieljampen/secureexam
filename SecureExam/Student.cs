@@ -16,7 +16,7 @@ namespace SecureExam
         public string studentID { get; set; }
         public string secret { get; set; }
 
-        public Student(String preName, string surName, string id)
+        public Student(string preName, string surName, string id)
         {
             studentPreName = preName;
             studentSurName = surName;
