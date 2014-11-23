@@ -105,12 +105,7 @@ namespace SecureExam
                         sb.Append(((Student)participant).studentID);
                         Debug.WriteLine("STUDENT-> Vorname: " + ((Student)participant).studentPreName + " Nachname: " + ((Student)participant).studentSurName + " ID: " + ((Student)participant).studentID + " Passwort: " + ((Student)participant).secret);
                     }
-                    else if( participant.GetType() == typeof(Professor))
-                    {
-                        sb.Append(((Professor)participant).preName);
-                        sb.Append(((Professor)participant).surName);
-                        Debug.WriteLine("PROFESSOR-> Vorname: " + ((Professor)participant).preName + " Name: " + ((Professor)participant).surName + " UserSecret: " + ((Professor)participant).secret);
-                    }
+
                     sb.Append(",");
                     sb.Append(encryptedMasterKey);
                     sb.Append(",");

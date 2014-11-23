@@ -28,12 +28,6 @@ namespace SecureExam
                             writer.WriteElementString("Immatrikulationsnummer", ((Student)student).studentID);
                             writer.WriteElementString("Passwort", ((Student)student).secret);
                         }
-                        else if (student.GetType() == typeof(Professor))
-                        {
-                            writer.WriteElementString("Name", ((Professor)student).preName);
-                            writer.WriteElementString("Name", ((Professor)student).surName);
-                            writer.WriteElementString("Passwort", ((Professor)student).secret);
-                        }
 
                         writer.WriteEndElement();
                     }
