@@ -12,10 +12,11 @@ namespace SecureExam
 {
     public class Helper
     {
-        private static Random random = new Random();
-
         public static string ByteArrayToHexString( Byte[] array )
         {
+            if (array == null)
+                throw new ArgumentNullException();
+
             StringBuilder sb = new StringBuilder();
             String hex;
             foreach( Byte b in array)
@@ -29,13 +30,15 @@ namespace SecureExam
 
         public static byte[] SHA256(string data, byte[] iv, int iterations)
         {
+            if (data == null)
+                throw new ArgumentNullException("data null");
+            if (iv.Length != BasicSettings.getInstance().Encryption.SHA256.SaltLength / 8)
+                throw new ArgumentException("SHA256 IV length invalid");
+            if (iterations <= 0)
+                throw new ArgumentException("SHA256 Iterations invalid");
+
             using(SHA256 mySHA256 = SHA256Managed.Create())
             {
-                if(iv.Length != BasicSettings.getInstance().Encryption.SHA256.SaltLength/8)
-                    throw new ArgumentException("SHA256 IV length invalid");
-                if (iterations <= 0)
-                    throw new ArgumentException("SHA256 Iterations invalid");
-
                 String ivB64 = Convert.ToBase64String(iv);
 
                 byte[] hash = mySHA256.ComputeHash(Encoding.UTF8.GetBytes(data + ivB64));
