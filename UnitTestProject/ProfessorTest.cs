@@ -9,8 +9,9 @@ namespace SecureExam
         [TestMethod]
         public void testName()
         {
-            Professor prof = new Professor("rege");
-            Assert.AreEqual("rege", prof.name);
+            Professor prof = new Professor("Karl", "Rege");
+            Assert.AreEqual("Rege", prof.surName);
+            Assert.AreEqual("Karl", prof.preName);
         }
 
         [TestMethod]
@@ -18,9 +19,10 @@ namespace SecureExam
         {
             BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret = 10;
 
-            String name = "rege";
-            Professor prof = new Professor(name);
-            Assert.AreEqual(name.Length, prof.secret.Length);
+            String preName = "Karl";
+            String surName = "Rege";
+            Professor prof = new Professor(preName, surName);
+            Assert.AreEqual(10, prof.secret.Length);
         }
 
         [TestMethod]
@@ -28,18 +30,20 @@ namespace SecureExam
         {
             BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret = 10;
 
-            String name = "rege";
-            Professor prof = new Professor(name);
-            Assert.AreEqual(name.Length + BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret, prof.ParticipantSecret.Length);
+            String preName = "Karl";
+            String surName = "Rege";
+            Professor prof = new Professor(preName, surName);
+            Assert.AreEqual(surName.Length + preName.Length + BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret, prof.ParticipantSecret.Length);
         }
 
         [TestMethod]
         public void testProfessorSecretIsStatic()
         {
             BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret = 10;
-
-            String name = "rege";
-            Professor prof = new Professor(name);
+            
+            String preName = "Karl";
+            String surName = "Rege";
+            Professor prof = new Professor(preName, surName);
             Assert.AreEqual(prof.ParticipantSecret, prof.ParticipantSecret);
         }
     }
