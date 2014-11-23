@@ -45,4 +45,14 @@ namespace SecureExam
     {
         public ExportException(string message) : base(message) { }
     }
+
+    public class InvalidImportException : ApplicationException
+    {
+        public InvalidImportException(string message) : base(message) { }
+    }
+
+    public class InvalidTimeException : ApplicationException
+    {
+        public InvalidTimeException(string message) : base(message) { }
+    }
 }
