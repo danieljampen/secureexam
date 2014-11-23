@@ -60,7 +60,7 @@ namespace SecureExam
             return null;
         }
 
-        public bool readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath, String settingsPath)
+        public void readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath, String settingsPath)
         {
             if (formularPath == null || formularPath.Length == 0)
                 throw new ArgumentNullException("formularPath");
@@ -97,25 +97,25 @@ namespace SecureExam
             }
             this.participants = this.studentParser.parse(studentPath);
 
-
             this.settingsParser = new XMLSettingsParser();
             examDetails = this.settingsParser.parse(settingsPath);
 
             XMLParameterParser parameterParser = new XMLParameterParser();
             if (!parameterParser.parse(PARAMETER_XML_PATH))
             {
-                //problem mit file laden
+                throw new FileNotFoundException();
             }
 
-
-            return (this.questions.Count != 0 && this.participants.Count != 0);
+            if (this.questions.Count == 0 && this.participants.Count == 0)
+            {
+                throw new Exception();
+            }
         }
 
-        public bool export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat)
+        public void export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat)
         {
             if( path == null || path.Length == 0 )
                 throw new ArgumentNullException("path");
-            bool success = false;
             String studentsSecretPath;
 
             switch (type)
@@ -139,7 +139,6 @@ namespace SecureExam
 
             this.questionsExporter.export(path);
             this.studentsSecretExporter.export(studentsSecretPath);
-            return success;
         }        
     }
 }

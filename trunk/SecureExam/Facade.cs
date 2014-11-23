@@ -10,7 +10,11 @@ namespace SecureExam
     public class Facade
     {
         // methods
-        public bool export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat) { return DataProvider.getInstance().export(type, path, studentSecretsFileFormat); }
-        public bool readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath, String settingsPath) { return DataProvider.getInstance().readData(formularType, formularPath, studentType, studentPath, settingsPath); }
+        public void export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat) {
+            DataProvider.getInstance().export(type, path, studentSecretsFileFormat);
+        }
+        public void readData(QuestionFormularType formularType, String formularPath, StudentFileType studentType, String studentPath, String settingsPath) {
+            DataProvider.getInstance().readData(formularType, formularPath, studentType, studentPath, settingsPath);
+        }
     }
 }
