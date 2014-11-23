@@ -22,7 +22,7 @@ namespace SecureExam
             String preName = "Karl";
             String surName = "Rege";
             Professor prof = new Professor(preName, surName);
-            Assert.AreEqual(10, prof.secret.Length);
+            Assert.AreEqual(18, prof.ParticipantSecret.Length);
         }
 
         [TestMethod]
