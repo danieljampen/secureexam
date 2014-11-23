@@ -26,7 +26,8 @@ namespace SecureExam
 
             foreach (Participant p in list)
             {
-                if( p.GetType() == typeof(Professor) ){
+                if( p.GetType() == typeof(Professor) )
+                {
                     Assert.AreEqual("rege",((Professor)p).name);
                     Assert.AreEqual(10, ((Professor)p).secret.Length);
                 }
