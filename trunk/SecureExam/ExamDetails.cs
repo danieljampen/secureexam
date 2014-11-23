@@ -17,7 +17,6 @@ namespace SecureExam
 
         public bool internetAllowed { get; set; }
         public bool tabChangeAllowed { get; set; }
-        public int timeVariance { get; set; }
         public int historyTimeMaxVariance { get; set; }
         public int internalTimeMaxVariance { get; set; }
         public bool confirmAutosaveRestore { get; set; }
