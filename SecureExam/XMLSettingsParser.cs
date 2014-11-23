@@ -12,90 +12,76 @@ namespace SecureExam
     {
         private XmlDocument xmlDoc;
 
-        public ExamDetails parse(String settingsPath){
+        public ExamDetails parse(String settingsPath)
+        {
             ExamDetails examDetails = DataProvider.getInstance().examDetails;
 
-            try
+            this.xmlDoc = new XmlDocument();
+            this.xmlDoc.Load(settingsPath);
+
+            DataProvider.getInstance().examDetails.examTitle = getElementByTagName("examTitle");
+            DataProvider.getInstance().examDetails.subject = getElementByTagName("subject");
+            DataProvider.getInstance().examDetails.examNotes = getElementByTagName("examNotes");
+            DataProvider.getInstance().examDetails.internetAllowed = setBoolean(getElementByTagName("internetAllowed"));
+            DataProvider.getInstance().examDetails.tabChangeAllowed = setBoolean(getElementByTagName("tabChangeAllowed"));
+            DataProvider.getInstance().examDetails.confirmAutosaveRestore = setBoolean(getElementByTagName("confirmAutosaveRestore"));
+            DataProvider.getInstance().examDetails.ebookreaderExport = setBoolean(getElementByTagName("ebookreaderExport"));
+
+            string internalTimeMaxVariance = getElementByTagName("internalTimeMaxVariance");
+            string historyTimeMaxVariance = getElementByTagName("historyTimeMaxVariance");
+            string duration = getElementByTagName("duration");
+
+            string examDateString = getElementByTagName("examDate");
+            string examStartTimeString = getElementByTagName("startTime");
+            string examEndTimeString = getElementByTagName("endTime");
+
+            if (internalTimeMaxVariance == "")
             {
-                this.xmlDoc = new XmlDocument();
-                this.xmlDoc.Load(settingsPath);
+                throw new InvalidImportException("Tag <internalTimeMaxVariance> not set");
+            }
+            else if (historyTimeMaxVariance == "")
+            {
+                throw new InvalidImportException("Tag <historyTimeMaxVariance> not set");
+            }
+            else if (duration == "")
+            {
+                throw new InvalidImportException("Tag <duration> not set");
+            }
+            else if (examDateString == "")
+            {
+                throw new InvalidImportException("Tag <examDateString> not set");
+            }
+            else if (examStartTimeString == "")
+            {
+                throw new InvalidImportException("Tag <examStartTimeString> not set");
+            }
+            else if (examEndTimeString == "")
+            {
+                throw new InvalidImportException("Tag <examEndTimeString> not set");
+            }
+            else
+            {
+                DataProvider.getInstance().examDetails.internalTimeMaxVariance = int.Parse(getElementByTagName("internalTimeMaxVariance"));
+                DataProvider.getInstance().examDetails.historyTimeMaxVariance = int.Parse(getElementByTagName("historyTimeMaxVariance"));
+                DataProvider.getInstance().examDetails.examDurationMinutes = int.Parse(getElementByTagName("duration"));
 
-                DataProvider.getInstance().examDetails.examTitle = getElementByTagName("examTitle");
-                DataProvider.getInstance().examDetails.subject = getElementByTagName("subject");
-                DataProvider.getInstance().examDetails.examNotes = getElementByTagName("examNotes");
-                DataProvider.getInstance().examDetails.internetAllowed = setBoolean(getElementByTagName("internetAllowed"));
-                DataProvider.getInstance().examDetails.tabChangeAllowed = setBoolean(getElementByTagName("tabChangeAllowed"));
-                DataProvider.getInstance().examDetails.confirmAutosaveRestore = setBoolean(getElementByTagName("confirmAutosaveRestore"));
-                DataProvider.getInstance().examDetails.ebookreaderExport = setBoolean(getElementByTagName("ebookreaderExport"));
+                try
+                {
+                    DateTime examDateTime = Convert.ToDateTime(examDateString);
+                    DateTime examStartTime = Convert.ToDateTime(examStartTimeString);
+                    DateTime examEndTime = Convert.ToDateTime(examEndTimeString);
 
-                string internalTimeMaxVariance = getElementByTagName("internalTimeMaxVariance");
-                string historyTimeMaxVariance = getElementByTagName("historyTimeMaxVariance");
-                string duration = getElementByTagName("duration");
-                
-                string examDateString = getElementByTagName("examDate");
-                string examStartTimeString = getElementByTagName("startTime");
-                string examEndTimeString = getElementByTagName("endTime");
+                    examStartTime = new DateTime(examDateTime.Year, examDateTime.Month, examDateTime.Day, examStartTime.Hour, examStartTime.Minute, 0);
+                    examEndTime = new DateTime(examDateTime.Year, examDateTime.Month, examDateTime.Day, examEndTime.Hour, examEndTime.Minute, 0);
 
-                if (internalTimeMaxVariance == "")
-                {
-                    throw new InvalidImportException("Tag <internalTimeMaxVariance> not set");
+                    DataProvider.getInstance().examDetails.examStartTime = examStartTime;
+                    DataProvider.getInstance().examDetails.examEndTime = examEndTime;
                 }
-                else if (historyTimeMaxVariance == "")
+                catch (Exception e)
                 {
-                    throw new InvalidImportException("Tag <historyTimeMaxVariance> not set");
-                }
-                else if (duration == "")
-                {
-                    throw new InvalidImportException("Tag <duration> not set");
-                }
-                else if (examDateString == "")
-                {
-                    throw new InvalidImportException("Tag <examDateString> not set");
-                }
-                else if (examStartTimeString == "")
-                {
-                    throw new InvalidImportException("Tag <examStartTimeString> not set");
-                }
-                else if (examEndTimeString == "")
-                {
-                    throw new InvalidImportException("Tag <examEndTimeString> not set");
-                }
-                else
-                {
-                    DataProvider.getInstance().examDetails.internalTimeMaxVariance = int.Parse(getElementByTagName("internalTimeMaxVariance"));
-                    DataProvider.getInstance().examDetails.historyTimeMaxVariance = int.Parse(getElementByTagName("historyTimeMaxVariance"));
-                    DataProvider.getInstance().examDetails.examDurationMinutes = int.Parse(getElementByTagName("duration"));
-
-                    try
-                    {
-                        DateTime examDateTime = Convert.ToDateTime(examDateString);
-                        DateTime examStartTime = Convert.ToDateTime(examStartTimeString);
-                        DateTime examEndTime = Convert.ToDateTime(examEndTimeString);
-
-                        examStartTime = new DateTime(examDateTime.Year, examDateTime.Month, examDateTime.Day, examStartTime.Hour, examStartTime.Minute, 0);
-                        examEndTime = new DateTime(examDateTime.Year, examDateTime.Month, examDateTime.Day, examEndTime.Hour, examEndTime.Minute, 0);
-
-                        DataProvider.getInstance().examDetails.examStartTime = examStartTime;
-                        DataProvider.getInstance().examDetails.examEndTime = examEndTime;
-                    }
-                    catch(Exception e){
-                        throw new InvalidTimeException(e.ToString());
-                    }
+                    throw new InvalidTimeException(e.ToString());
                 }
             }
-            catch (DirectoryNotFoundException e)
-            {
-                throw new DirectoryNotFoundException(e.ToString());
-            }
-            catch (XmlException e)
-            {
-                throw new XmlException(e.ToString());
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.ToString());
-            }
-
             return examDetails;
         }
 
