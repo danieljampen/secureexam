@@ -8,6 +8,6 @@ namespace SecureExam
 {
     public interface IStudentsSecretExport
     {
-        bool export(String filename);
+        void export(String filename);
     }
 }

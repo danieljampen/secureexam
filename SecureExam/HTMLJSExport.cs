@@ -11,7 +11,7 @@ namespace SecureExam
 {
     public class HTMLJSExport : IQuestionsExport
     {
-        public bool export(String filename)
+        public void export(String filename)
         {
             StreamReader htmlSkeleton = new StreamReader(BasicSettings.getInstance().exportSkeletons[OutputType.HTMLJS]);
             StreamWriter outFile = new StreamWriter(filename);
@@ -58,15 +58,13 @@ namespace SecureExam
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                return false;
+                throw e;
             }
             finally
             {
                 htmlSkeleton.Close();
                 outFile.Close();
             }
-            return true;
         }
 
         private string exportQuestions()
@@ -109,8 +107,9 @@ namespace SecureExam
                     }
                     else if( participant.GetType() == typeof(Professor))
                     {
-                        sb.Append(((Professor)participant).name);
-                        Debug.WriteLine("PROFESSOR-> Name: " + ((Professor)participant).name + " UserSecret: " + ((Professor)participant).secret);
+                        sb.Append(((Professor)participant).preName);
+                        sb.Append(((Professor)participant).surName);
+                        Debug.WriteLine("PROFESSOR-> Vorname: " + ((Professor)participant).preName + " Name: " + ((Professor)participant).surName + " UserSecret: " + ((Professor)participant).secret);
                     }
                     sb.Append(",");
                     sb.Append(encryptedMasterKey);
