@@ -33,23 +33,23 @@ namespace SecureExam
             for (int i = 0; i < studentList.Count; i++)
             {
                 XmlNodeList studentData = studentList[i].ChildNodes;
-                Student student = new Student();
-
+                String surname = "", prename = "", id = "";
                 for (int j = 0; j < studentData.Count; j++)
                 {
                     switch (studentData[j].Name)
                     {
                         case "name":
-                            student.studentSurName = studentData[j].InnerText;
+                            surname = studentData[j].InnerText;
                             break;
                         case "vorname":
-                            student.studentPreName = studentData[j].InnerText;
+                            prename = studentData[j].InnerText;
                             break;
                         case "number":
-                            student.studentID = studentData[j].InnerText;
+                            id = studentData[j].InnerText;
                             break;
                     }
                 }
+                Student student = new Student(prename,surname,id);
                 participants.AddLast(student);
             }
             return participants;

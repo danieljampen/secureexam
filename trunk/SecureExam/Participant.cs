@@ -8,18 +8,18 @@ namespace SecureExam
 {
     public abstract class Participant
     {
-        private string studentSecret;
+        private string participantSecret;
 
-        public string StudentSecret
+        public string ParticipantSecret
         {
             get
             {
-                if (studentSecret == null)
-                    studentSecret = this.generateStudentSecret();
-                return studentSecret;
+                if (participantSecret == null)
+                    participantSecret = this.generateSecret();
+                return participantSecret;
             }
         }
 
-        protected abstract string generateStudentSecret();
+        protected abstract string generateSecret();
     }
 }

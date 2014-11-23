@@ -15,19 +15,16 @@ namespace SecureExam
         public string studentSurName { get; set; }
         public string studentID { get; set; }
         public string secret { get; set; }
-        private string studentSecret;
-        public string StudentSecret
+
+        public Student(String preName, string surName, string id)
         {
-            get
-            {
-                if (studentSecret == null)
-                    studentSecret = this.generateStudentSecret();
-                return studentSecret;
-            }
+            studentPreName = preName;
+            studentSurName = surName;
+            studentID = id;
         }
 
         // methods
-        protected override string generateStudentSecret()
+        protected override string generateSecret()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(studentPreName);
