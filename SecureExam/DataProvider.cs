@@ -103,7 +103,7 @@ namespace SecureExam
             XMLParameterParser parameterParser = new XMLParameterParser();
             if (!parameterParser.parse(PARAMETER_XML_PATH))
             {
-                throw new FileNotFoundException();
+                throw new DataReadException("");
             }
 
             if (this.questions.Count == 0 && this.participants.Count == 0)

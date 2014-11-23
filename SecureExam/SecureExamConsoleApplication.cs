@@ -100,18 +100,9 @@ namespace SecureExam
                 }
 
                 // SecureExam calls
-                if (facade.readData(questionFormularType, questionFile, studentFileType, studentFile, settingsFile))
-                {
-                    if (facade.export(outputType, outputFile, studentsSecretFileFormat))
-                    {
-                        return RETURNOK;
-                    }
-                    else
-                        throw new ExportException(outputFile);
-                }
-                else
-                    throw new DataReadException(questionFile + studentFile);
-                
+                facade.readData(questionFormularType, questionFile, studentFileType, studentFile, settingsFile);
+                facade.export(outputType, outputFile, studentsSecretFileFormat);
+                return RETURNOK;
             }
             catch (ArgumentException)
             {
