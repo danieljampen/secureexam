@@ -18,15 +18,24 @@ namespace SecureExam
             XmlTextReader textReader = new XmlTextReader(studentPath);
             textReader.Read();
 
-
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(textReader);
 
             //professor
-            XmlNodeList professor = xmlDoc.GetElementsByTagName("professor");
-            //BasicSettings basicSettings = BasicSettings.getInstance();
-            participants.AddLast(new Professor(professor[0].InnerText.ToLower()));
-
+            string preName = "";
+            string surName = "";
+            XmlNodeList professorNodeList = xmlDoc.GetElementsByTagName("professor");
+            foreach (XmlNode node in professorNodeList[0].ChildNodes)
+            {
+                if(node.Name == "name"){
+                    surName = node.InnerText;
+                }
+                else if(node.Name == "vorname"){
+                    preName = node.InnerText;
+                }
+            }
+            Professor professor = new Professor(preName, surName);
+            participants.AddLast(professor);
 
             //participant parsen
             XmlNodeList studentList = xmlDoc.GetElementsByTagName("student");
