@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Collections.Generic;
+using Microsoft.QualityTools.Testing.Fakes;
 
 namespace SecureExam
 {
@@ -23,23 +24,23 @@ namespace SecureExam
             LinkedList<Participant> list = parser.parse("studentsTest.xml");
             BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret = 10;
 
-
             foreach (Participant p in list)
             {
                 if( p.GetType() == typeof(Professor) )
                 {
-                    Assert.AreEqual("rege",((Professor)p).name);
-                    Assert.AreEqual(10, ((Professor)p).secret.Length);
+                    Professor professor = (Professor)p;
+                    Assert.AreEqual("Karl", professor.preName);
+                    Assert.AreEqual("Rege", professor.surName);
+                    Assert.AreEqual(18, professor.ParticipantSecret.Length);
                 }
                 else if (p.GetType() == typeof(Student))
                 {
                     Assert.AreEqual("Daniel", ((Student)p).studentPreName);
                     Assert.AreEqual("Jampen", ((Student)p).studentSurName);
                     Assert.AreEqual("S12198320", ((Student)p).studentID);
-                    Assert.AreEqual(10, ((Student)p).secret.Length);
+                    Assert.AreEqual(31, ((Student)p).ParticipantSecret.Length);
                 }
             }
         }
-        
     }
 }
