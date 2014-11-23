@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    interface IFormularParser
+    public interface IFormularParser
     {
         LinkedList<Question> parse(StreamReader streamReader);
     }

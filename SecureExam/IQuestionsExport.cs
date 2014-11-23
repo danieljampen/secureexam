@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    interface IQuestionsExport
+    public interface IQuestionsExport
     {
         bool export(String filename);
     }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
-    interface IDataProvider
+    public interface IDataProvider
     {
         bool readData(QuestionFormularType fromularType, String formularPath, StudentFileType studentType, String studentPath, String settingsPath);
         bool export(OutputType type, String path, StudentSecretsFileFormat studentSecretsFileFormat);

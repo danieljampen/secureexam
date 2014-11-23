@@ -2,7 +2,7 @@
 using SecureExam;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTestProject
+namespace SecureExam
 {
     [TestClass]
     public class StudentTest
@@ -34,6 +34,8 @@ namespace UnitTestProject
         [TestMethod]
         public void testSecretLength()
         {
+            SecureExam.BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret = 10;
+
             Student stud = new Student();
             stud = new Student();
             String name = "Lukes";
@@ -44,7 +46,7 @@ namespace UnitTestProject
             stud.studentID = id;
 
             string secret = stud.StudentSecret;
-            Assert.AreEqual(name.Length + vorname.Length + id.Length + 10, secret.Length);
+            Assert.AreEqual(name.Length + vorname.Length + id.Length + SecureExam.BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret, secret.Length);
         }
         [TestMethod]
         public void testSecretStatic()
@@ -54,7 +56,7 @@ namespace UnitTestProject
             String name = "Lukes";
             stud.studentSurName = name;
             String vorname = "Simon";
-            stud.studentPreName = name;
+            stud.studentPreName = vorname;
             String id = "S10290182";
             stud.studentID = id;
 
