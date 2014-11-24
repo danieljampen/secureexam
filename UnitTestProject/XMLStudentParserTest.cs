@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Collections.Generic;
-using Microsoft.QualityTools.Testing.Fakes;
 
 namespace SecureExam
 {
