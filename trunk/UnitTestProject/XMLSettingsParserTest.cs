@@ -22,16 +22,16 @@ namespace UnitTestProject
             XMLSettingsParser parser = new XMLSettingsParser();
             ExamDetails examDetails = parser.parse("settingsTest.xml");
 
-            Assert.AreEqual(true, examDetails.confirmAutosaveRestore);
-            Assert.AreEqual(false, examDetails.ebookreaderExport);
-            Assert.AreEqual(10, examDetails.examDurationMinutes);
-            Assert.AreEqual("Es sind mehrere Antworten möglich", examDetails.examNotes);
-            Assert.AreEqual("Algorithmen und Datenstrukturen", examDetails.examTitle);
-            Assert.AreEqual(5000, examDetails.historyTimeMaxVariance);
+            Assert.AreEqual(true , examDetails.confirmAutosaveRestore);
+            Assert.AreEqual(false , examDetails.ebookreaderExport);
+            Assert.AreEqual(10 , examDetails.examDurationMinutes);
+            Assert.AreEqual("Es sind mehrere Antworten möglich" , examDetails.examNotes);
+            Assert.AreEqual("Algorithmen und Datenstrukturen" , examDetails.examTitle);
+            Assert.AreEqual(5000 , examDetails.historyTimeMaxVariance);
             Assert.AreEqual(5000, examDetails.internalTimeMaxVariance);
-            Assert.AreEqual(true, examDetails.internetAllowed);
-            Assert.AreEqual("ADS", examDetails.subject);
-            Assert.AreEqual(false, examDetails.tabChangeAllowed);
+            Assert.AreEqual(true , examDetails.internetAllowed);
+            Assert.AreEqual("ADS" , examDetails.subject);
+            Assert.AreEqual(false , examDetails.tabChangeAllowed);
 
             DateTime examStartTime = new DateTime(2014, 11, 19, 1, 0, 0);
             DateTime examEndTime = new DateTime(2014, 11, 19, 23, 0, 0);
