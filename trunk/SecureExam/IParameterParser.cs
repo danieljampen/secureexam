@@ -5,6 +5,6 @@ namespace SecureExam
 {
     public interface IParameterParser
     {
-        Boolean parse(String parameterPath);
+        void parse(String parameterPath);
     }
 }

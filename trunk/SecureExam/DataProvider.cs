@@ -101,10 +101,7 @@ namespace SecureExam
             examDetails = this.settingsParser.parse(settingsPath);
 
             XMLParameterParser parameterParser = new XMLParameterParser();
-            if (!parameterParser.parse(PARAMETER_XML_PATH))
-            {
-                throw new DataReadException("");
-            }
+            parameterParser.parse(PARAMETER_XML_PATH);
 
             if (this.questions.Count == 0 && this.participants.Count == 0)
             {
