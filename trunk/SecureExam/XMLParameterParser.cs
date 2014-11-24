@@ -17,7 +17,15 @@ namespace SecureExam
             this.xmlDoc = new XmlDocument();
             this.xmlDoc.Load(parameterPath);
 
-            BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret = int.Parse(getElementByTagName("NumberOfRandomCharsInStudentSecret"));
+            string NumberOfRandomCharsInStudentSecret = getElementByTagName("NumberOfRandomCharsInStudentSecret");
+            if (NumberOfRandomCharsInStudentSecret != "")
+            {
+                BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret = int.Parse(NumberOfRandomCharsInStudentSecret);
+            }
+            else
+            {
+                throw new InvalidImportException("<NumberOfRandomCharsInStudentSecret> is not set or invalid");
+            }
 
             //AES
             if (this.xmlDoc.GetElementsByTagName("AESSettings").Count > 0)
@@ -33,6 +41,10 @@ namespace SecureExam
                         BasicSettings.getInstance().Encryption.AES.IvLength = int.Parse(node.InnerText);
                     }
                 }
+            }
+            else
+            {
+                throw new InvalidImportException("AESSettings are not set");
             }
 
             //SHA
@@ -53,6 +65,10 @@ namespace SecureExam
                         BasicSettings.getInstance().Encryption.SHA256.Length = int.Parse(node.InnerText);
                     }
                 }
+            }
+            else
+            {
+                throw new InvalidImportException("SHA256Setttings are not set");
             }
         }
 
