@@ -83,7 +83,7 @@ namespace SecureExam
                                     throw new ArgumentException();
                             }
                             break;
-                        case "-oStudentSecretsFileFormat":
+                        case "-ostudentsecretsfileformat":
                             switch (pair.Value)
                             {
                                 case "xml":
