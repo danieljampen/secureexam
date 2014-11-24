@@ -1,6 +1,7 @@
 ﻿using System;
 using SecureExam;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.QualityTools.Testing.Fakes;
 
 namespace SecureExam
 {
@@ -28,15 +29,19 @@ namespace SecureExam
         [TestMethod]
         public void testSecretLength()
         {
-            SecureExam.BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret = 10;
+            using(ShimsContext.Create())
+            {
+                SecureExam.Fakes.ShimBasicSettings.AllInstances.NumberOfRandomCharsInStudentSecretGet = (a) => { return 10; };
 
-            String name = "Lukes";
-            String vorname = "Simon";
-            String id = "S10290182";
+                String name = "Lukes";
+                String vorname = "Simon";
+                String id = "S10290182";
 
-            Student stud = new Student(vorname,name,id);
+                Student stud = new Student(vorname, name, id);
 
-            Assert.AreEqual(name.Length + vorname.Length + id.Length + SecureExam.BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret, stud.ParticipantSecret.Length);
+                Assert.AreEqual(name.Length + vorname.Length + id.Length + SecureExam.BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret, stud.ParticipantSecret.Length);
+            }
+
         }
         [TestMethod]
         public void testSecretStatic()
