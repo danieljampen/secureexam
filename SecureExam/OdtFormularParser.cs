@@ -14,16 +14,18 @@ namespace SecureExam
     {
         public LinkedList<Question> parse(StreamReader streamReader)
         {
-            // XSLT odt -> xml dann mit xml parser einlesen
-            string xslFilePath = "../../../../Files/Beispieldateien/Formulare/ODT/odt.xslt";
-            string fileContent = streamReader.ReadToEnd();
-            StringBuilder xmlOutput = generateXML(xslFilePath, fileContent);
+            string xslFileContent = Properties.Resources.odt;
+            XmlReader xmlReaderXslFile = XmlReader.Create(new StringReader(xslFileContent));
 
-            string xslFilePath2 = "../../../../Files/Beispieldateien/Formulare/ODT/odt2.xslt";
-            xmlOutput = generateXML(xslFilePath2, xmlOutput.ToString());
+            string fileContent = streamReader.ReadToEnd();
+            StringBuilder xmlOutput = generateXML(xmlReaderXslFile, fileContent);
+
+            string xsl2FileContent = Properties.Resources.odt2;
+            XmlReader xmlReaderXslFile2 = XmlReader.Create(new StringReader(xsl2FileContent));
+
+            xmlOutput = generateXML(xmlReaderXslFile2, xmlOutput.ToString());
 
             XMLFormularParser xmlFormularParser = new XMLFormularParser();
-
             MemoryStream memoryStream = new MemoryStream();
             StreamWriter streamWriter = new StreamWriter(memoryStream);
             streamWriter.Write(xmlOutput.ToString());
@@ -33,14 +35,14 @@ namespace SecureExam
             return xmlFormularParser.parse(new StreamReader(memoryStream));
         }
 
-        private StringBuilder generateXML(string xslFilePath, string xml)
+        private StringBuilder generateXML(XmlReader xmlReaderXSLT, string xml)
         {
             XslCompiledTransform xt = new XslCompiledTransform();
             StringBuilder resultString = new StringBuilder();
             XmlWriter xmlOutput = XmlWriter.Create(resultString);
             XmlReader xmlReader = XmlReader.Create(new StringReader(xml));
 
-            xt.Load(xslFilePath);
+            xt.Load(xmlReaderXSLT);
             xt.Transform(xmlReader, xmlOutput);
 
             return resultString;
