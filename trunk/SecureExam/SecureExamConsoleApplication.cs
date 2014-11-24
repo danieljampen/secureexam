@@ -12,13 +12,13 @@ namespace SecureExam
         private const int RETURNERROR = -1;
         private const int RETURNOK = 0;
 
-        static int Main(string[] args)
+        public static int Main(string[] args)
         {
+            if (args == null || args.Length < 8 || args.Length > 14)
+                throw new ArgumentException();
+
             try
             {
-                if (args.Length < 8 || args.Length > 14)
-                    throw new ArgumentException();
-
                 Facade facade = new Facade();
                 Dictionary<string, string> arguments = new Dictionary<string, string>();
                 String questionFile = "", studentFile = "", outputFile = "", settingsFile = "";
@@ -120,11 +120,10 @@ namespace SecureExam
             {
                 printError("Unimplemented method called! " + e.Message);
             }
-            Console.ReadLine();
             return RETURNERROR;
         }
 
-        private static void printUsage()
+        public static void printUsage()
         {
             Console.WriteLine("Error: invalid arguments");
             Console.WriteLine("");
@@ -137,8 +136,13 @@ namespace SecureExam
             Console.WriteLine("StudentSecretsFileFormat: XML");
         }
 
-        private static void printError( string message )
+        public static void printError( string message )
         {
+            if (message == null)
+                throw new ArgumentNullException("message null");
+            if (message.Length == 0)
+                throw new ArgumentException("message length 0");
+
             Console.WriteLine("[ERROR] " + DateTime.Now.ToString("u") + ": " + message);
         }
     }
