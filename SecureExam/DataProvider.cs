@@ -105,7 +105,7 @@ namespace SecureExam
 
             if (this.questions.Count == 0 && this.participants.Count == 0)
             {
-                throw new Exception();
+                throw new DataReadException("no entrys");
             }
         }
 
