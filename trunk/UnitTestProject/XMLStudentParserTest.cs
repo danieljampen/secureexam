@@ -20,7 +20,7 @@ namespace SecureExam
         public void parseTestFile()
         {
             XMLStudentParser parser = new XMLStudentParser();
-            LinkedList<Participant> list = parser.parse("studentsTest.xml");
+            LinkedList<Participant> list = parser.parse("Files/studentsTest.xml");
             BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret = 10;
 
             foreach (Participant p in list)
