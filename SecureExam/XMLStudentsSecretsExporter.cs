@@ -12,33 +12,26 @@ namespace SecureExam
     {
         void IStudentsSecretExport.export(string filename)
         {
-            try
+            using (XmlWriter writer = XmlWriter.Create(filename))
             {
-                using (XmlWriter writer = XmlWriter.Create(filename))
+                writer.WriteStartDocument();
+                writer.WriteStartElement("ParticipantSecrets");
+
+                foreach (Participant student in DataProvider.getInstance().Participants)
                 {
-                    writer.WriteStartDocument();
-                    writer.WriteStartElement("ParticipantSecrets");
-
-                    foreach (Participant student in DataProvider.getInstance().Participants)
+                    writer.WriteStartElement("Participant");
+                    if (student.GetType() == typeof(Student))
                     {
-                        writer.WriteStartElement("Participant");
-                        if( student.GetType() == typeof(Student)) {
-                            writer.WriteElementString("Vorname", ((Student)student).studentPreName);
-                            writer.WriteElementString("Nachname", ((Student)student).studentSurName);
-                            writer.WriteElementString("Immatrikulationsnummer", ((Student)student).studentID);
-                            writer.WriteElementString("Passwort", ((Student)student).secret);
-                        }
-
-                        writer.WriteEndElement();
+                        writer.WriteElementString("Vorname", ((Student)student).studentPreName);
+                        writer.WriteElementString("Nachname", ((Student)student).studentSurName);
+                        writer.WriteElementString("Immatrikulationsnummer", ((Student)student).studentID);
+                        writer.WriteElementString("Passwort", ((Student)student).secret);
                     }
-
                     writer.WriteEndElement();
-                    writer.WriteEndDocument();
                 }
-            }
-            catch( Exception e)
-            {
-                throw e;
+
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
             }
         }
     }
