@@ -59,6 +59,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="HelperTest.cs" />
+    <Compile Include="XMLParameterParserTest.cs" />
     <Compile Include="XMLSettingsParserTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
