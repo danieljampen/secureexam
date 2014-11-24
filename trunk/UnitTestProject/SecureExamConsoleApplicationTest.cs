@@ -75,6 +75,19 @@ namespace SecureExam
         }
 
         [TestMethod]
+        public void mainTestFullArguments()
+        {
+            using (ShimsContext.Create())
+            {
+                SecureExam.Fakes.ShimFacade.AllInstances.exportOutputTypeStringStudentSecretsFileFormat = (a, b, c, d) => { };
+                SecureExam.Fakes.ShimFacade.AllInstances.readDataQuestionFormularTypeStringStudentFileTypeStringString = (a, b, c, d, e, f) => { };
+
+                String[] args = { "-q", "questions.xml", "-qType", "odt", "-s", "students.xml", "-o", "outputExam.html", "-oType", "htmljs", "-p", "settings.xml", "-oStudentSecretsFileFormat", "xml" };
+                Assert.AreEqual(0, SecureExamConsoleApplication.Main(args));
+            }
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void mainTestArgsNull()
         {
@@ -117,6 +130,28 @@ namespace SecureExam
                     SecureExam.Fakes.ShimFacade.AllInstances.readDataQuestionFormularTypeStringStudentFileTypeStringString = (a, b, c, d, e, f) => { };
 
                     String[] args = { "-q", "questions.xml", "-qType", "ASD", "-s", "students.xml", "-o", "outputExam.html", "-p", "settings.xml" };
+                    SecureExamConsoleApplication.Main(args);
+
+                    Assert.AreEqual(expected, sw.ToString());
+                }
+            }
+        }
+
+        [TestMethod]
+        public void mainTestArgumentKeyInvalid()
+        {
+            using (ShimsContext.Create())
+            {
+                using (StringWriter sw = new StringWriter())
+                {
+                    Console.SetOut(sw);
+
+                    String expected = "Error: invalid arguments\r\n\r\nusage: secureExam -q questionFile -s studentsFile -o Outputfile\r\n       secureExam -q questionFile [-qType QuestionFileType] -s studentsFile [-sType StudentsFileType] -o Outputfile [-oType OutputFileType] [-oStudentSecretsFileFormat studentSecretsFileFormat] -p SettingsFile\r\n\r\nQuestionFileTypes: XML, ODT\r\nStudentFileTypes: XML\r\nOutputFileTypes: HTMLJS\r\nStudentSecretsFileFormat: XML\r\n";
+
+                    SecureExam.Fakes.ShimFacade.AllInstances.exportOutputTypeStringStudentSecretsFileFormat = (a, b, c, d) => { };
+                    SecureExam.Fakes.ShimFacade.AllInstances.readDataQuestionFormularTypeStringStudentFileTypeStringString = (a, b, c, d, e, f) => { };
+
+                    String[] args = { "-q", "questions.xml", "-qTypeeeee", "xml", "-s", "students.xml", "-o", "outputExam.html", "-p", "settings.xml" };
                     SecureExamConsoleApplication.Main(args);
 
                     Assert.AreEqual(expected, sw.ToString());
@@ -182,7 +217,7 @@ namespace SecureExam
                     SecureExam.Fakes.ShimFacade.AllInstances.exportOutputTypeStringStudentSecretsFileFormat = (a, b, c, d) => { };
                     SecureExam.Fakes.ShimFacade.AllInstances.readDataQuestionFormularTypeStringStudentFileTypeStringString = (a, b, c, d, e, f) => { };
 
-                    String[] args = { "-q", "questions.xml", "-oStudentSecretsFileFormat", "ASD", "-s", "students.xml", "-o", "outputExam.html", "-p", "settings.xml" };
+                    String[] args = { "-q", "questions.xml", "-qType", "xml", "-oStudentSecretsFileFormat", "ASD", "-s", "students.xml", "-o", "outputExam.html", "-p", "settings.xml" };
                     SecureExamConsoleApplication.Main(args);
 
                     Assert.AreEqual(expected, sw.ToString());
@@ -228,5 +263,56 @@ namespace SecureExam
                 }
             }
         }
+
+        [TestMethod]
+        public void mainTestExportException()
+        {
+            using (ShimsContext.Create())
+            {
+                using (StringWriter sw = new StringWriter())
+                {
+                    Console.SetOut(sw);
+
+                    // fake
+                    System.Fakes.ShimDateTime.NowGet = () => { return new DateTime(2014, 1, 1, 20, 0, 0); };
+                    SecureExam.Fakes.ShimFacade.AllInstances.exportOutputTypeStringStudentSecretsFileFormat = (a, b, c, d) => { };
+                    SecureExam.Fakes.ShimFacade.AllInstances.readDataQuestionFormularTypeStringStudentFileTypeStringString = (a, b, c, d, e, f) => { throw new ExportException(""); };
+
+
+
+                    String[] args = { "-q", "questions.xml", "-sType", "xml", "-s", "students.xml", "-o", "outputExam.html", "-p", "settings.xml" };
+                    SecureExamConsoleApplication.Main(args);
+
+                    String expected = "[ERROR] 2014-01-01 20:00:00Z: Export failed: \r\n";
+                    Assert.AreEqual(expected, sw.ToString());
+                }
+            }
+        }
+
+        [TestMethod]
+        public void mainTestNotImplementedException()
+        {
+            using (ShimsContext.Create())
+            {
+                using (StringWriter sw = new StringWriter())
+                {
+                    Console.SetOut(sw);
+
+                    // fake
+                    System.Fakes.ShimDateTime.NowGet = () => { return new DateTime(2014, 1, 1, 20, 0, 0); };
+                    SecureExam.Fakes.ShimFacade.AllInstances.exportOutputTypeStringStudentSecretsFileFormat = (a, b, c, d) => { };
+                    SecureExam.Fakes.ShimFacade.AllInstances.readDataQuestionFormularTypeStringStudentFileTypeStringString = (a, b, c, d, e, f) => { throw new NotImplementedException(""); };
+
+
+
+                    String[] args = { "-q", "questions.xml", "-sType", "xml", "-s", "students.xml", "-o", "outputExam.html", "-p", "settings.xml" };
+                    SecureExamConsoleApplication.Main(args);
+
+                    String expected = "[ERROR] 2014-01-01 20:00:00Z: Unimplemented method called! \r\n";
+                    Assert.AreEqual(expected, sw.ToString());
+                }
+            }
+        }
+
     }
 }
