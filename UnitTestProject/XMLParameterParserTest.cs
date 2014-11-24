@@ -20,28 +20,18 @@ namespace UnitTestProject
         public void parseTestFile()
         {
             XMLParameterParser parser = new XMLParameterParser();
-            parser.parse("SecureExam.xml");
+            parser.parse("Files/SecureExam.xml");
+            //parser.parse("Files/SecureExamException.xml");
+
+            Assert.AreEqual(10, BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret);
+            Assert.AreEqual(128, BasicSettings.getInstance().Encryption.AES.IvLength);
+            Assert.AreEqual(256, BasicSettings.getInstance().Encryption.AES.KeyLength);
             
-            /*
-            ExamDetails examDetails = parser.parse("settingsTest.xml");
-
-            Assert.AreEqual(true , examDetails.confirmAutosaveRestore);
-            Assert.AreEqual(false , examDetails.ebookreaderExport);
-            Assert.AreEqual(10 , examDetails.examDurationMinutes);
-            Assert.AreEqual("Es sind mehrere Antworten möglich" , examDetails.examNotes);
-            Assert.AreEqual("Algorithmen und Datenstrukturen" , examDetails.examTitle);
-            Assert.AreEqual(5000 , examDetails.historyTimeMaxVariance);
-            Assert.AreEqual(5000, examDetails.internalTimeMaxVariance);
-            Assert.AreEqual(true , examDetails.internetAllowed);
-            Assert.AreEqual("ADS" , examDetails.subject);
-            Assert.AreEqual(false , examDetails.tabChangeAllowed);
-
-            DateTime examStartTime = new DateTime(2014, 11, 19, 1, 0, 0);
-            DateTime examEndTime = new DateTime(2014, 11, 19, 23, 0, 0);
-            Assert.AreEqual(examEndTime, examDetails.examEndTime);
-            Assert.AreEqual(examStartTime, examDetails.examStartTime);
-             * */
+            Assert.AreEqual(100000, BasicSettings.getInstance().Encryption.SHA256.Iterations);
+            Assert.AreEqual(256, BasicSettings.getInstance().Encryption.SHA256.Length);
+            Assert.AreEqual(256, BasicSettings.getInstance().Encryption.SHA256.SaltLength);
         }
+
         /*
         [TestMethod]
         [ExpectedException(typeof(InvalidTimeException))]

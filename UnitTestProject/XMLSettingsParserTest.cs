@@ -20,7 +20,7 @@ namespace UnitTestProject
         public void parseTestFile()
         {
             XMLSettingsParser parser = new XMLSettingsParser();
-            ExamDetails examDetails = parser.parse("settingsTest.xml");
+            ExamDetails examDetails = parser.parse("Files/settingsTest.xml");
 
             Assert.AreEqual(true , examDetails.confirmAutosaveRestore);
             Assert.AreEqual(false , examDetails.ebookreaderExport);
@@ -44,7 +44,7 @@ namespace UnitTestProject
         public void timeExceptionTest()
         {
             XMLSettingsParser parser = new XMLSettingsParser();
-            ExamDetails examDetails = parser.parse("settingsTestTimeException.xml");
+            ExamDetails examDetails = parser.parse("Files/settingsTestTimeException.xml");
         }
 
         [TestMethod]
@@ -52,7 +52,7 @@ namespace UnitTestProject
         public void tagExceptionTest()
         {
             XMLSettingsParser parser = new XMLSettingsParser();
-            ExamDetails examDetails = parser.parse("settingsTestTagException.xml");
+            ExamDetails examDetails = parser.parse("Files/settingsTestTagException.xml");
         }
     }
 }
