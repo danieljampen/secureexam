@@ -49,10 +49,52 @@ namespace UnitTestProject
 
         [TestMethod]
         [ExpectedException(typeof(InvalidImportException))]
-        public void tagExceptionTest()
+        public void tagExceptionTestExamDate()
         {
             XMLSettingsParser parser = new XMLSettingsParser();
-            ExamDetails examDetails = parser.parse("Files/settingsTestTagException.xml");
+            ExamDetails examDetails = parser.parse("Files/settingsTestTagExceptionExamDate.xml");
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidImportException))]
+        public void tagExceptionTestStartTime()
+        {
+            XMLSettingsParser parser = new XMLSettingsParser();
+            ExamDetails examDetails = parser.parse("Files/settingsTestTagExceptionStartTime.xml");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidImportException))]
+        public void tagExceptionTestEndTime()
+        {
+            XMLSettingsParser parser = new XMLSettingsParser();
+            ExamDetails examDetails = parser.parse("Files/settingsTestTagExceptionEndTime.xml");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidImportException))]
+        public void tagExceptionTestDuration()
+        {
+            XMLSettingsParser parser = new XMLSettingsParser();
+            ExamDetails examDetails = parser.parse("Files/settingsTestTagExceptionDuration.xml");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidImportException))]
+        public void tagExceptionTestHistoryTimeMaxVariance()
+        {
+            XMLSettingsParser parser = new XMLSettingsParser();
+            ExamDetails examDetails = parser.parse("Files/settingsTestTagExceptionHistoryTimeMaxVariance.xml");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidImportException))]
+        public void tagExceptionTestInternalTimeMaxVariance()
+        {
+            XMLSettingsParser parser = new XMLSettingsParser();
+            ExamDetails examDetails = parser.parse("Files/settingsTestTagExceptionInternalTimeMaxVariance.xml");
+        }
+
+
     }
 }

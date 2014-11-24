@@ -21,7 +21,6 @@ namespace UnitTestProject
         {
             XMLParameterParser parser = new XMLParameterParser();
             parser.parse("Files/SecureExam.xml");
-            //parser.parse("Files/SecureExamException.xml");
 
             Assert.AreEqual(10, BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret);
             Assert.AreEqual(128, BasicSettings.getInstance().Encryption.AES.IvLength);
@@ -31,23 +30,29 @@ namespace UnitTestProject
             Assert.AreEqual(256, BasicSettings.getInstance().Encryption.SHA256.Length);
             Assert.AreEqual(256, BasicSettings.getInstance().Encryption.SHA256.SaltLength);
         }
-
-        /*
+        
         [TestMethod]
-        [ExpectedException(typeof(InvalidTimeException))]
-        public void timeExceptionTest()
+        [ExpectedException(typeof(InvalidImportException))]
+        public void invalidImportExceptionTest()
         {
-            XMLSettingsParser parser = new XMLSettingsParser();
-            ExamDetails examDetails = parser.parse("settingsTestTimeException.xml");
+            XMLParameterParser parser = new XMLParameterParser();
+            parser.parse("Files/SecureExamException.xml");
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidImportException))]
-        public void tagExceptionTest()
+        public void invalidImportExceptionSHA256Test()
         {
-            XMLSettingsParser parser = new XMLSettingsParser();
-            ExamDetails examDetails = parser.parse("settingsTestTagException.xml");
+            XMLParameterParser parser = new XMLParameterParser();
+            parser.parse("Files/SecureExamSHA256Exception.xml");
         }
-         * */
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidImportException))]
+        public void invalidImportExceptionAESTest()
+        {
+            XMLParameterParser parser = new XMLParameterParser();
+            parser.parse("Files/SecureExamAESException.xml");
+        }
     }
 }
