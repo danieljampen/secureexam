@@ -10,7 +10,7 @@ namespace SecureExam
     {
         [TestMethod]
         [ExpectedException(typeof(FileNotFoundException))]
-        public void parseWrongFileNameTest()
+        public void parseWrongStudentsFileNameTest()
         {
             XMLStudentParser parser = new XMLStudentParser();
             parser.parse("invalid.xml");

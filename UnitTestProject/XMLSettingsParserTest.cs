@@ -6,11 +6,11 @@ using System.IO;
 namespace UnitTestProject
 {
     [TestClass]
-    public class StudentTest
+    public class XMLSettingsParserTest
     {
         [TestMethod]
         [ExpectedException(typeof(FileNotFoundException))]
-        public void parseWrongFileNameTest()
+        public void parseWrongSettingsFileNameTest()
         {
             XMLStudentParser parser = new XMLStudentParser();
             parser.parse("invalid.xml");
