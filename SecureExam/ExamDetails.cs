@@ -21,5 +21,6 @@ namespace SecureExam
         public int internalTimeMaxVariance { get; set; }
         public bool confirmAutosaveRestore { get; set; }
         public bool ebookreaderExport { get; set; }
+        public ViewMode viewMode { get; set; }
     }
 }

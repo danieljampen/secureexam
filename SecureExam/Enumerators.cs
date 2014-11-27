@@ -32,4 +32,10 @@ namespace SecureExam
     {
         XML
     }
+
+    public enum ViewMode
+    {
+        SCROLL,
+        PAGE
+    }
 }

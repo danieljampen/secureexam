@@ -40,6 +40,9 @@ namespace SecureExam
                 html = html.Replace("$INTERNALTIMEMAXVARIANCE$", DataProvider.getInstance().examDetails.internalTimeMaxVariance.ToString());
                 html = html.Replace("$CONFIRMAUTOSAVERESTORE$", DataProvider.getInstance().examDetails.confirmAutosaveRestore.ToString().ToLower());
                 html = html.Replace("$EBOOKREADEREXPORT$", DataProvider.getInstance().examDetails.ebookreaderExport.ToString().ToLower());
+                
+                //Weiss halt nöd genau wieds wötsch ;)
+                html = html.Replace("$VIEWMODE$", DataProvider.getInstance().examDetails.viewMode.ToString().ToLower());
 
                 // Activate choosen security features
                 StringBuilder listeners = new StringBuilder();
