@@ -28,6 +28,14 @@ namespace SecureExam
             return sb.ToString().ToUpper();
         }
 
+        public static string ByteArrayToBase64(Byte[] array)
+        {
+            if (array == null)
+                throw new ArgumentNullException("array null");
+
+            return System.Convert.ToBase64String(array, 0, array.Length);
+        }
+
         public static byte[] SHA256(string data, byte[] iv, int iterations)
         {
             if (data == null)
