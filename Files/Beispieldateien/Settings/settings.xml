@@ -18,4 +18,5 @@
 	<internalTimeMaxVariance>5000</internalTimeMaxVariance>
 	<confirmAutosaveRestore>true</confirmAutosaveRestore>
 	<ebookreaderExport>false</ebookreaderExport>
+	<viewMode>page</viewMode>
 </settings>

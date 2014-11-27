@@ -26,6 +26,16 @@ namespace SecureExam
             DataProvider.getInstance().examDetails.tabChangeAllowed = setBoolean(getElementByTagName("tabChangeAllowed"));
             DataProvider.getInstance().examDetails.confirmAutosaveRestore = setBoolean(getElementByTagName("confirmAutosaveRestore"));
             DataProvider.getInstance().examDetails.ebookreaderExport = setBoolean(getElementByTagName("ebookreaderExport"));
+            
+            string viewMode = getElementByTagName("viewMode");
+            if (viewMode.ToLower() == "page")
+            {
+                DataProvider.getInstance().examDetails.viewMode = ViewMode.PAGE;
+            }
+            else
+            {
+                DataProvider.getInstance().examDetails.viewMode = ViewMode.SCROLL;
+            }
 
             string internalTimeMaxVariance = getElementByTagName("internalTimeMaxVariance");
             string historyTimeMaxVariance = getElementByTagName("historyTimeMaxVariance");
