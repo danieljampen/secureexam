@@ -128,6 +128,12 @@ namespace SecureExam
         private string generateQuestionsHTML()
         {
             StringBuilder sb = new StringBuilder();
+
+            if (DataProvider.getInstance().examDetails.viewMode == ViewMode.PAGE)
+            {
+                sb.Append("<div id=\"nextQuestion\"><button onclick=\"nextQuestion()\">Weiter</button></div>");
+                sb.Append("<div id=\"prevQuestion\"><button onclick=\"prevQuestion()\">Zur&uuml;ck</button></div>");
+            }
             sb.AppendLine("<form id=\"exam\">");
             foreach (Question question in DataProvider.getInstance().Questions)
             {

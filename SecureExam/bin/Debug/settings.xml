@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+﻿<?xml version="1.0" encoding="iso-8859-1"?>
 <!--- 
 	XML Exam settings import File Syntax
 	Version: 	0.1
@@ -7,8 +7,8 @@
 <settings>
 	<subject>ADS</subject>
 	<examTitle>Algorithmen und Datenstrukturen</examTitle>
-	<examNotes>Es sind mehrere Antworten m�glich</examNotes>
-	<examDate>19.11.2014</examDate>
+	<examNotes>Es sind mehrere Antworten möglich</examNotes>
+	<examDate>27.11.2014</examDate>
 	<startTime>01:00</startTime>
 	<endTime>23:00</endTime>
 	<duration>10</duration>
@@ -18,4 +18,5 @@
 	<internalTimeMaxVariance>5000</internalTimeMaxVariance>
 	<confirmAutosaveRestore>true</confirmAutosaveRestore>
 	<ebookreaderExport>false</ebookreaderExport>
+	<viewMode>scroll</viewMode>
 </settings>

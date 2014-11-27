@@ -34,6 +34,8 @@ SecureExam.Event.InternetAccess = {};
 SecureExam.Event.SecureTime = {};
 SecureExam.Lib = {};
 SecureExam.Lib.Security = {};
+SecureExam.UI = {};
+SecureExam.UI.ViewMode = {};
 
 // constantes
 SecureExam.Const.Cryptography.SHA256ITERATIONS = 100000;
@@ -132,15 +134,17 @@ SecureExam.Logger = new(function () {
  *	Constructor-Arguments: - divIDUserDB
  *                          - divIDEncryptedData
  *                          - divIDQuestions
+ *                          - viewMode
  *
  *
  *  description: Stores HTML Div id's
  */
-SecureExam.Lib.HTMLInfo = function (divIDUserDB, divIDEncryptedData, divIDQuestions) {
+SecureExam.Lib.HTMLInfo = function (divIDUserDB, divIDEncryptedData, divIDQuestions, viewMode) {
     var that = this;
     this.DivUserDB = document.getElementById(divIDUserDB);
     this.DivEncryptedData = document.getElementById(divIDEncryptedData);
     this.DivQuestions = document.getElementById(divIDQuestions);
+    this.viewMode = viewMode;
 }
 
 /*
@@ -541,6 +545,63 @@ SecureExam.Lib.XMLLogger = function (limit) {
         return xml;
     }
 }
+
+/*
+ *	Class SecureExam.UI.ViewMode.EBookReader
+ *
+ *  description: class to handle eBook-reader-mode
+ */
+
+SecureExam.UI.ViewMode.EBookReader = function () {
+    var that = this;
+    this.questionDiv = document.getElementById("exam");
+    this.quesions = [];
+    this.currentQuestion = 0;
+    this.totalQuestions = 0;
+    
+    
+    this.showQuestion = function( id ) {
+        that.questions[that.currentQuestion].style.display = 'block';
+    };
+    
+    this.hideCurrentQuestion = function( ) {
+        that.hideQuestion(that.currentQuestion);
+    };
+    
+    this.hideQuestion = function( id ) {
+        that.questions[id].style.display = 'none';
+    };
+
+    this.init = function () {
+        that.questions = that.questionDiv.children;
+        that.totalQuestions = that.questions.length;
+
+        for( var i = 1; i < that.totalQuestions; i++) {
+            that.hideQuestion(i);
+        }
+        that.showQuestion(1);
+    }();
+    
+    return {
+        next: function() {
+            that.hideCurrentQuestion();
+            that.currentQuestion = (that.currentQuestion + 1) % that.totalQuestions;
+            that.showQuestion( that.currentQuestion );
+        },
+        prev: function() {
+            that.hideCurrentQuestion();
+            that.currentQuestion = (that.currentQuestion === 0)?that.totalQuestions -1: that.currentQuestion -1;
+            that.showQuestion( that.currentQuestion );
+        },
+        toQuestion: function (nr) {
+            if( nr >= 0 && nr < that.totalQuestions) {
+                that.hideCurrentQuestion();
+                that.showQuestion(nr);
+            }
+        }
+    };
+}
+
 
 /*
  *	Class exam
