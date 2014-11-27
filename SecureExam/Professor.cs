@@ -23,7 +23,7 @@ namespace SecureExam
             StringBuilder sb = new StringBuilder();
             sb.Append(preName);
             sb.Append(surName);
-            secret = Helper.ByteArrayToHexString(Helper.getSecureRandomBytes(BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret / 2));
+            secret = Helper.ByteArrayToBase64(Helper.getSecureRandomBytes(BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret)).Substring(0, BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret);
             sb.Append(secret);
             return sb.ToString();
         }

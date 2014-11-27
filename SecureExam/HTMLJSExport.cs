@@ -96,26 +96,27 @@ namespace SecureExam
                 StringBuilder sb = new StringBuilder();
                 foreach (Participant participant in DataProvider.getInstance().Participants)
                 {
-                    byte[] salt = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.SHA256.SaltLength/8);
-                    byte[] aesIV = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.AES.IvLength/8);
-                    byte[] userHAsh = Helper.SHA256(participant.ParticipantSecret, salt, BasicSettings.getInstance().Encryption.SHA256.Iterations);
-                    string encryptedMasterKey = Helper.ByteArrayToHexString( Helper.encryptAES(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey), userHAsh, aesIV) );
-
-                    if( participant.GetType() == typeof(Student))
+                    if (participant.GetType() == typeof(Student))
                     {
-                        sb.Append(((Student)participant).studentPreName);
-                        sb.Append(((Student)participant).studentSurName);
-                        sb.Append(((Student)participant).studentID);
-                        Debug.WriteLine("STUDENT-> Vorname: " + ((Student)participant).studentPreName + " Nachname: " + ((Student)participant).studentSurName + " ID: " + ((Student)participant).studentID + " Passwort: " + ((Student)participant).secret);
-                    }
+                        byte[] salt = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.SHA256.SaltLength / 8);
+                        byte[] aesIV = Helper.getSecureRandomBytes(BasicSettings.getInstance().Encryption.AES.IvLength/8);
+                        byte[] userHAsh = Helper.SHA256(participant.ParticipantSecret, salt, BasicSettings.getInstance().Encryption.SHA256.Iterations);
+                        string encryptedMasterKey = Helper.ByteArrayToHexString( Helper.encryptAES(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey), userHAsh, aesIV) );
 
-                    sb.Append(",");
-                    sb.Append(encryptedMasterKey);
-                    sb.Append(",");
-                    sb.Append(Helper.ByteArrayToHexString(aesIV));
-                    sb.Append(",");
-                    sb.Append(Convert.ToBase64String(salt));
-                    sb.Append(";");
+                    
+                            sb.Append(((Student)participant).studentPreName);
+                            sb.Append(((Student)participant).studentSurName);
+                            sb.Append(((Student)participant).studentID);
+                            Debug.WriteLine("STUDENT-> Vorname: " + ((Student)participant).studentPreName + " Nachname: " + ((Student)participant).studentSurName + " ID: " + ((Student)participant).studentID + " Passwort: " + ((Student)participant).secret);
+
+                        sb.Append(",");
+                        sb.Append(encryptedMasterKey);
+                        sb.Append(",");
+                        sb.Append(Helper.ByteArrayToHexString(aesIV));
+                        sb.Append(",");
+                        sb.Append(Convert.ToBase64String(salt));
+                        sb.Append(";");
+                    }
 
                 }
                 return sb.ToString();

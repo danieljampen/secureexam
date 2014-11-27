@@ -985,7 +985,7 @@ SecureExam.Exam = function (htmlInfo) {
     return {
         start: function (firstname, lastname, immNumber, secret) {
             if (firstname !== undefined && lastname !== undefined && immNumber !== undefined && secret !== undefined) {
-                that.init(firstname, lastname, immNumber, secret.toUpperCase());
+                that.init(firstname, lastname, immNumber, secret);
             } else
                 throw SecureExam.ErrorCode.INVALIDARGUMENT;
         },

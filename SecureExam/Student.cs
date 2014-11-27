@@ -30,7 +30,7 @@ namespace SecureExam
             sb.Append(studentPreName);
             sb.Append(studentSurName);
             sb.Append(studentID);
-            secret = Helper.ByteArrayToHexString(Helper.getSecureRandomBytes(BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret / 2));
+            secret = Helper.ByteArrayToBase64(Helper.getSecureRandomBytes(BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret)).Substring(0, BasicSettings.getInstance().NumberOfRandomCharsInStudentSecret);
             sb.Append(secret);
             return sb.ToString();
         }
