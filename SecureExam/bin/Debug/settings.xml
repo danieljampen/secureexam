@@ -8,7 +8,7 @@
 	<subject>ADS</subject>
 	<examTitle>Algorithmen und Datenstrukturen</examTitle>
 	<examNotes>Es sind mehrere Antworten möglich</examNotes>
-	<examDate>27.11.2014</examDate>
+	<examDate>28.11.2014</examDate>
 	<startTime>01:00</startTime>
 	<endTime>23:00</endTime>
 	<duration>10</duration>
@@ -18,5 +18,5 @@
 	<internalTimeMaxVariance>5000</internalTimeMaxVariance>
 	<confirmAutosaveRestore>true</confirmAutosaveRestore>
 	<ebookreaderExport>false</ebookreaderExport>
-	<viewMode>scroll</viewMode>
+	<viewMode>page</viewMode>
 </settings>
