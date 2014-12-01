@@ -21,7 +21,7 @@ namespace SecureExam
 
             DataProvider.getInstance().examDetails.examTitle = getElementByTagName("examTitle");
             DataProvider.getInstance().examDetails.subject = getElementByTagName("subject");
-            DataProvider.getInstance().examDetails.examNotes = getElementByTagName("examNotes");
+            DataProvider.getInstance().examDetails.examNotes = getElementHTMLTextByTagName("examNotes");
             DataProvider.getInstance().examDetails.internetAllowed = setBoolean(getElementByTagName("internetAllowed"));
             DataProvider.getInstance().examDetails.tabChangeAllowed = setBoolean(getElementByTagName("tabChangeAllowed"));
             DataProvider.getInstance().examDetails.confirmAutosaveRestore = setBoolean(getElementByTagName("confirmAutosaveRestore"));
@@ -101,6 +101,16 @@ namespace SecureExam
             if (this.xmlDoc.GetElementsByTagName(tag).Count > 0)
             {
                 result = this.xmlDoc.GetElementsByTagName(tag)[0].InnerText;
+            }
+            return result;
+        }
+
+        private string getElementHTMLTextByTagName(string tag)
+        {
+            string result = "";
+            if (this.xmlDoc.GetElementsByTagName(tag).Count > 0)
+            {
+                result = this.xmlDoc.GetElementsByTagName(tag)[0].InnerXml;
             }
             return result;
         }
