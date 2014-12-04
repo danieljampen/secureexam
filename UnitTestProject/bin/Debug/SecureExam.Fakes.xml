@@ -361,6 +361,12 @@
         <member name="P:SecureExam.Fakes.ShimExamDetails.tabChangeAllowedSetBoolean">
             <summary>Sets the shim of ExamDetails.set_tabChangeAllowed(Boolean value)</summary>
         </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.viewModeGet">
+            <summary>Sets the shim of ExamDetails.get_viewMode()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.viewModeSetViewMode">
+            <summary>Sets the shim of ExamDetails.set_viewMode(ViewMode value)</summary>
+        </member>
         <member name="T:SecureExam.Fakes.ShimExamDetails.AllInstances">
             <summary>Define shims for all instances members</summary>
         </member>
@@ -435,6 +441,12 @@
         </member>
         <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.tabChangeAllowedSetBoolean">
             <summary>Sets the shim of ExamDetails.set_tabChangeAllowed(Boolean value)</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.viewModeGet">
+            <summary>Sets the shim of ExamDetails.get_viewMode()</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimExamDetails.AllInstances.viewModeSetViewMode">
+            <summary>Sets the shim of ExamDetails.set_viewMode(ViewMode value)</summary>
         </member>
         <member name="T:SecureExam.Fakes.ShimExportException">
             <summary>Shim type of SecureExam.ExportException</summary>
@@ -567,6 +579,9 @@
         </member>
         <member name="P:SecureExam.Fakes.ShimHelper.Behavior">
             <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:SecureExam.Fakes.ShimHelper.ByteArrayToBase64ByteArray">
+            <summary>Sets the shim of Helper.ByteArrayToBase64(Byte[] array)</summary>
         </member>
         <member name="P:SecureExam.Fakes.ShimHelper.ByteArrayToHexStringByteArray">
             <summary>Sets the shim of Helper.ByteArrayToHexString(Byte[] array)</summary>
@@ -832,8 +847,8 @@
         <member name="P:SecureExam.Fakes.ShimOdtFormularParser.Constructor">
             <summary>Sets the shim of OdtFormularParser.OdtFormularParser()</summary>
         </member>
-        <member name="P:SecureExam.Fakes.ShimOdtFormularParser.generateXMLStringString">
-            <summary>Sets the shim of OdtFormularParser.generateXML(String xslFilePath, String xml)</summary>
+        <member name="P:SecureExam.Fakes.ShimOdtFormularParser.generateXMLXmlReaderString">
+            <summary>Sets the shim of OdtFormularParser.generateXML(XmlReader xmlReaderXSLT, String xml)</summary>
         </member>
         <member name="P:SecureExam.Fakes.ShimOdtFormularParser.parseStreamReader">
             <summary>Sets the shim of OdtFormularParser.parse(StreamReader streamReader)</summary>
@@ -841,8 +856,8 @@
         <member name="T:SecureExam.Fakes.ShimOdtFormularParser.AllInstances">
             <summary>Define shims for all instances members</summary>
         </member>
-        <member name="P:SecureExam.Fakes.ShimOdtFormularParser.AllInstances.generateXMLStringString">
-            <summary>Sets the shim of OdtFormularParser.generateXML(String xslFilePath, String xml)</summary>
+        <member name="P:SecureExam.Fakes.ShimOdtFormularParser.AllInstances.generateXMLXmlReaderString">
+            <summary>Sets the shim of OdtFormularParser.generateXML(XmlReader xmlReaderXSLT, String xml)</summary>
         </member>
         <member name="P:SecureExam.Fakes.ShimOdtFormularParser.AllInstances.parseStreamReader">
             <summary>Sets the shim of OdtFormularParser.parse(StreamReader streamReader)</summary>
