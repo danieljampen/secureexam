@@ -39,7 +39,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>584</x>
-      <y>88</y>
+      <y>72</y>
       <w>136</w>
       <h>24</h>
     </coordinates>
@@ -67,25 +67,26 @@ startet</panel_attributes>
       <h>56</h>
     </coordinates>
     <panel_attributes>lt=-
-      lädt</panel_attributes>
+     lädt</panel_attributes>
     <additional_attributes>10.0;50.0;30.0;50.0;30.0;10.0;110.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>496</x>
-      <y>80</y>
+      <y>72</y>
       <w>104</w>
-      <h>40</h>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=-
-       lädt</panel_attributes>
-    <additional_attributes>10.0;10.0;30.0;10.0;30.0;30.0;110.0;30.0</additional_attributes>
+    
+     lädt</panel_attributes>
+    <additional_attributes>10.0;10.0;30.0;10.0;30.0;50.0;110.0;50.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>472</x>
+      <x>552</x>
       <y>224</y>
       <w>160</w>
       <h>24</h>
@@ -98,18 +99,18 @@ startet</panel_attributes>
     <coordinates>
       <x>472</x>
       <y>88</y>
-      <w>88</w>
+      <w>168</w>
       <h>152</h>
     </coordinates>
     <panel_attributes>lt=-
 generiert</panel_attributes>
-    <additional_attributes>90.0;170.0;90.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
+    <additional_attributes>190.0;170.0;190.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>328</x>
-      <y>320</y>
+      <x>264</x>
+      <y>352</y>
       <w>80</w>
       <h>24</h>
     </coordinates>
@@ -119,8 +120,8 @@ generiert</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>512</x>
-      <y>320</y>
+      <x>592</x>
+      <y>352</y>
       <w>80</w>
       <h>24</h>
     </coordinates>
@@ -130,19 +131,19 @@ generiert</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>504</x>
+      <x>584</x>
       <y>240</y>
       <w>88</w>
-      <h>96</h>
+      <h>128</h>
     </coordinates>
     <panel_attributes>lt=-
 wird kopiert auf</panel_attributes>
-    <additional_attributes>50.0;10.0;50.0;100.0</additional_attributes>
+    <additional_attributes>50.0;10.0;50.0;140.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>312</x>
+      <x>248</x>
       <y>224</y>
       <w>128</w>
       <h>24</h>
@@ -153,37 +154,166 @@ wird kopiert auf</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>360</x>
+      <x>296</x>
       <y>88</y>
-      <w>104</w>
+      <w>168</w>
       <h>152</h>
     </coordinates>
     <panel_attributes>lt=-
 generiert</panel_attributes>
-    <additional_attributes>10.0;170.0;10.0;120.0;110.0;120.0;110.0;10.0</additional_attributes>
+    <additional_attributes>10.0;170.0;10.0;120.0;190.0;120.0;190.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>400</x>
-      <y>312</y>
-      <w>128</w>
+      <x>336</x>
+      <y>344</y>
+      <w>272</w>
       <h>32</h>
     </coordinates>
     <panel_attributes>lt=-
 hat Prüfung auf</panel_attributes>
-    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;320.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>344</x>
+      <x>280</x>
       <y>240</y>
       <w>56</w>
-      <h>96</h>
+      <h>128</h>
     </coordinates>
     <panel_attributes>lt=-
 bekommt</panel_attributes>
-    <additional_attributes>30.0;10.0;30.0;100.0</additional_attributes>
+    <additional_attributes>30.0;10.0;30.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>584</x>
+      <y>104</y>
+      <w>136</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>SettingsFile</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>496</x>
+      <y>64</y>
+      <w>104</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+lädt</panel_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>432</x>
+      <y>8</y>
+      <w>64</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>ConfigFile</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>448</x>
+      <y>24</y>
+      <w>40</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=-
+     lädt</panel_attributes>
+    <additional_attributes>20.0;60.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>768</x>
+      <y>352</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Log</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>664</x>
+      <y>344</y>
+      <w>120</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+generiert</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>688</x>
+      <y>456</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>DataExport</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>616</x>
+      <y>368</y>
+      <w>128</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0;140.0;70.0;140.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>720</x>
+      <y>368</y>
+      <w>112</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>120.0;10.0;120.0;70.0;10.0;70.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <type>CustomElementImpl</type>
+    <coordinates>
+      <x>640</x>
+      <y>408</y>
+      <w>185</w>
+      <h>41</h>
+    </coordinates>
+    <panel_attributes>// Modify the text below and
+// observe the element preview.
+
+werden kombiniert</panel_attributes>
+    <additional_attributes/>
+    <custom_code>//Modify the code below to define the element's behavior.
+//
+//Example:  Change the line
+//  y += printCenter(textline,y);
+//to
+//  y += 2*printCenter(textline,y);
+//and observe the element preview.
+
+int y=textHeight();
+
+for(String textline : textlines) {
+	y += printCenter(textline,y);
+}</custom_code>
   </element>
 </diagram>
