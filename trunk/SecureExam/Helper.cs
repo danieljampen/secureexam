@@ -36,20 +36,27 @@ namespace SecureExam
             return System.Convert.ToBase64String(array, 0, array.Length);
         }
 
-        public static byte[] SHA256(string data, byte[] iv, int iterations)
+        /// <summary>
+        /// Generates a SHA256 with Salt and chaining
+        /// </summary>
+        /// <param name="data">actual data</param>
+        /// <param name="salt">salt as byte array</param>
+        /// <param name="iterations">iterations for hash chaining</param>
+        /// <returns>Byte[]</returns>
+        public static byte[] SHA256(string data, byte[] salt, int iterations)
         {
             if (data == null)
                 throw new ArgumentNullException("data null");
-            if (iv == null)
+            if (salt == null)
                 throw new ArgumentNullException("iv null");
-            if (iv.Length != BasicSettings.getInstance().Encryption.SHA256.SaltLength / 8)
+            if (salt.Length != BasicSettings.getInstance().Encryption.SHA256.SaltLength / 8)
                 throw new ArgumentException("SHA256 IV length invalid");
             if (iterations <= 0)
                 throw new ArgumentException("SHA256 Iterations invalid");
 
             using(SHA256 mySHA256 = SHA256Managed.Create())
             {
-                String ivB64 = Convert.ToBase64String(iv);
+                String ivB64 = Convert.ToBase64String(salt);
 
                 byte[] hash = mySHA256.ComputeHash(Encoding.UTF8.GetBytes(data + ivB64));
                 for( int i = 0; i < iterations -1; i++ )
