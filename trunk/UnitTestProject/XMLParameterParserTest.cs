@@ -27,7 +27,6 @@ namespace UnitTestProject
             Assert.AreEqual(256, BasicSettings.getInstance().Encryption.AES.KeyLength);
             
             Assert.AreEqual(100000, BasicSettings.getInstance().Encryption.SHA256.Iterations);
-            Assert.AreEqual(256, BasicSettings.getInstance().Encryption.SHA256.Length);
             Assert.AreEqual(256, BasicSettings.getInstance().Encryption.SHA256.SaltLength);
         }
         
