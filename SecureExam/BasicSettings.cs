@@ -53,6 +53,5 @@ namespace SecureExam
     {
         public int Iterations { get; set; }
         public int SaltLength { get; set; }
-        public int Length { get; set; }
     }
 }
