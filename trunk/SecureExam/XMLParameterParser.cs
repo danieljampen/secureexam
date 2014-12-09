@@ -60,10 +60,6 @@ namespace SecureExam
                     {
                         BasicSettings.getInstance().Encryption.SHA256.SaltLength = int.Parse(node.InnerText);
                     }
-                    else if (node.Name == "length")
-                    {
-                        BasicSettings.getInstance().Encryption.SHA256.Length = int.Parse(node.InnerText);
-                    }
                 }
             }
             else
