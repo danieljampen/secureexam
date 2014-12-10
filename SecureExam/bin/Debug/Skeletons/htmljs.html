@@ -2,6 +2,7 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style>
         body {
             margin: 0px;
@@ -17,7 +18,6 @@
         .header {
             width: 100%;
             background-color: #3e50b4;
-            height: 110px;
             position: fixed;
             top: 0;
             color: #fff;
@@ -39,17 +39,16 @@
             font-size: 28px;
             margin-top: 55px;
             font-weight: bold;
+			width: 72%;
         }
         .examNotes {
             background-color: #334293;
-            top: 85px;
             position: relative;
             z-index: -2;
-            min-height: 230px;
             padding-left: 3%;
             padding-right: 3%;
             padding-bottom: 25px;
-            padding-top: 10px;
+            padding-top: 80px;
             width: 94%;
             color: #fff;
         }
@@ -58,7 +57,7 @@
             width: 94%;
             margin: 0px auto;
             z-index: 10;
-            top: -20px;
+            top: -40px;
             margin-bottom: 3%;
             background-color: white;
         }
@@ -84,13 +83,12 @@
             top: 68px;
         }
         .question {
-            width: 100%;
+            width: 90%;
         }
         .questionText {
             width: 100%;
             color: black;
             font-weight: 600;
-            min-height: 80px;
             padding: 43px 0px 0px 32px;
         }
         .loginForms {
@@ -116,6 +114,7 @@
             top: 35px;
             font-size: 13px;
             right: 8%;
+			visibility: hidden;
         }
 		
         #nextQuestion {
@@ -129,6 +128,57 @@
             top: 10px;
             left: 10px;
         }
+		
+		@media (max-width: 745px) {
+			.examNotes {
+				padding-top: 105px;
+			}
+		}
+		
+		@media (max-width: 680px) {
+			.examNotes {
+				padding-top: 130px;
+			}
+		}
+		
+		@media (max-width: 520px) {
+			headerNotes {
+				right: 0%;
+			}
+			#finishButton {
+				right: 0%;
+			}
+			.zhaw {
+				padding-right: 10px;
+			}
+		}
+		
+		@media (max-width: 460px) {
+			.headerTitle {
+				width: 62%;
+				font-size: 18px;
+			}
+		}
+		
+		@media (max-width: 400px) {
+			.examNotes {
+				padding-top: 150px;
+			}
+		}
+		
+		@media (max-width: 350px) {
+			.headerStudentInfo{
+				display: none;
+			}
+			.examNotes {
+				padding-top: 100px;
+			}
+			.headerTitle {
+				width: 52%;
+			}
+		}
+
+		
     </style>
     // libs
     <script>
