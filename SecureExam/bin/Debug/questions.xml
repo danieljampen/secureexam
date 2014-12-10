@@ -9,15 +9,20 @@
 	<examTitle>Testprüfung:</examTitle>
 	<examNotes><h2>Prüfungshinweise:</h2><ul><li>kein Rechner!</li><li>ein A4 Blatt Handgeschrieben!</li></ul></examNotes>
 	<question>
-		<legend>Dies ist die Frage 1: Checkbox mit isCorrect</legend>
-			<input type="checkbox" isCorrect="true" value="Antwort 1" />
-			<input type="checkbox" value="Antwort 2" />
-			<input type="checkbox" value="Antwort 3" />
-			<input type="checkbox" value="Antwort 4" />
+		<legend>Frage 1. Welche der folgenden Operationen kommen in einem Stack vor?</legend>
+			<input type="checkbox" value="enter" />
+			<input type="checkbox" value="top" />
+			<input type="checkbox" value="empty" />
+			<input type="checkbox" value="front" />
+			<input type="checkbox" value="push" />
 	</question>
 	<question>
-		<legend>Wieso sind sie so clever? Texbox mit placeholder</legend>
-		<input type="text" placeholder="Hier text eingeben" />
+		<legend>Frage 2. Ein Abstrakter Datentyp (ADT) umfasst</legend>
+			<input type="checkbox" value="die Schnittstelle der Operationen" />
+			<input type="checkbox" value="die Instanzvariablen" />
+			<input type="checkbox" value="den Konstruktor" />
+			<input type="checkbox" value="die Implementation der Operationen" />
+			<input type="checkbox" value="den Destruktor" />
 	</question>
 	<question>
 		<legend>Vervollständigen Sie bitte! Textbox mit value</legend>

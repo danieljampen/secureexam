@@ -14,10 +14,10 @@
 			<li>Rechner erlaubt!</li>
 		</ul>
 	</examNotes>
-	<examDate>1.12.2014</examDate>
-	<startTime>01:00</startTime>
-	<endTime>23:00</endTime>
-	<duration>10</duration>
+	<examDate>10.12.2014</examDate>
+	<startTime>00:00</startTime>
+	<endTime>23:59</endTime>
+	<duration>20</duration>
 	<internetAllowed>true</internetAllowed>
 	<tabChangeAllowed>true</tabChangeAllowed>
 	<historyTimeMaxVariance>5000</historyTimeMaxVariance>
