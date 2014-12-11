@@ -104,10 +104,10 @@ namespace SecureExam
                         string encryptedMasterKey = Helper.ByteArrayToHexString( Helper.encryptAES(Helper.ByteArrayToHexString(BasicSettings.getInstance().Encryption.AES.questionsAESKey), userHAsh, aesIV) );
 
                     
-                            sb.Append(((Student)participant).studentPreName);
-                            sb.Append(((Student)participant).studentSurName);
-                            sb.Append(((Student)participant).studentID);
-                            Debug.WriteLine("STUDENT-> Vorname: " + ((Student)participant).studentPreName + " Nachname: " + ((Student)participant).studentSurName + " ID: " + ((Student)participant).studentID + " Passwort: " + ((Student)participant).secret);
+                            sb.Append(((Student)participant).preName);
+                            sb.Append(((Student)participant).surName);
+                            sb.Append(((Student)participant).ID);
+                            Debug.WriteLine("STUDENT-> Vorname: " + ((Student)participant).preName + " Nachname: " + ((Student)participant).surName + " ID: " + ((Student)participant).ID + " Passwort: " + ((Student)participant).secret);
 
                         sb.Append(",");
                         sb.Append(encryptedMasterKey);
