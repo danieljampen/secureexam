@@ -7,11 +7,11 @@
     lukessim@students.zhaw.ch, jampedan@students.zhaw.ch
  */
 
-/*
- *  Date Prototypes
+
+
+/**
+ * Prints Hours:Minutes:Seconds
  */
-
-
 Date.prototype.toHHMMSSString = function () {
     this.h = (this.getHours() < 10) ? "0" + this.getHours() : this.getHours();
     this.m = (this.getMinutes() < 10) ? "0" + this.getMinutes() : this.getMinutes();
@@ -19,6 +19,9 @@ Date.prototype.toHHMMSSString = function () {
     return this.h + ":" + this.m + ":" + this.s;
 };
 
+/**
+ * Prints Hours:Minutes:Seconds:Miliseconds
+ */
 Date.prototype.toHHMMSSMSString = function () {
     return this.toHHMMSSString() + ":" + this.getMilliseconds();
 };
@@ -58,12 +61,10 @@ SecureExam.ErrorCode.INVALIDARGUMENT = 4;
 SecureExam.ErrorCode.INVALIDEVENT = 5;
 SecureExam.ErrorCode.CONFIRMAUTOSAVERESTORE = 6;
 
-/*
- *	Class Logger
- *	Constructor-Arguments: - none
- *
- *
- *  description: Logger for SecureExam Output
+
+/**
+ * Static Logger Class.
+ * each logger added must have a log method, which will be called when a message is recieved
  */
 SecureExam.Logger = new(function () {
     var that = this;
@@ -76,7 +77,13 @@ SecureExam.Logger = new(function () {
     this.loggers[this.ErrorLevel.info] = [];
     this.loggers[this.ErrorLevel.warning] = [];
     this.loggers[this.ErrorLevel.error] = [];
-
+    
+    /**
+     * sends message to loggers with appropriate log-level
+     * @param {string} msg - The log message
+     * @param {string} sender - The function which generated the log message.
+     * @param {SecureExam.Logger.ErrorLevel} errorLevel - Minimal error level for the message
+     */
     this.logToAll = function (msg, sender, errorLevel) {
         if (that.checkIfLoggerAvailable(errorLevel)) {
             var message = "[secureExam::" + new Date().toLocaleDateString() + "-" + new Date().toLocaleTimeString() + "] ";
@@ -102,6 +109,10 @@ SecureExam.Logger = new(function () {
         }
     }
 
+    /**
+     * checks if there's any logger added which would receive the message
+     * @param {SecureExam.Logger.ErrorLevel} errorLevel - The ErrorLevel of the given message
+     */
     this.checkIfLoggerAvailable = function (errorLevel) {
         for (var i = errorLevel; i < that.loggers.length; i++) {
             if (that.loggers[i].length >= 1) {
@@ -112,12 +123,27 @@ SecureExam.Logger = new(function () {
     }
 
     return {
+        /**
+         * Function to add a log entry
+         * @param {string} msg - The log message
+         * @param {string} sender - The function which generated the log message.
+         * @param {SecureExam.Logger.ErrorLevel} errorLevel - Minimal error level for the message
+         */
         log: function (msg, sender, errorLevel) {
             that.logToAll(msg, sender, errorLevel);
         },
+        /**
+         * Function to add a new Logger
+         * @param {class} logger - The logger-class to be added. Must have a log() method!
+         * @param {SecureExam.Logger.ErrorLevel} errorLevel - Minimal error level for messages which the logger should receive
+         */
         addLogger: function (logger, errorLevel) {
             that.loggers[errorLevel].push(logger);
         },
+        /**
+         * Function to remove a Logger
+         * @param {class} logger - The logger-class to be removed.
+         */
         removeLogger: function (logger) {
             for (var i = 0; i < that.loggers.length; i++) {
                 if (that.loggers[i] === logger) {
@@ -125,6 +151,9 @@ SecureExam.Logger = new(function () {
                 }
             }
         },
+        /**
+         * ErrorLevel Enum
+         */
         ErrorLevel: that.ErrorLevel
     }
 });

@@ -89,7 +89,7 @@ namespace SecureExam
                 }
                 catch (Exception e)
                 {
-                    throw new InvalidTimeException(e.ToString());
+                    throw new InvalidTimeException("Invalid data format");
                 }
             }
             return examDetails;

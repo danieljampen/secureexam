@@ -28,6 +28,11 @@ namespace SecureExam
             return sb.ToString().ToUpper();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns></returns>
         public static string ByteArrayToBase64(Byte[] array)
         {
             if (array == null)
