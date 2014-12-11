@@ -10,7 +10,7 @@ namespace SecureExam
 {
     public class XMLStudentsSecretsExporter : IStudentsSecretExport
     {
-        void IStudentsSecretExport.export(string filename)
+        public void export(string filename)
         {
             using (XmlWriter writer = XmlWriter.Create(filename))
             {
@@ -22,9 +22,9 @@ namespace SecureExam
                     writer.WriteStartElement("Participant");
                     if (student.GetType() == typeof(Student))
                     {
-                        writer.WriteElementString("Vorname", ((Student)student).studentPreName);
-                        writer.WriteElementString("Nachname", ((Student)student).studentSurName);
-                        writer.WriteElementString("Immatrikulationsnummer", ((Student)student).studentID);
+                        writer.WriteElementString("Vorname", ((Student)student).preName);
+                        writer.WriteElementString("Nachname", ((Student)student).surName);
+                        writer.WriteElementString("Immatrikulationsnummer", ((Student)student).ID);
                         writer.WriteElementString("Passwort", ((Student)student).secret);
                     }
                     writer.WriteEndElement();

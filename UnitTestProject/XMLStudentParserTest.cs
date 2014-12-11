@@ -34,9 +34,9 @@ namespace SecureExam
                 }
                 else if (p.GetType() == typeof(Student))
                 {
-                    Assert.AreEqual("Daniel", ((Student)p).studentPreName);
-                    Assert.AreEqual("Jampen", ((Student)p).studentSurName);
-                    Assert.AreEqual("S12198320", ((Student)p).studentID);
+                    Assert.AreEqual("Daniel", ((Student)p).preName);
+                    Assert.AreEqual("Jampen", ((Student)p).surName);
+                    Assert.AreEqual("S12198320", ((Student)p).ID);
                     Assert.AreEqual(31, ((Student)p).ParticipantSecret.Length);
                 }
             }

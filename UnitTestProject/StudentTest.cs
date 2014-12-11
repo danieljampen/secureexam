@@ -12,19 +12,19 @@ namespace SecureExam
         public void testName()
         {
             Student stud = new Student("Simon", "Lukes", "S10290182");
-            Assert.AreEqual("Lukes" ,stud.studentSurName);
+            Assert.AreEqual("Lukes" ,stud.surName);
         }
         [TestMethod]
         public void testVorname()
         {
             Student stud = new Student("Simon", "Lukes", "S10290182");
-            Assert.AreEqual("Simon", stud.studentPreName);
+            Assert.AreEqual("Simon", stud.preName);
         }
         [TestMethod]
         public void testID()
         {
             Student stud = new Student("Simon", "Lukes", "S10290182");
-            Assert.AreEqual("S10290182", stud.studentID);
+            Assert.AreEqual("S10290182", stud.ID);
         }
         [TestMethod]
         public void testSecretLength()
