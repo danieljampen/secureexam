@@ -128,7 +128,7 @@ namespace SecureExam
             Console.WriteLine("Error: invalid arguments");
             Console.WriteLine("");
             Console.WriteLine("usage: secureExam -q questionFile -s studentsFile -o outputFile -p settingsFile");
-            Console.WriteLine("       secureExam -q questionFile [-qType QuestionFileType] -s studentsFile [-sType StudentsFileType] -o Outputfile [-oType OutputFileType] [-oStudentSecretsFileFormat studentSecretsFileFormat] -p settingsFile");
+            Console.WriteLine("       secureExam -q questionFile [-qType QuestionFileType] -s studentsFile [-sType StudentsFileType] -o outputFile [-oType OutputFileType] [-oStudentSecretsFileFormat studentSecretsFileFormat] -p settingsFile");
             Console.WriteLine("");
             Console.WriteLine("QuestionFileTypes: XML, ODT");
             Console.WriteLine("StudentFileTypes: XML");
