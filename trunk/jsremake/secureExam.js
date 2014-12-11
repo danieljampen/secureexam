@@ -26,45 +26,158 @@ Date.prototype.toHHMMSSMSString = function () {
     return this.toHHMMSSString() + ":" + this.getMilliseconds();
 };
 
-
-// namespaces
+/**
+ * SecureExam Namespace.
+ * @namespace
+ */
 var SecureExam = SecureExam || {};
+/**
+ * SecureExam.Const Namespace.
+ * @namespace
+ * @memberof SecureExam
+ */
 SecureExam.Const = {};
+/**
+ * SecureExam.Const.Security Namespace.
+ * @namespace
+ * @memberof SecureExam.Const
+ */
 SecureExam.Const.Cryptography = {};
+/**
+ * SecureExam.ErrorCode Namespace.
+ * @namespace
+ * @memberof SecureExam
+ */
 SecureExam.ErrorCode = {};
+/**
+ * SecureExam.Event Namespace.
+ * @namespace
+ * @memberof SecureExam
+ */
 SecureExam.Event = {};
+/**
+ * SecureExam.Event.InternetAccess Namespace.
+ * @namespace
+ * @memberof SecureExam.Event
+ */
 SecureExam.Event.InternetAccess = {};
+/**
+ * SecureExam.Event.SecureTime Namespace.
+ * @namespace
+ * @memberof SecureExam.Event
+ */
 SecureExam.Event.SecureTime = {};
+/**
+ * SecureExam.Lib Namespace.
+ * @namespace
+ * @memberof SecureExam
+ */
 SecureExam.Lib = {};
+/**
+ * SecureExam.Lib.Security Namespace.
+ * @namespace
+ * @memberof SecureExam.Lib
+ */
 SecureExam.Lib.Security = {};
+/**
+ * SecureExam.UI Namespace.
+ * @namespace
+ * @memberof SecureExam
+ */
 SecureExam.UI = {};
+/**
+ * SecureExam.UI.ViewMode Namespace.
+ * @namespace
+ * @memberof SecureExam.UI
+ */
 SecureExam.UI.ViewMode = {};
 
-// constantes
+/** @constant
+    @type {int}
+    @memberof SecureExam.Const.Cryptography
+*/
 SecureExam.Const.Cryptography.SHA256ITERATIONS = 100000;
 
-// events
+/** @constant
+    @memberof SecureExam.Event
+    @event
+*/
 SecureExam.Event.TIMELEFT = "timeleft";
+/** @constant
+    @memberof SecureExam.Event
+    @event
+*/
 SecureExam.Event.AUTOSAVE = "autosave";
+/** @constant
+    @memberof SecureExam.Event
+    @event
+*/
 SecureExam.Event.EXAMTIMEEXPIRED = "examtimeexpired";
+/** @constant
+    @memberof SecureExam.Event.SecureTime
+    @event
+*/
 SecureExam.Event.SecureTime.TIMEERROR = "timeerror";
+/** @constant
+    @memberof SecureExam.Event.SecureTime
+    @event
+*/
 SecureExam.Event.SecureTime.TABCHANGE = "tabchange";
+/** @constant
+    @memberof SecureExam.Event.InternetAccess
+    @event
+*/
 SecureExam.Event.InternetAccess.ONLINE = "online";
+/** @constant
+    @memberof SecureExam.Event.InternetAccess
+    @event
+*/
 SecureExam.Event.InternetAccess.OFFLINE = "offline";
 
-// errorcodes
+/** @constant
+    @type {int}
+    @memberof SecureExam.ErrorCode
+*/
 SecureExam.ErrorCode.TOOEARLY = 0;
+/** @constant
+    @type {int}
+    @memberof SecureExam.ErrorCode
+*/
 SecureExam.ErrorCode.TOOLATE = 1;
+/** @constant
+    @type {int}
+    @memberof SecureExam.ErrorCode
+*/
 SecureExam.ErrorCode.ALREADYEXPORTED = 2;
+/** @constant
+    @type {int}
+    @memberof SecureExam.ErrorCode
+*/
 SecureExam.ErrorCode.INVALIDUSERSECRET = 3;
+/** @constant
+    @type {int}
+    @memberof SecureExam.ErrorCode
+*/
 SecureExam.ErrorCode.INVALIDARGUMENT = 4;
+/** @constant
+    @type {int}
+    @memberof SecureExam.ErrorCode
+*/
 SecureExam.ErrorCode.INVALIDEVENT = 5;
+/** @constant
+    @type {int}
+    @memberof SecureExam.ErrorCode
+*/
 SecureExam.ErrorCode.CONFIRMAUTOSAVERESTORE = 6;
 
 
 /**
  * Static Logger Class.
  * each logger added must have a log method, which will be called when a message is recieved
+ * @memberof SecureExam
+ * @class
+ * @this Logger
+ * @static
  */
 SecureExam.Logger = new(function () {
     var that = this;
@@ -83,6 +196,7 @@ SecureExam.Logger = new(function () {
      * @param {string} msg - The log message
      * @param {string} sender - The function which generated the log message.
      * @param {SecureExam.Logger.ErrorLevel} errorLevel - Minimal error level for the message
+     * @private
      */
     this.logToAll = function (msg, sender, errorLevel) {
         if (that.checkIfLoggerAvailable(errorLevel)) {
@@ -112,6 +226,7 @@ SecureExam.Logger = new(function () {
     /**
      * checks if there's any logger added which would receive the message
      * @param {SecureExam.Logger.ErrorLevel} errorLevel - The ErrorLevel of the given message
+     * @private
      */
     this.checkIfLoggerAvailable = function (errorLevel) {
         for (var i = errorLevel; i < that.loggers.length; i++) {
@@ -128,6 +243,7 @@ SecureExam.Logger = new(function () {
          * @param {string} msg - The log message
          * @param {string} sender - The function which generated the log message.
          * @param {SecureExam.Logger.ErrorLevel} errorLevel - Minimal error level for the message
+         * @memberof SecureExam.Logger
          */
         log: function (msg, sender, errorLevel) {
             that.logToAll(msg, sender, errorLevel);
@@ -136,6 +252,7 @@ SecureExam.Logger = new(function () {
          * Function to add a new Logger
          * @param {class} logger - The logger-class to be added. Must have a log() method!
          * @param {SecureExam.Logger.ErrorLevel} errorLevel - Minimal error level for messages which the logger should receive
+         * @memberof SecureExam.Logger
          */
         addLogger: function (logger, errorLevel) {
             that.loggers[errorLevel].push(logger);
@@ -143,6 +260,7 @@ SecureExam.Logger = new(function () {
         /**
          * Function to remove a Logger
          * @param {class} logger - The logger-class to be removed.
+         * @memberof SecureExam.Logger
          */
         removeLogger: function (logger) {
             for (var i = 0; i < that.loggers.length; i++) {
@@ -153,20 +271,23 @@ SecureExam.Logger = new(function () {
         },
         /**
          * ErrorLevel Enum
+         * @memberof SecureExam.Logger
          */
         ErrorLevel: that.ErrorLevel
     }
 });
 
-/*
- *	Class HTMLInfo
- *	Constructor-Arguments: - divIDUserDB
- *                          - divIDEncryptedData
- *                          - divIDQuestions
- *                          - viewMode
- *
- *
- *  description: Stores HTML Div id's
+
+/**
+ * HTMLInfo Class.
+ * Stores HTML Div id's
+ * @memberof SecureExam.Lib
+ * @class
+ * @param {string} divIDUserDB - ID of the Div with the UserDB
+ * @param {string} divIDEncryptedData - ID of the Div with the encrypted data
+ * @param {string} divIDQuestions - ID of the Div in whitch the questions will be printed
+ * @param {string} viewMode - ViewMode: Scroll or Page
+ * @this HTMLInfo
  */
 SecureExam.Lib.HTMLInfo = function (divIDUserDB, divIDEncryptedData, divIDQuestions, viewMode) {
     var that = this;
@@ -176,26 +297,42 @@ SecureExam.Lib.HTMLInfo = function (divIDUserDB, divIDEncryptedData, divIDQuesti
     this.viewMode = viewMode;
 }
 
-/*
- *	Class SecureExamSettings
- *	Constructor-Arguments: - none
- *
- *
- *  description: Stores Settings to current Exam instance with abbility to save and load from localdb
+
+/**
+ * SecureExamSettings Class.
+ * Stores Settings to current Exam instance with abbility to save and load from localdb
+ * @memberof SecureExam.Lib
+ * @class
+ * @param {string} userSecret - The UserSecret provided by the participant
+ * @this SecureExam.Lib.SecureExamSettings
  */
 SecureExam.Lib.SecureExamSettings = function (userSecret) {
     var that = this;
-    that.examStartTime = new Date();
-    that.examExportedTime = null;
-    that.examExpireTime = null;
-    that.examStartings = 1;
-    that.examFocusChanges = 0;
-    that.examValid = true;
-    that.invalidLog = null;
-    that.studentSecret = userSecret;
-    that.overallStartTime = null;
-    that.overallEndTime = null;
-    that.load = function () {
+    /** @type {Date}*/
+    this.examStartTime = new Date();
+    /** @type {?Date}*/
+    this.examExportedTime = null;
+    /** @type {?Date}*/
+    this.examExpireTime = null;
+    /** @type {int}*/
+    this.examStartings = 1;
+    /** @type {int}*/
+    this.examFocusChanges = 0;
+    /** @type {boolean}*/
+    this.examValid = true;
+    /** @type {?string}*/
+    this.invalidLog = null;
+    /** @type {string}*/
+    this.studentSecret = userSecret;
+    /** @type {?Date}*/
+    this.overallStartTime = null;
+    /** @type {?Date}*/
+    this.overallEndTime = null;
+    /**
+     * Function to load Settings from localDB or create a new one
+     * @function
+     */
+    this.load = function () {
         try {
             var oldSEInfo = window.localStorage.getItem("secureExam");
             var dec = CryptoJS.AES.decrypt(oldSEInfo, that.studentSecret);
@@ -218,7 +355,11 @@ SecureExam.Lib.SecureExamSettings = function (userSecret) {
             SecureExam.Logger.log("loading old instance failed, created new one", "SecureExamSettings", SecureExam.Logger.ErrorLevel.warning);
         }
     }();
-    that.save = function () {
+    /**
+     * Function to save the settings to localdb
+     * @function
+     */
+    this.save = function () {
         var exportString = 'secureExamInfos(' + that.examStartTime + ',' + that.examExportedTime + ',' + that.examStartings + ',' + that.studentSecret + ',' + that.examFocusChanges + ',' + that.examValid + ',' + that.examExpireTime + ',' + that.invalidLog + ',' + that.overallStartTime + ',' + that.overallEndTime + ')';
         window.localStorage.setItem("secureExam", CryptoJS.AES.encrypt(exportString, that.studentSecret));
         SecureExam.Logger.log("saved instance to loaldDB", "SecureExamSettings", SecureExam.Logger.ErrorLevel.info);
@@ -226,32 +367,50 @@ SecureExam.Lib.SecureExamSettings = function (userSecret) {
 };
 
 
-/*
- *	Class SecureExam.lib.security.InternetAccessCheck()
- *	Constructor-Arguments: none
- *
- *  description: class to check internet Access and if so, fire events to listeners
+/**
+ * InternetAccessCheck Class.
+ * class to check internet Access and if so, fire events to listeners
+ * @memberof SecureExam.Lib.Security
+ * @class
+ * @this SecureExam.Lib.Security.InternetAccessCheck
  */
 SecureExam.Lib.Security.InternetAccessCheck = function () {
     var that = this;
+    /** @type {int}*/
     this.intervalTimeout = 1000;
+    /** @type {string}*/
     this.imgURL = "http://waikiki.zhaw.ch/~rege/t-menu/header_left.jpg";
+    /** @type {?int}*/
     this.interval = null;
+    /** @type {boolean}*/
     this.started = false;
+    /** @type {Array.<SecureExam.Event.InternetAccess, function()>}*/
     this.eventListeners = [];
     this.eventListeners[SecureExam.Event.InternetAccess.ONLINE] = [];
     this.eventListeners[SecureExam.Event.InternetAccess.OFFLINE] = [];
 
+    /**
+     * Function which is called when the image is able to load => internet online
+     * @function
+     */
     this.onLoad = function () {
         SecureExam.Logger.log("internet online", "InternetAccessCheck", SecureExam.Logger.ErrorLevel.error);
         that.riseEvent(SecureExam.Event.InternetAccess.ONLINE, "internet online");
     }
-
+    
+    /**
+     * Function which is called when the image is not able to load => internet offline
+     * @function
+     */
     this.onError = function () {
         SecureExam.Logger.log("internet offline", "InternetAccessCheck", SecureExam.Logger.ErrorLevel.info);
         that.riseEvent(SecureExam.Event.InternetAccess.OFFLINE, "internet offline");
     }
-
+    
+    /**
+     * Function which is periodicaly called to check for an active internet connection
+     * @function
+     */
     this.check = function () {
         SecureExam.Logger.log("checking internet", "InternetAccessCheck", SecureExam.Logger.ErrorLevel.info);
         var img = new Image();
@@ -259,13 +418,25 @@ SecureExam.Lib.Security.InternetAccessCheck = function () {
         img.onerror = that.onError;
         img.src = that.imgURL + '?t=' + new Date().getTime();
     }
-
+    
+    /**
+     * Function to rise an event
+     * @function
+     * @param {SecureExam.Event.InternetAccess} event - event that should be rised
+     * @param {string} msg - event message
+     */
     this.riseEvent = function (event, msg) {
         for (var i = 0; i < that.eventListeners[event].length; i++) {
             that.eventListeners[event][i](msg);
         }
     }
 
+    /**
+     * Function which starts the internet access check interval
+     * there needs to be an active eventlistener. otherwise it doesn't do nothing ;)
+     * @function
+     * @private
+     */
     this.start = function () {
         if (that.eventListeners[SecureExam.Event.InternetAccess.ONLINE].length > 0 || that.eventListeners[SecureExam.Event.InternetAccess.OFFLINE].length > 0) {
             SecureExam.Logger.log("started...", "InternetAccessCheck", SecureExam.Logger.ErrorLevel.info);
@@ -274,12 +445,24 @@ SecureExam.Lib.Security.InternetAccessCheck = function () {
         }
     }
 
+    /**
+     * Function to stop the online checks
+     * @function
+     * @private
+     */
     this.stop = function () {
         SecureExam.Logger.log("stopped...", "InternetAccessCheck", SecureExam.Logger.ErrorLevel.info);
         clearInterval(that.interval);
         that.started = false;
     }
 
+    /**
+     * Function for adding a new eventlistener
+     * @function
+     * @private
+     * @param {SecureExam.Event.InternetAccess} event - event that should be rised
+     * @param {function()} listener - function which gets called
+     */
     this.addEventListener = function (event, listener) {
         switch (event.toLowerCase()) {
         case SecureExam.Event.InternetAccess.ONLINE:
@@ -297,6 +480,13 @@ SecureExam.Lib.Security.InternetAccessCheck = function () {
         }
     }
 
+    /**
+     * Function for removing a new eventlistener
+     * @function
+     * @private
+     * @param {SecureExam.Event.InternetAccess} event - to which event the listener has been added
+     * @param {function()} listener - function which got called
+     */
     this.removeEventListener = function (event, listener) {
         switch (event.toLowerCase()) {
         case SecureExam.Event.InternetAccess.ONLINE:
@@ -319,26 +509,58 @@ SecureExam.Lib.Security.InternetAccessCheck = function () {
     }
 
     return {
-        getState: function () {
-            return that.state;
-        },
+        /**
+         * Function for removing a new eventlistener
+         * @function
+         * @memberof SecureExam.Lib.Security.InternetAccessCheck
+         * @param {int} timeout - timeout for interval in milliseconds 
+         */
         setIntervalTimeout: function (timeout) {
             that.stop();
             that.intervalTimeout = timeout;
             that.start();
         },
+        /**
+         * Function for startic the service
+         * @function
+         * @memberof SecureExam.Lib.Security.InternetAccessCheck
+         */
         start: function () {
             that.start();
         },
+        /**
+         * Function for stopping the service
+         * @function
+         * @memberof SecureExam.Lib.Security.InternetAccessCheck
+         */
         stop: function () {
             that.stop();
         },
+        /**
+         * Function for adding a new eventlistener
+         * @function
+         * @memberof SecureExam.Lib.Security.InternetAccessCheck
+         * @param {SecureExam.Event.InternetAccess} event - event that should be rised
+         * @param {function()} listener - function which gets called
+         */
         addEventListener: function (event, listener) {
             that.addEventListener(event, listener);
         },
+        /**
+         * Function for removing a new eventlistener
+         * @function
+         * @memberof SecureExam.Lib.Security.InternetAccessCheck
+         * @param {SecureExam.Event.InternetAccess} event - to which event the listener has been added
+         * @param {function()} listener - function which got called
+         */
         removeEventListener: function (event, listener) {
             that.removeEventListener(event, listener);
         },
+        /**
+         * Function for removing all eventlisteners
+         * @function
+         * @memberof SecureExam.Lib.Security.InternetAccessCheck
+         */
         removeAllEventListeners: function () {
             for (var i = 0; i < that.eventListeners[SecureExam.Event.InternetAccess.ONLINE].length; i++) {
                 that.removeEventListener(SecureExam.Event.InternetAccess.ONLINE, that.eventListeners[SecureExam.Event.InternetAccess.ONLINE][i]);
@@ -350,28 +572,41 @@ SecureExam.Lib.Security.InternetAccessCheck = function () {
     }
 }
 
-/*
- *	Class SecureExam.lib.SecureTime
- *	Constructor-Arguments: - none
- *
- *
- *  description: class to handle save, reliable and non-manipulatable Time.
+/**
+ * SecureTime Class.
+ * class to handle save, reliable and non-manipulatable Time.
+ * @memberof SecureExam.Lib.Security
+ * @class
+ * @this SecureExam.Lib.Security.SecureTime
  */
-
 SecureExam.Lib.Security.SecureTime = function () {
     var that = this;
+    /** @type {boolean}*/
     this.started = false;
+    /** @type {int}*/
     this.INTERNALUPDATEINTERVAL = 1000;
+    /** @type {int}*/
     this.INTERNALCLOCKMAXVARIANCE = 50;
+    /** @type {int}*/
     this.TIMEHISTORYMAXVARIANCE = 50;
+    /** @type {Array.<Date>}*/
     this.timeHistory = new Array();
+    /** @type {int}*/
     this.internalClockMilliseconds = 0;
+    /** @type {Array.<SecureExam.Event.SecureTime, function()>}*/
     this.eventListeners = [];
     this.eventListeners[SecureExam.Event.SecureTime.TIMEERROR] = [];
     this.eventListeners[SecureExam.Event.SecureTime.TABCHANGE] = [];
+    /** @type {?Date}*/
     this.internalClockStartTime = null;
+    /** @type {?int}*/
     this.interval = null;
 
+    /**
+     * Function to update internal time and timehistory.
+     * is called each second
+     * @function
+     */
     this.update = function () {
         SecureExam.Logger.log("updating time", "secureDate", SecureExam.Logger.ErrorLevel.info);
         var systemTime = new Date();
@@ -412,6 +647,14 @@ SecureExam.Lib.Security.SecureTime = function () {
         }
     }
 
+    /**
+     * Function to compare dates
+     * @function
+     * @param {Date} actualTime - actual time
+     * @param {Date} timeToVerify - time which will be checked
+     * @param {Date} maxVariance - max variance between the times in milliseconds
+     * @returns {int}
+     */
     this.dateCompare = function (actualTime, timeToVerify, maxVariance) {
         var maxVariance = (typeof maxVariance !== "undefined") ? maxVariance : that.INTERNALCLOCKMAXVARIANCE;
         timeToVerify = new Date(timeToVerify);
@@ -423,13 +666,24 @@ SecureExam.Lib.Security.SecureTime = function () {
         }
         return false;
     }
-
+    
+    /**
+     * Function to rise an event
+     * @function
+     * @param {SecureExam.Event.SecureTime} event - event that should be rised
+     * @param {string} msg - event message
+     */
     this.riseEvent = function (event, msg) {
         for (var i = 0; i < that.eventListeners[event].length; i++) {
             that.eventListeners[event][i](msg);
         }
     }
 
+    /**
+     * Function to start the clock
+     * @function
+     * @private
+     */
     this.start = function () {
         that.internalClockStartTime = new Date();
         that.interval = window.setInterval(that.update, that.INTERNALUPDATEINTERVAL);
@@ -437,12 +691,22 @@ SecureExam.Lib.Security.SecureTime = function () {
         this.started = true;
     }
 
+    /**
+     * Function to stop the clock
+     * @function
+     * @private
+     */
     this.stop = function () {
         clearInterval(that.interval);
         SecureExam.Logger.log("stopped...", "secureDate", SecureExam.Logger.ErrorLevel.info);
         this.started = false;
     }
 
+    /**
+     * Function which gets called on tab change
+     * @function
+     * @param {object} e - event object
+     */
     this.visibilityChanged = function (e) {
         if (document.hidden) {
             SecureExam.Logger.log("tab hidden", "secureDate", SecureExam.Logger.ErrorLevel.warning);
@@ -453,20 +717,41 @@ SecureExam.Lib.Security.SecureTime = function () {
         }
     }
 
+    /**
+     * Function to add a new tabchangelistener
+     * @function
+     */
     this.addVisibilityChangeListener = function () {
         document.addEventListener("visibilitychange", that.visibilityChanged);
     }
 
+    /**
+     * Function to remove a tabchangelistener
+     * @function
+     */
     this.removeVisibilityChangeListener = function () {
         document.removeEventListener("visibilitychange", that.visibilityChanged);
     }
 
+    /**
+     * Function which returns the internal time
+     * @function
+     * @private
+     * @returns {Date}
+     */
     this.getInternalTime = function () {
         var date = new Date(that.internalClockStartTime);
         date.setMilliseconds(date.getMilliseconds() + that.internalClockMilliseconds);
         return date;
     }
-
+    
+    /**
+     * Function for adding a new eventlistener
+     * @function
+     * @private
+     * @param {SecureExam.Event.SecureTime} event - event that should be rised
+     * @param {function()} listener - function which gets called
+     */
     this.addEventListener = function (event, listener) {
         switch (event.toLowerCase()) {
         case SecureExam.Event.SecureTime.TIMEERROR:
@@ -486,7 +771,14 @@ SecureExam.Lib.Security.SecureTime = function () {
             break;
         }
     }
-
+    
+    /**
+     * Function for removing a new eventlistener
+     * @function
+     * @private
+     * @param {SecureExam.Event.SecureTime} event - to which event the listener has been added
+     * @param {function()} listener - function which got called
+     */
     this.removeEventListener = function (event, listener) {
         switch (event.toLowerCase()) {
         case SecureExam.Event.SecureTime.TIMEERROR:
@@ -513,21 +805,56 @@ SecureExam.Lib.Security.SecureTime = function () {
     }
 
     return {
+        /**
+         * Function which returns the internal time
+         * @function
+         * @returns {Date}
+         * @memberof SecureExam.Lib.Security.SecureTime
+         */
         getInternalTime: function () {
             return that.getInternalTime();
         },
+        /**
+         * Function to start the clock
+         * @function
+         * @memberof SecureExam.Lib.Security.SecureTime
+         */
         start: function () {
             that.start();
         },
+        /**
+         * Function to stop the clock
+         * @function
+         * @memberof SecureExam.Lib.Security.SecureTime
+         */
         stop: function () {
             that.stop();
         },
+        /**
+         * Function for adding a new eventlistener
+         * @function
+         * @param {SecureExam.Event.SecureTime} event - event that should be rised
+         * @param {function()} listener - function which gets called
+         * @memberof SecureExam.Lib.Security.SecureTime
+         */
         addEventListener: function (event, listener) {
             that.addEventListener(event, listener);
         },
+        /**
+         * Function for removing a new eventlistener
+         * @function
+         * @param {SecureExam.Event.SecureTime} event - to which event the listener has been added
+         * @param {function()} listener - function which got called
+         * @memberof SecureExam.Lib.Security.SecureTime
+         */
         removeEventListener: function (event, listener) {
             that.removeEventListener(event, listener);
         },
+        /**
+         * Function for removing all event listeners
+         * @function
+         * @memberof SecureExam.Lib.Security.SecureTime
+         */
         removeAllEventListeners: function () {
             for (var i = 0; i < that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE].length; i++) {
                 that.removeEventListener(SecureExam.Event.SecureTime.TABCHANGE, that.eventListeners[SecureExam.Event.SecureTime.TABCHANGE][i]);
@@ -536,28 +863,47 @@ SecureExam.Lib.Security.SecureTime = function () {
                 that.removeEventListener(SecureExam.Event.SecureTime.TIMEERROR, that.eventListeners[SecureExam.Event.SecureTime.TIMEERROR][i]);
             }
         },
+        /**
+         * Function for seting the history tTime variance
+         * @function
+         * @param {int} ms - Variance in milliseconds
+         * @memberof SecureExam.Lib.Security.SecureTime
+         */
         setHistoryTimeMaxVariance: function (ms) {
             that.TIMEHISTORYMAXVARIANCE = ms;
         },
+        /**
+         * Function for seting the internal time variance
+         * @function
+         * @param {int} ms - Variance in milliseconds
+         * @memberof SecureExam.Lib.Security.SecureTime
+         */
         setInternalTimeMaxVariance: function (ms) {
             that.INTERNALCLOCKMAXVARIANCE = ms;
         }
     }
 }
 
-/*
- *	Class SecureExam.Lib.XNLLogger
- *	Constructor-Arguments: - limit : (int) max log length
- *
- *
- *  description: class to store logs and export them as xml string
+/**
+ * XMLLogger Class.
+ * class to store logs and export them as xml string.
+ * @memberof SecureExam.Lib
+ * @class
+ * @param {int} limit - max size of logger cache
+ * @this SecureExam.Lib.XMLLogger
  */
 SecureExam.Lib.XMLLogger = function (limit) {
     var that = this;
+    /** @type {int}*/
     this.limit = limit;
+    /** @type {Array.<string>}*/
     this.entrys = [];
 
-
+    /**
+     * Function to log a message to the cache
+     * @function
+     * @param {string} msg - message to log
+     */
     this.log = function (msg) {
         if (that.entrys.length > that.limit) {
             that.entrys.shift();
@@ -565,6 +911,11 @@ SecureExam.Lib.XMLLogger = function (limit) {
         that.entrys.push(msg);
     }
 
+    /**
+     * Function to export the whole log as xml document
+     * @function
+     * @returns {string}
+     */
     this.exportLog = function () {
         var xml = '<log>';
         for (var i = 0; i < that.entrys.length; i++) {
@@ -575,32 +926,61 @@ SecureExam.Lib.XMLLogger = function (limit) {
     }
 }
 
-/*
- *	Class SecureExam.UI.ViewMode.EBookReader
- *
- *  description: class to handle eBook-reader-mode
- */
 
+/**
+ * EBookReader Class.
+ * class to handle eBook-reader-mode
+ * @memberof SecureExam.UI.ViewMode
+ * @class
+ * @this SecureExam.UI.ViewMode.EBookReader
+ */
 SecureExam.UI.ViewMode.EBookReader = function () {
     var that = this;
+    /** @type {Div}*/
     this.questionDiv = document.getElementById("exam");
+    /** @type {Array.<Div>}*/
     this.quesions = [];
+    /** @type {int}*/
     this.currentQuestion = 0;
+    /** @type {int}*/
     this.totalQuestions = 0;
     
-    
+    /**
+     * Function to show a question
+     * @function
+     * @params {int} id - question id
+     * @private
+     */
     this.showQuestion = function( id ) {
         that.questions[that.currentQuestion].style.display = 'block';
     };
     
+    /**
+     * Function to hide the current question
+     * @function
+     * @private
+     */
     this.hideCurrentQuestion = function( ) {
         that.hideQuestion(that.currentQuestion);
     };
     
+    /**
+     * Function to hide a question
+     * @function
+     * @params {int} id - question id
+     * @private
+     */
     this.hideQuestion = function( id ) {
         that.questions[id].style.display = 'none';
     };
 
+    /**
+     * Initializes all questions, starts with showing the first question
+     * @function
+     * @params {int} id - question id
+     * @constructs
+     * @private
+     */
     this.init = function () {
         that.questions = that.questionDiv.children;
         that.totalQuestions = that.questions.length;
@@ -612,16 +992,32 @@ SecureExam.UI.ViewMode.EBookReader = function () {
     }();
     
     return {
+        /**
+         * Function for showing the next question
+         * @function
+         * @memberof SecureExam.UI.ViewMode.EBookReader
+         */
         next: function() {
             that.hideCurrentQuestion();
             that.currentQuestion = (that.currentQuestion + 1) % that.totalQuestions;
             that.showQuestion( that.currentQuestion );
         },
+        /**
+         * Function for showing the previous question
+         * @function
+         * @memberof SecureExam.UI.ViewMode.EBookReader
+         */
         prev: function() {
             that.hideCurrentQuestion();
             that.currentQuestion = (that.currentQuestion === 0)?that.totalQuestions -1: that.currentQuestion -1;
             that.showQuestion( that.currentQuestion );
         },
+        /**
+         * Function for showing a specific question
+         * @function
+         * @param {int} nr - question id
+         * @memberof SecureExam.UI.ViewMode.EBookReader
+         */
         toQuestion: function (nr) {
             if( nr >= 0 && nr < that.totalQuestions) {
                 that.hideCurrentQuestion();
@@ -632,29 +1028,42 @@ SecureExam.UI.ViewMode.EBookReader = function () {
 }
 
 
-/*
- *	Class exam
- *	Constructor-Arguments: - htmlinfo : object contains html divs for outputs
- *
- *
- *  description: class to handle save, reliable and non-manipulatable Time.
+
+/**
+ * Exam Class.
+ * Main class, starts and stops everything. dont mess with it! ;)
+ * @memberof SecureExam
+ * @class
+ * @this SecureExam.Exam
  */
 SecureExam.Exam = function (htmlInfo) {
     var that = this;
+    /** @type {SecureExam.Lib.Security.InternetAccessCheck} */
     this.InternetAccess = new SecureExam.Lib.Security.InternetAccessCheck();
+    /** @type {SecureExam.Lib.Security.SecureTime} */
     this.SecureTime = new SecureExam.Lib.Security.SecureTime();
+    /** @type {?SecureExam.Lib.SecureExamSettings} */
     this.Settings = null;
+    /** @type {boolean} */
     this.running = (this.Settings === null) ? false : true;
+    /** @type {?int} */
     this.timeLeft = null;
+    /** @type {?int} */
     this.timeLeftInterval = null;
+    /** @type {int} */
     this.autoSaveTimeout = 5000;
+    /** @type {?int} */
     this.autoSaveInterval = null;
+    /** @type {boolean} */
     this.confirmAutoSaveRestore = false;
+    /** @type {boolean} */
     this.eBookReaderExport = true;
+    /** @type {Array.<SecureExam.Event, function()>} */
     this.eventListeners = [];
     this.eventListeners[SecureExam.Event.TIMELEFT] = [];
     this.eventListeners[SecureExam.Event.AUTOSAVE] = [];
     this.eventListeners[SecureExam.Event.EXAMTIMEEXPIRED] = [];
+    /** @type {Object} */
     this.User = {
         firstname: null,
         lastname: null,
@@ -667,13 +1076,13 @@ SecureExam.Exam = function (htmlInfo) {
             return that.User.firstname + that.User.lastname + that.User.immNumber + that.User.secret;
         }
     };
-
     if (htmlInfo instanceof SecureExam.Lib.HTMLInfo) {
+        /** @type {SecureExam.Lib.HTMLInfo} */
         this.HTMLInfo = htmlInfo
     } else {
         throw SecureExam.ErrorCode.INVALIDARGUMENT;
     }
-
+    /** @type {SecureExam.Lib.XMLLogger} */
     this.xmlLogger = new SecureExam.Lib.XMLLogger(100);
     SecureExam.Logger.addLogger(this.xmlLogger, SecureExam.Logger.ErrorLevel.info);
 
