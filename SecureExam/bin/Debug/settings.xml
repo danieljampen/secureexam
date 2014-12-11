@@ -14,7 +14,7 @@
 			<li>Rechner erlaubt!</li>
 		</ul>
 	</examNotes>
-	<examDate>10.12.2014</examDate>
+	<examDate>11.12.2014</examDate>
 	<startTime>00:00</startTime>
 	<endTime>23:59</endTime>
 	<duration>20</duration>
@@ -24,5 +24,5 @@
 	<internalTimeMaxVariance>5000</internalTimeMaxVariance>
 	<confirmAutosaveRestore>true</confirmAutosaveRestore>
 	<ebookreaderExport>true</ebookreaderExport>
-	<viewMode>page</viewMode>
+	<viewMode>scroll</viewMode>
 </settings>
