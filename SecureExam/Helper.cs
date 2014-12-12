@@ -10,8 +10,16 @@ using Ionic.Zip;
 
 namespace SecureExam
 {
+    /// <summary>
+    /// Has some help functions
+    /// </summary>
     public class Helper
     {
+        /// <summary>
+        /// Converts byte array to hex string
+        /// </summary>
+        /// <param name="array">Array of bytes</param>
+        /// <returns>Returns a hex string</returns>
         public static string ByteArrayToHexString( Byte[] array )
         {
             if (array == null)
@@ -29,10 +37,10 @@ namespace SecureExam
         }
 
         /// <summary>
-        /// 
+        /// Converts byte array to Base64 string
         /// </summary>
-        /// <param name="array"></param>
-        /// <returns></returns>
+        /// <param name="array">Array of bytes</param>
+        /// <returns>Returns Base64 string</returns>
         public static string ByteArrayToBase64(Byte[] array)
         {
             if (array == null)
@@ -41,13 +49,14 @@ namespace SecureExam
             return System.Convert.ToBase64String(array, 0, array.Length);
         }
 
+
         /// <summary>
         /// Generates a SHA256 with Salt and chaining
         /// </summary>
         /// <param name="data">actual data</param>
         /// <param name="salt">salt as byte array</param>
         /// <param name="iterations">iterations for hash chaining</param>
-        /// <returns>Byte[]</returns>
+        /// <returns>Returns byte array of SHA256</returns>
         public static byte[] SHA256(string data, byte[] salt, int iterations)
         {
             if (data == null)
@@ -73,6 +82,11 @@ namespace SecureExam
             }
         }
 
+        /// <summary>
+        /// Generates random bytes for the password
+        /// </summary>
+        /// <param name="length">Length the password should have</param>
+        /// <returns>Returns byte array of random bytes</returns>
         public static byte[] getSecureRandomBytes(int length)
         {
             if (length <= 0)
@@ -88,6 +102,13 @@ namespace SecureExam
             return array;
         }
 
+        /// <summary>
+        /// Enryptes data with AES
+        /// </summary>
+        /// <param name="data">Data to encrypt</param>
+        /// <param name="Key">Key for encryption</param>
+        /// <param name="IV">Initialization vector</param>
+        /// <returns>Returns byte array of encrypted data</returns>
         public static byte[] encryptAES(string data, byte[] Key, byte[] IV)
         {
             if (data == null || data.Length <= 0)
@@ -118,6 +139,11 @@ namespace SecureExam
             }
         }
 
+        /// <summary>
+        /// Unpacks a zipped folder to a destination
+        /// </summary>
+        /// <param name="inputPath">Path of the zipped folder</param>
+        /// <param name="outputPath">Path to the destination</param>
         public static void unzip(string inputPath, string outputPath){
             using (ZipFile zip = ZipFile.Read(inputPath))
             {
@@ -131,6 +157,11 @@ namespace SecureExam
             }
         }
 
+        /// <summary>
+        /// Converts DateTime into the number of milliseconds since 1.1.1970
+        /// </summary>
+        /// <param name="date">Date to convert into milliseconds</param>
+        /// <returns>Returns milliseconds</returns>
         public static double dateTimeToMillisecondsSince1970ForJS(DateTime date)
         {
             if (date == null)

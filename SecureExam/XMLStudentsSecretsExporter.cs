@@ -5,11 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-
 namespace SecureExam
 {
+    /// <summary>
+    /// Uses interface IStudentsSecretExport<para />
+    /// Is used to export the student details with secrets into a file.
+    /// </summary>
     public class XMLStudentsSecretsExporter : IStudentsSecretExport
     {
+        /// <summary>
+        /// Exports student secrets file to a given filename
+        /// </summary>
+        /// <param name="filename">Filename, where to export the students secrets file</param>
         public void export(string filename)
         {
             using (XmlWriter writer = XmlWriter.Create(filename))

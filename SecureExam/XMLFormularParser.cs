@@ -8,10 +8,19 @@ using System.IO;
 
 namespace SecureExam
 {
+    /// <summary>
+    /// Uses interface IForlmularParser<para />
+    /// Is used to parse the XML question import file.
+    /// </summary>
     public class XMLFormularParser : IFormularParser
     {
         private XmlDocument xmlDoc;
 
+        /// <summary>
+        /// Parses a document by a given stream.
+        /// </summary>
+        /// <param name="streamReader">stream of the document to parse</param>
+        /// <returns>Returns LinkedList of questions</returns>
         public LinkedList<Question> parse(StreamReader streamReader)
         {
             LinkedList<Question> questions = new LinkedList<Question>();
@@ -86,6 +95,11 @@ namespace SecureExam
             return questions;
         }
 
+        /// <summary>
+        /// Gets text by a given tag name
+        /// </summary>
+        /// <param name="tag">tag name</param>
+        /// <returns>Returns the inner text of the XML tag</returns>
         private string getTextByTagName(string tag)
         {
             string result = "";

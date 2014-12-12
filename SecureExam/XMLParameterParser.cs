@@ -8,10 +8,18 @@ using System.IO;
 
 namespace SecureExam
 {
+    /// <summary>
+    /// Uses interface IParameterParser<para />
+    /// Is used to parse the SecureExam configuration file.
+    /// </summary>
     public class XMLParameterParser : IParameterParser
     {
         private XmlDocument xmlDoc;
 
+        /// <summary>
+        /// Parses a document by a given stream.
+        /// </summary>
+        /// <param name="parameterPath">path of the document to parse</param>
         public void parse(String parameterPath)
         {
             this.xmlDoc = new XmlDocument();
@@ -68,6 +76,11 @@ namespace SecureExam
             }
         }
 
+        /// <summary>
+        /// Gets text by a given tag name
+        /// </summary>
+        /// <param name="tag">tag name</param>
+        /// <returns>Returns the inner text of the XML tag</returns>
         private string getElementByTagName(string tag)
         {
             string result = "";

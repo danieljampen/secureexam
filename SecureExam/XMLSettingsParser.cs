@@ -8,10 +8,19 @@ using System.IO;
 
 namespace SecureExam
 {
+    /// <summary>
+    /// Uses interface ISettingsParser<para />
+    /// Is used to parse the settings file, which contains details about the exam.
+    /// </summary>
     public class XMLSettingsParser : ISettingsParser
     {
         private XmlDocument xmlDoc;
 
+        /// <summary>
+        /// Parses the settings file, path is given.
+        /// </summary>
+        /// <param name="settingsPath">Path of the settings file</param>
+        /// <returns>Returns Exam details</returns>
         public ExamDetails parse(String settingsPath)
         {
             ExamDetails examDetails = DataProvider.getInstance().examDetails;
@@ -95,6 +104,11 @@ namespace SecureExam
             return examDetails;
         }
 
+        /// <summary>
+        /// Gets text by a given tag name
+        /// </summary>
+        /// <param name="tag">tag name</param>
+        /// <returns>Returns the inner text of the XML tag</returns>
         private string getElementByTagName(string tag)
         {
             string result = "";
@@ -105,6 +119,11 @@ namespace SecureExam
             return result;
         }
 
+        /// <summary>
+        /// Gets HTML by a given tag name
+        /// </summary>
+        /// <param name="tag">tag name</param>
+        /// <returns>Returns the inner HTML of the XML tag</returns>
         private string getElementHTMLTextByTagName(string tag)
         {
             string result = "";
@@ -115,6 +134,11 @@ namespace SecureExam
             return result;
         }
 
+        /// <summary>
+        /// Reads string and casts it to boolean
+        /// </summary>
+        /// <param name="text">boolean as stirng</param>
+        /// <returns>Returns the boolean of the text</returns>
         private bool setBoolean(string text)
         {
             if (text == "true")

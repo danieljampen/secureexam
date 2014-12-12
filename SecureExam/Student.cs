@@ -7,15 +7,35 @@ using System.Security.Cryptography;
 
 namespace SecureExam
 {
+    /// <summary>
+    /// Student is a Paricipant<para />
+    /// Contains details about Student
+    /// </summary>
     public class Student : Participant
     {
-
-        // setter n getter
-        public string preName { get; set; }
+        /// <summary>
+        /// Students surname
+        /// </summary>
         public string surName { get; set; }
-        public string ID { get; set; }
+        /// <summary>
+        /// Students prename
+        /// </summary>
+        public string preName { get; set; }
+        /// <summary>
+        /// Students secret
+        /// </summary>
         public string secret { get; set; }
+        /// <summary>
+        /// Students ID
+        /// </summary>
+        public string ID { get; set; }
 
+        /// <summary>
+        /// Creates new Student
+        /// </summary>
+        /// <param name="preName">Students prename</param>
+        /// <param name="surName">Students surname</param>
+        /// <param name="id">Students ID</param>
         public Student(string preName, string surName, string id)
         {
             this.preName = preName;
@@ -23,7 +43,10 @@ namespace SecureExam
             this.ID = id;
         }
 
-        // methods
+        /// <summary>
+        /// Generates secret for Student
+        /// </summary>
+        /// <returns>Returns secret</returns>
         protected override string generateSecret()
         {
             StringBuilder sb = new StringBuilder();
