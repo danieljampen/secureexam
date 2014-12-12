@@ -8,8 +8,17 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
+    /// <summary>
+    /// Uses interface IStudentParser<para />
+    /// Is used to parse the students file, which contains details about all students.
+    /// </summary>
     public class XMLStudentParser : IStudentParser
     {
+        /// <summary>
+        /// Parses the students file, path is given.
+        /// </summary>
+        /// <param name="studentPath">Path of the students file</param>
+        /// <returns>Returns LinkedList of participants</returns>
         public LinkedList<Participant> parse(String studentPath)
         {
             LinkedList<Participant> participants = new LinkedList<Participant>();

@@ -9,8 +9,16 @@ using System.Security.Cryptography;
 
 namespace SecureExam
 {
+    /// <summary>
+    /// Generates the exam details to a HTML file, this file contains JavaScript and CSS
+    /// </summary>
     public class HTMLJSExport : IQuestionsExport
     {
+        /// <summary>
+        /// Creates the export of the exam using the examdetails.
+        /// Saves output to given filename.
+        /// </summary>
+        /// <param name="filename">Filename of the exam output file</param>
         public void export(String filename)
         {
             StreamReader htmlSkeleton = new StreamReader(BasicSettings.getInstance().exportSkeletons[OutputType.HTMLJS]);
@@ -70,6 +78,10 @@ namespace SecureExam
             }
         }
 
+        /// <summary>
+        /// Generates a string containing the questions and encrypts it.
+        /// </summary>
+        /// <returns>Returns encrypted string of questons</returns>
         private string exportQuestions()
         {
             StringBuilder sb = new StringBuilder();
@@ -89,6 +101,10 @@ namespace SecureExam
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Generates a string containing all user details with keys.
+        /// </summary>
+        /// <returns>Returns a string containing all user details with keys</returns>
         private string exportUserKeyDB()
         {
             if (BasicSettings.getInstance().Encryption.AES.questionsAESKey != null)
@@ -125,6 +141,10 @@ namespace SecureExam
                 throw new NoAESKeyException("No Masterkey found");
         }
 
+        /// <summary>
+        /// Generates a string containing all questions in HTML.
+        /// </summary>
+        /// <returns>Returns a string containing all questions in HTML</returns>
         private string generateQuestionsHTML()
         {
             StringBuilder sb = new StringBuilder();

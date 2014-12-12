@@ -7,11 +7,19 @@ using System.Threading.Tasks;
 
 namespace SecureExam
 {
+    /// <summary>
+    /// Is the main application, reads parameter, starts console
+    /// </summary>
     public class SecureExamConsoleApplication
     {
         private const int RETURNERROR = -1;
         private const int RETURNOK = 0;
 
+        /// <summary>
+        /// Starts the main console application and uses array of arguments
+        /// </summary>
+        /// <param name="args">array of arguments</param>
+        /// <returns>Returns returncode</returns>
         public static int Main(string[] args)
         {
             if (args == null || args.Length < 8 || args.Length > 14)
@@ -123,6 +131,9 @@ namespace SecureExam
             return RETURNERROR;
         }
 
+        /// <summary>
+        /// Prints the usage of the application
+        /// </summary>
         public static void printUsage()
         {
             Console.WriteLine("Error: invalid arguments");
@@ -136,6 +147,10 @@ namespace SecureExam
             Console.WriteLine("StudentSecretsFileFormat: XML");
         }
 
+        /// <summary>
+        /// Print errors to console
+        /// </summary>
+        /// <param name="message">describes error</param>
         public static void printError( string message )
         {
             if (message == null)

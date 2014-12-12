@@ -10,8 +10,17 @@ using System.IO.Compression;
 
 namespace SecureExam
 {
+    /// <summary>
+    /// Uses the interface IFormularParser<para />
+    /// Is used to parse the odt question import file.
+    /// </summary>
     public class OdtFormularParser : IFormularParser
     {
+        /// <summary>
+        /// Parses an odt file by a given stream.
+        /// </summary>
+        /// <param name="streamReader">stream of the document to parse</param>
+        /// <returns>Returns linkedList of questions</returns>
         public LinkedList<Question> parse(StreamReader streamReader)
         {
             string xslFileContent = Properties.Resources.odt;
@@ -35,6 +44,12 @@ namespace SecureExam
             return xmlFormularParser.parse(new StreamReader(memoryStream));
         }
 
+        /// <summary>
+        /// Generates an XML string, using XSLT and an XML file.
+        /// </summary>
+        /// <param name="xmlReaderXSLT">XMLReader containing XSLT to load</param>
+        /// <param name="xml">XML to import</param>
+        /// <returns>Returns generated XML</returns>
         private StringBuilder generateXML(XmlReader xmlReaderXSLT, string xml)
         {
             XslCompiledTransform xt = new XslCompiledTransform();
@@ -49,3 +64,7 @@ namespace SecureExam
         }
     }
 }
+
+
+
+
