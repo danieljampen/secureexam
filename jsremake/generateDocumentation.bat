@@ -1,0 +1,1 @@
+node C:\Users\jampe\AppData\Roaming\npm\node_modules\jsdoc\jsdoc secureExam.js
