@@ -21,7 +21,6 @@ namespace SecureExam
         /// <param name="filename">Filename of the exam output file</param>
         public void export(String filename)
         {
-            StreamReader htmlSkeleton = new StreamReader(BasicSettings.getInstance().exportSkeletons[OutputType.HTMLJS]);
             StreamWriter outFile = new StreamWriter(filename);
 
             if (BasicSettings.getInstance().Encryption.AES.questionsAESKey == null)
@@ -33,7 +32,7 @@ namespace SecureExam
             try
             {
                 // read skeleton
-                String html = htmlSkeleton.ReadToEnd();
+                String html = BasicSettings.getInstance().exportSkeletons[OutputType.HTMLJS];
 
                 // Replace the placeholders in HTML code with real data
                 html = html.Replace("$ENCRYPTEDDATA$", this.exportQuestions());
@@ -73,7 +72,6 @@ namespace SecureExam
             }
             finally
             {
-                htmlSkeleton.Close();
                 outFile.Close();
             }
         }

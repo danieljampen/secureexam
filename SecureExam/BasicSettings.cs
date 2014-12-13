@@ -37,7 +37,7 @@ namespace SecureExam
         private BasicSettings()
         {
             this.exportSkeletons = new Dictionary<OutputType, String>();
-            exportSkeletons.Add(OutputType.HTMLJS, @"skeletons\htmljs.html");
+            exportSkeletons.Add(OutputType.HTMLJS, Properties.Resources.htmljs);
         }
 
         /// <summary>
