@@ -22,17 +22,16 @@ namespace SecureExam
         /// <returns>Returns returncode</returns>
         public static int Main(string[] args)
         {
-            if (args == null || args.Length < 8 || args.Length > 14)
-                throw new ArgumentException();
-
             try
             {
+                if (args == null || args.Length < 8 || args.Length > 14)
+                    throw new ArgumentException();
                 Facade facade = new Facade();
                 Dictionary<string, string> arguments = new Dictionary<string, string>();
                 String questionFile = "", studentFile = "", outputFile = "", settingsFile = "";
-                QuestionFormularType questionFormularType = new QuestionFormularType();
-                StudentFileType studentFileType = new StudentFileType();
-                OutputType outputType = new OutputType();
+                QuestionFormularType questionFormularType = QuestionFormularType.XML;
+                StudentFileType studentFileType = StudentFileType.XML;
+                OutputType outputType = OutputType.HTMLJS;
                 StudentSecretsFileFormat studentsSecretFileFormat = StudentSecretsFileFormat.XML;
 
                 // fill arguments in dictionary
